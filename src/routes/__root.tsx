@@ -77,13 +77,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "El Mundo de los Números" },
+      { title: "El Mundo de los Números — Juego de misiones para niños" },
       {
         name: "description",
-        content: "Juego de misiones diarias de matemáticas para niños de 6 años.",
+        content: "Aventura matemática para niñas y niños de 6 años: direccionalidad, números del 51 al 80, fracciones, el reloj, mayor y menor, y conjuntos.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "El Mundo de los Números — Juego de misiones para niños" },
+      { name: "twitter:title", content: "El Mundo de los Números — Juego de misiones para niños" },
+      { property: "og:description", content: "Aventura matemática para niñas y niños de 6 años: direccionalidad, números del 51 al 80, fracciones, el reloj, mayor y menor, y conjuntos." },
+      { name: "twitter:description", content: "Aventura matemática para niñas y niños de 6 años: direccionalidad, números del 51 al 80, fracciones, el reloj, mayor y menor, y conjuntos." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6b4f4fe9-1a9a-491c-bb4c-8145b4d83263" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6b4f4fe9-1a9a-491c-bb4c-8145b4d83263" },
     ],
     links: [
       {

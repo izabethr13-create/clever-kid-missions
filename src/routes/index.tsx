@@ -12,10 +12,10 @@ export const Route = createFileRoute("/")({
         content:
           "Aventura matemática para niñas y niños de 6 años: direccionalidad, números del 51 al 80, fracciones, el reloj, mayor y menor, y conjuntos.",
       },
-      { property: "og:title", content: "El Mundo de los Números" },
+      { property: "og:title", content: "El Mundo de los Números — Juego de misiones para niños" },
       {
         property: "og:description",
-        content: "Mapa de aventuras con 5 estaciones de matemáticas para primer grado.",
+        content: "Aventura matemática para niñas y niños de 6 años: direccionalidad, números del 51 al 80, fracciones, el reloj, mayor y menor, y conjuntos.",
       },
     ],
   }),
