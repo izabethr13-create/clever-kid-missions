@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CaminoRouteImport } from './routes/camino'
+import { Route as CuevaRouteImport } from './routes/cueva'
 import { Route as PizzeriaRouteImport } from './routes/pizzeria'
+import { Route as TorreRouteImport } from './routes/torre'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -23,40 +25,58 @@ const CaminoRoute = CaminoRouteImport.update({
   path: '/camino',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CuevaRoute = CuevaRouteImport.update({
+  id: '/cueva',
+  path: '/cueva',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PizzeriaRoute = PizzeriaRouteImport.update({
   id: '/pizzeria',
   path: '/pizzeria',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TorreRoute = TorreRouteImport.update({
+  id: '/torre',
+  path: '/torre',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/camino': typeof CaminoRoute
+  '/cueva': typeof CuevaRoute
   '/pizzeria': typeof PizzeriaRoute
+  '/torre': typeof TorreRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/camino': typeof CaminoRoute
+  '/cueva': typeof CuevaRoute
   '/pizzeria': typeof PizzeriaRoute
+  '/torre': typeof TorreRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/camino': typeof CaminoRoute
+  '/cueva': typeof CuevaRoute
   '/pizzeria': typeof PizzeriaRoute
+  '/torre': typeof TorreRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/camino' | '/pizzeria'
+  fullPaths: '/' | '/camino' | '/cueva' | '/pizzeria' | '/torre'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/camino' | '/pizzeria'
-  id: '__root__' | '/' | '/camino' | '/pizzeria'
+  to: '/' | '/camino' | '/cueva' | '/pizzeria' | '/torre'
+  id: '__root__' | '/' | '/camino' | '/cueva' | '/pizzeria' | '/torre'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CaminoRoute: typeof CaminoRoute
+  CuevaRoute: typeof CuevaRoute
   PizzeriaRoute: typeof PizzeriaRoute
+  TorreRoute: typeof TorreRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,11 +95,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CaminoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cueva': {
+      id: '/cueva'
+      path: '/cueva'
+      fullPath: '/cueva'
+      preLoaderRoute: typeof CuevaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pizzeria': {
       id: '/pizzeria'
       path: '/pizzeria'
       fullPath: '/pizzeria'
       preLoaderRoute: typeof PizzeriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/torre': {
+      id: '/torre'
+      path: '/torre'
+      fullPath: '/torre'
+      preLoaderRoute: typeof TorreRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -88,7 +122,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CaminoRoute: CaminoRoute,
+  CuevaRoute: CuevaRoute,
   PizzeriaRoute: PizzeriaRoute,
+  TorreRoute: TorreRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
