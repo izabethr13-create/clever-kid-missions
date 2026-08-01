@@ -10,33 +10,115 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CaminoRouteImport } from './routes/camino'
+import { Route as CocodriloRouteImport } from './routes/cocodrilo'
+import { Route as CuevaRouteImport } from './routes/cueva'
+import { Route as PizzeriaRouteImport } from './routes/pizzeria'
+import { Route as PremiosRouteImport } from './routes/premios'
+import { Route as TorreRouteImport } from './routes/torre'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CaminoRoute = CaminoRouteImport.update({
+  id: '/camino',
+  path: '/camino',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CocodriloRoute = CocodriloRouteImport.update({
+  id: '/cocodrilo',
+  path: '/cocodrilo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CuevaRoute = CuevaRouteImport.update({
+  id: '/cueva',
+  path: '/cueva',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PizzeriaRoute = PizzeriaRouteImport.update({
+  id: '/pizzeria',
+  path: '/pizzeria',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PremiosRoute = PremiosRouteImport.update({
+  id: '/premios',
+  path: '/premios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TorreRoute = TorreRouteImport.update({
+  id: '/torre',
+  path: '/torre',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/camino': typeof CaminoRoute
+  '/cocodrilo': typeof CocodriloRoute
+  '/cueva': typeof CuevaRoute
+  '/pizzeria': typeof PizzeriaRoute
+  '/premios': typeof PremiosRoute
+  '/torre': typeof TorreRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/camino': typeof CaminoRoute
+  '/cocodrilo': typeof CocodriloRoute
+  '/cueva': typeof CuevaRoute
+  '/pizzeria': typeof PizzeriaRoute
+  '/premios': typeof PremiosRoute
+  '/torre': typeof TorreRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/camino': typeof CaminoRoute
+  '/cocodrilo': typeof CocodriloRoute
+  '/cueva': typeof CuevaRoute
+  '/pizzeria': typeof PizzeriaRoute
+  '/premios': typeof PremiosRoute
+  '/torre': typeof TorreRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/camino'
+    | '/cocodrilo'
+    | '/cueva'
+    | '/pizzeria'
+    | '/premios'
+    | '/torre'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/camino'
+    | '/cocodrilo'
+    | '/cueva'
+    | '/pizzeria'
+    | '/premios'
+    | '/torre'
+  id:
+    | '__root__'
+    | '/'
+    | '/camino'
+    | '/cocodrilo'
+    | '/cueva'
+    | '/pizzeria'
+    | '/premios'
+    | '/torre'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CaminoRoute: typeof CaminoRoute
+  CocodriloRoute: typeof CocodriloRoute
+  CuevaRoute: typeof CuevaRoute
+  PizzeriaRoute: typeof PizzeriaRoute
+  PremiosRoute: typeof PremiosRoute
+  TorreRoute: typeof TorreRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +130,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/camino': {
+      id: '/camino'
+      path: '/camino'
+      fullPath: '/camino'
+      preLoaderRoute: typeof CaminoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cocodrilo': {
+      id: '/cocodrilo'
+      path: '/cocodrilo'
+      fullPath: '/cocodrilo'
+      preLoaderRoute: typeof CocodriloRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cueva': {
+      id: '/cueva'
+      path: '/cueva'
+      fullPath: '/cueva'
+      preLoaderRoute: typeof CuevaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pizzeria': {
+      id: '/pizzeria'
+      path: '/pizzeria'
+      fullPath: '/pizzeria'
+      preLoaderRoute: typeof PizzeriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/premios': {
+      id: '/premios'
+      path: '/premios'
+      fullPath: '/premios'
+      preLoaderRoute: typeof PremiosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/torre': {
+      id: '/torre'
+      path: '/torre'
+      fullPath: '/torre'
+      preLoaderRoute: typeof TorreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CaminoRoute: CaminoRoute,
+  CocodriloRoute: CocodriloRoute,
+  CuevaRoute: CuevaRoute,
+  PizzeriaRoute: PizzeriaRoute,
+  PremiosRoute: PremiosRoute,
+  TorreRoute: TorreRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
