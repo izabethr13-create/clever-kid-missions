@@ -11,8 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CaminoRouteImport } from './routes/camino'
+import { Route as CocodriloRouteImport } from './routes/cocodrilo'
 import { Route as CuevaRouteImport } from './routes/cueva'
 import { Route as PizzeriaRouteImport } from './routes/pizzeria'
+import { Route as PremiosRouteImport } from './routes/premios'
 import { Route as TorreRouteImport } from './routes/torre'
 
 const IndexRoute = IndexRouteImport.update({
@@ -25,6 +27,11 @@ const CaminoRoute = CaminoRouteImport.update({
   path: '/camino',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CocodriloRoute = CocodriloRouteImport.update({
+  id: '/cocodrilo',
+  path: '/cocodrilo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CuevaRoute = CuevaRouteImport.update({
   id: '/cueva',
   path: '/cueva',
@@ -33,6 +40,11 @@ const CuevaRoute = CuevaRouteImport.update({
 const PizzeriaRoute = PizzeriaRouteImport.update({
   id: '/pizzeria',
   path: '/pizzeria',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PremiosRoute = PremiosRouteImport.update({
+  id: '/premios',
+  path: '/premios',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TorreRoute = TorreRouteImport.update({
@@ -44,38 +56,68 @@ const TorreRoute = TorreRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/camino': typeof CaminoRoute
+  '/cocodrilo': typeof CocodriloRoute
   '/cueva': typeof CuevaRoute
   '/pizzeria': typeof PizzeriaRoute
+  '/premios': typeof PremiosRoute
   '/torre': typeof TorreRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/camino': typeof CaminoRoute
+  '/cocodrilo': typeof CocodriloRoute
   '/cueva': typeof CuevaRoute
   '/pizzeria': typeof PizzeriaRoute
+  '/premios': typeof PremiosRoute
   '/torre': typeof TorreRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/camino': typeof CaminoRoute
+  '/cocodrilo': typeof CocodriloRoute
   '/cueva': typeof CuevaRoute
   '/pizzeria': typeof PizzeriaRoute
+  '/premios': typeof PremiosRoute
   '/torre': typeof TorreRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/camino' | '/cueva' | '/pizzeria' | '/torre'
+  fullPaths:
+    | '/'
+    | '/camino'
+    | '/cocodrilo'
+    | '/cueva'
+    | '/pizzeria'
+    | '/premios'
+    | '/torre'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/camino' | '/cueva' | '/pizzeria' | '/torre'
-  id: '__root__' | '/' | '/camino' | '/cueva' | '/pizzeria' | '/torre'
+  to:
+    | '/'
+    | '/camino'
+    | '/cocodrilo'
+    | '/cueva'
+    | '/pizzeria'
+    | '/premios'
+    | '/torre'
+  id:
+    | '__root__'
+    | '/'
+    | '/camino'
+    | '/cocodrilo'
+    | '/cueva'
+    | '/pizzeria'
+    | '/premios'
+    | '/torre'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CaminoRoute: typeof CaminoRoute
+  CocodriloRoute: typeof CocodriloRoute
   CuevaRoute: typeof CuevaRoute
   PizzeriaRoute: typeof PizzeriaRoute
+  PremiosRoute: typeof PremiosRoute
   TorreRoute: typeof TorreRoute
 }
 
@@ -95,6 +137,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CaminoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cocodrilo': {
+      id: '/cocodrilo'
+      path: '/cocodrilo'
+      fullPath: '/cocodrilo'
+      preLoaderRoute: typeof CocodriloRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cueva': {
       id: '/cueva'
       path: '/cueva'
@@ -107,6 +156,13 @@ declare module '@tanstack/react-router' {
       path: '/pizzeria'
       fullPath: '/pizzeria'
       preLoaderRoute: typeof PizzeriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/premios': {
+      id: '/premios'
+      path: '/premios'
+      fullPath: '/premios'
+      preLoaderRoute: typeof PremiosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/torre': {
@@ -122,8 +178,10 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CaminoRoute: CaminoRoute,
+  CocodriloRoute: CocodriloRoute,
   CuevaRoute: CuevaRoute,
   PizzeriaRoute: PizzeriaRoute,
+  PremiosRoute: PremiosRoute,
   TorreRoute: TorreRoute,
 }
 export const routeTree = rootRouteImport
