@@ -39,7 +39,7 @@ function initial(): GameState {
     dayKey: today(),
     missionsToday: 0,
     unlocked: [],
-    avatar: { hat: null, item: null, color: AVATAR_COLORS[0] },
+    avatar: { hat: null, item: null, color: AVATAR_COLORS[0]! },
   };
 }
 
