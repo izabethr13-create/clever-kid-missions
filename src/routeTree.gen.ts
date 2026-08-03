@@ -12,13 +12,16 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CaminoRouteImport } from './routes/camino'
 import { Route as CocodriloRouteImport } from './routes/cocodrilo'
+import { Route as ConsonantesRouteImport } from './routes/consonantes'
 import { Route as CuevaRouteImport } from './routes/cueva'
 import { Route as EnglishRouteImport } from './routes/english'
 import { Route as LenguajeRouteImport } from './routes/lenguaje'
 import { Route as MatematicasRouteImport } from './routes/matematicas'
+import { Route as OracionesRouteImport } from './routes/oraciones'
 import { Route as PizzeriaRouteImport } from './routes/pizzeria'
 import { Route as PremiosRouteImport } from './routes/premios'
 import { Route as TorreRouteImport } from './routes/torre'
+import { Route as TrazosRouteImport } from './routes/trazos'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -33,6 +36,11 @@ const CaminoRoute = CaminoRouteImport.update({
 const CocodriloRoute = CocodriloRouteImport.update({
   id: '/cocodrilo',
   path: '/cocodrilo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConsonantesRoute = ConsonantesRouteImport.update({
+  id: '/consonantes',
+  path: '/consonantes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CuevaRoute = CuevaRouteImport.update({
@@ -55,6 +63,11 @@ const MatematicasRoute = MatematicasRouteImport.update({
   path: '/matematicas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OracionesRoute = OracionesRouteImport.update({
+  id: '/oraciones',
+  path: '/oraciones',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PizzeriaRoute = PizzeriaRouteImport.update({
   id: '/pizzeria',
   path: '/pizzeria',
@@ -70,43 +83,57 @@ const TorreRoute = TorreRouteImport.update({
   path: '/torre',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrazosRoute = TrazosRouteImport.update({
+  id: '/trazos',
+  path: '/trazos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/camino': typeof CaminoRoute
   '/cocodrilo': typeof CocodriloRoute
+  '/consonantes': typeof ConsonantesRoute
   '/cueva': typeof CuevaRoute
   '/english': typeof EnglishRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
+  '/oraciones': typeof OracionesRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/torre': typeof TorreRoute
+  '/trazos': typeof TrazosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/camino': typeof CaminoRoute
   '/cocodrilo': typeof CocodriloRoute
+  '/consonantes': typeof ConsonantesRoute
   '/cueva': typeof CuevaRoute
   '/english': typeof EnglishRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
+  '/oraciones': typeof OracionesRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/torre': typeof TorreRoute
+  '/trazos': typeof TrazosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/camino': typeof CaminoRoute
   '/cocodrilo': typeof CocodriloRoute
+  '/consonantes': typeof ConsonantesRoute
   '/cueva': typeof CuevaRoute
   '/english': typeof EnglishRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
+  '/oraciones': typeof OracionesRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/torre': typeof TorreRoute
+  '/trazos': typeof TrazosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -114,50 +141,62 @@ export interface FileRouteTypes {
     | '/'
     | '/camino'
     | '/cocodrilo'
+    | '/consonantes'
     | '/cueva'
     | '/english'
     | '/lenguaje'
     | '/matematicas'
+    | '/oraciones'
     | '/pizzeria'
     | '/premios'
     | '/torre'
+    | '/trazos'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/camino'
     | '/cocodrilo'
+    | '/consonantes'
     | '/cueva'
     | '/english'
     | '/lenguaje'
     | '/matematicas'
+    | '/oraciones'
     | '/pizzeria'
     | '/premios'
     | '/torre'
+    | '/trazos'
   id:
     | '__root__'
     | '/'
     | '/camino'
     | '/cocodrilo'
+    | '/consonantes'
     | '/cueva'
     | '/english'
     | '/lenguaje'
     | '/matematicas'
+    | '/oraciones'
     | '/pizzeria'
     | '/premios'
     | '/torre'
+    | '/trazos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CaminoRoute: typeof CaminoRoute
   CocodriloRoute: typeof CocodriloRoute
+  ConsonantesRoute: typeof ConsonantesRoute
   CuevaRoute: typeof CuevaRoute
   EnglishRoute: typeof EnglishRoute
   LenguajeRoute: typeof LenguajeRoute
   MatematicasRoute: typeof MatematicasRoute
+  OracionesRoute: typeof OracionesRoute
   PizzeriaRoute: typeof PizzeriaRoute
   PremiosRoute: typeof PremiosRoute
   TorreRoute: typeof TorreRoute
+  TrazosRoute: typeof TrazosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -181,6 +220,13 @@ declare module '@tanstack/react-router' {
       path: '/cocodrilo'
       fullPath: '/cocodrilo'
       preLoaderRoute: typeof CocodriloRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/consonantes': {
+      id: '/consonantes'
+      path: '/consonantes'
+      fullPath: '/consonantes'
+      preLoaderRoute: typeof ConsonantesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cueva': {
@@ -211,6 +257,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MatematicasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/oraciones': {
+      id: '/oraciones'
+      path: '/oraciones'
+      fullPath: '/oraciones'
+      preLoaderRoute: typeof OracionesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pizzeria': {
       id: '/pizzeria'
       path: '/pizzeria'
@@ -232,6 +285,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TorreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trazos': {
+      id: '/trazos'
+      path: '/trazos'
+      fullPath: '/trazos'
+      preLoaderRoute: typeof TrazosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -239,13 +299,16 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CaminoRoute: CaminoRoute,
   CocodriloRoute: CocodriloRoute,
+  ConsonantesRoute: ConsonantesRoute,
   CuevaRoute: CuevaRoute,
   EnglishRoute: EnglishRoute,
   LenguajeRoute: LenguajeRoute,
   MatematicasRoute: MatematicasRoute,
+  OracionesRoute: OracionesRoute,
   PizzeriaRoute: PizzeriaRoute,
   PremiosRoute: PremiosRoute,
   TorreRoute: TorreRoute,
+  TrazosRoute: TrazosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
