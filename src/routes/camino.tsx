@@ -6,7 +6,7 @@ import { gameActions, playSound, randomInt } from "@/lib/game-store";
 export const Route = createFileRoute("/camino")({
   head: () => ({
     meta: [
-      { title: "Camino Fantasma — Direccionalidad | El Mundo de los Números" },
+      { title: "Camino Fantasma — Direccionalidad | Isla del Aprendizaje" },
       {
         name: "description",
         content:

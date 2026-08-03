@@ -6,7 +6,7 @@ import { gameActions, playSound, randomInt, shuffle } from "@/lib/game-store";
 export const Route = createFileRoute("/torre")({
   head: () => ({
     meta: [
-      { title: "La Torre del Tiempo — El reloj | El Mundo de los Números" },
+      { title: "La Torre del Tiempo — El reloj | Isla del Aprendizaje" },
       {
         name: "description",
         content:

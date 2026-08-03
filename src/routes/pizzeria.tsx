@@ -6,7 +6,7 @@ import { gameActions, playSound, randomInt, shuffle } from "@/lib/game-store";
 export const Route = createFileRoute("/pizzeria")({
   head: () => ({
     meta: [
-      { title: "La Pizzería de las Fracciones | El Mundo de los Números" },
+      { title: "La Pizzería de las Fracciones | Isla del Aprendizaje" },
       {
         name: "description",
         content:

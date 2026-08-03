@@ -6,7 +6,7 @@ import { gameActions, playSound, randomInt, shuffle } from "@/lib/game-store";
 export const Route = createFileRoute("/cueva")({
   head: () => ({
     meta: [
-      { title: "Cueva de los Números 51 al 80 | El Mundo de los Números" },
+      { title: "Cueva de los Números 51 al 80 | Isla del Aprendizaje" },
       {
         name: "description",
         content:

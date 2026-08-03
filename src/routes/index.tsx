@@ -6,13 +6,13 @@ import { DAILY_GOAL, useGame, gameActions, type StationId } from "@/lib/game-sto
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "El Mundo de los Números — Juego de misiones para niños" },
+      { title: "Isla del Aprendizaje — Juego de misiones para niños" },
       {
         name: "description",
         content:
           "Aventura matemática para niñas y niños de 6 años: direccionalidad, números del 51 al 80, fracciones, el reloj, mayor y menor, y conjuntos.",
       },
-      { property: "og:title", content: "El Mundo de los Números — Juego de misiones para niños" },
+      { property: "og:title", content: "Isla del Aprendizaje — Juego de misiones para niños" },
       {
         property: "og:description",
         content: "Aventura matemática para niñas y niños de 6 años: direccionalidad, números del 51 al 80, fracciones, el reloj, mayor y menor, y conjuntos.",
@@ -113,7 +113,7 @@ function MapPage() {
         </div>
       </header>
 
-      <h1 className="mt-6 text-center font-display text-3xl">El Mundo de los Números</h1>
+      <h1 className="mt-6 text-center font-display text-3xl">Isla del Aprendizaje</h1>
       <p className="mt-1 text-center text-sm font-bold text-muted-foreground">
         Toca una estación para jugar
       </p>
