@@ -13,6 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CaminoRouteImport } from './routes/camino'
 import { Route as CocodriloRouteImport } from './routes/cocodrilo'
 import { Route as CuevaRouteImport } from './routes/cueva'
+import { Route as EnglishRouteImport } from './routes/english'
+import { Route as LenguajeRouteImport } from './routes/lenguaje'
+import { Route as MatematicasRouteImport } from './routes/matematicas'
 import { Route as PizzeriaRouteImport } from './routes/pizzeria'
 import { Route as PremiosRouteImport } from './routes/premios'
 import { Route as TorreRouteImport } from './routes/torre'
@@ -37,6 +40,21 @@ const CuevaRoute = CuevaRouteImport.update({
   path: '/cueva',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnglishRoute = EnglishRouteImport.update({
+  id: '/english',
+  path: '/english',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LenguajeRoute = LenguajeRouteImport.update({
+  id: '/lenguaje',
+  path: '/lenguaje',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MatematicasRoute = MatematicasRouteImport.update({
+  id: '/matematicas',
+  path: '/matematicas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PizzeriaRoute = PizzeriaRouteImport.update({
   id: '/pizzeria',
   path: '/pizzeria',
@@ -58,6 +76,9 @@ export interface FileRoutesByFullPath {
   '/camino': typeof CaminoRoute
   '/cocodrilo': typeof CocodriloRoute
   '/cueva': typeof CuevaRoute
+  '/english': typeof EnglishRoute
+  '/lenguaje': typeof LenguajeRoute
+  '/matematicas': typeof MatematicasRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/torre': typeof TorreRoute
@@ -67,6 +88,9 @@ export interface FileRoutesByTo {
   '/camino': typeof CaminoRoute
   '/cocodrilo': typeof CocodriloRoute
   '/cueva': typeof CuevaRoute
+  '/english': typeof EnglishRoute
+  '/lenguaje': typeof LenguajeRoute
+  '/matematicas': typeof MatematicasRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/torre': typeof TorreRoute
@@ -77,6 +101,9 @@ export interface FileRoutesById {
   '/camino': typeof CaminoRoute
   '/cocodrilo': typeof CocodriloRoute
   '/cueva': typeof CuevaRoute
+  '/english': typeof EnglishRoute
+  '/lenguaje': typeof LenguajeRoute
+  '/matematicas': typeof MatematicasRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/torre': typeof TorreRoute
@@ -88,6 +115,9 @@ export interface FileRouteTypes {
     | '/camino'
     | '/cocodrilo'
     | '/cueva'
+    | '/english'
+    | '/lenguaje'
+    | '/matematicas'
     | '/pizzeria'
     | '/premios'
     | '/torre'
@@ -97,6 +127,9 @@ export interface FileRouteTypes {
     | '/camino'
     | '/cocodrilo'
     | '/cueva'
+    | '/english'
+    | '/lenguaje'
+    | '/matematicas'
     | '/pizzeria'
     | '/premios'
     | '/torre'
@@ -106,6 +139,9 @@ export interface FileRouteTypes {
     | '/camino'
     | '/cocodrilo'
     | '/cueva'
+    | '/english'
+    | '/lenguaje'
+    | '/matematicas'
     | '/pizzeria'
     | '/premios'
     | '/torre'
@@ -116,6 +152,9 @@ export interface RootRouteChildren {
   CaminoRoute: typeof CaminoRoute
   CocodriloRoute: typeof CocodriloRoute
   CuevaRoute: typeof CuevaRoute
+  EnglishRoute: typeof EnglishRoute
+  LenguajeRoute: typeof LenguajeRoute
+  MatematicasRoute: typeof MatematicasRoute
   PizzeriaRoute: typeof PizzeriaRoute
   PremiosRoute: typeof PremiosRoute
   TorreRoute: typeof TorreRoute
@@ -151,6 +190,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CuevaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/english': {
+      id: '/english'
+      path: '/english'
+      fullPath: '/english'
+      preLoaderRoute: typeof EnglishRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lenguaje': {
+      id: '/lenguaje'
+      path: '/lenguaje'
+      fullPath: '/lenguaje'
+      preLoaderRoute: typeof LenguajeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/matematicas': {
+      id: '/matematicas'
+      path: '/matematicas'
+      fullPath: '/matematicas'
+      preLoaderRoute: typeof MatematicasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pizzeria': {
       id: '/pizzeria'
       path: '/pizzeria'
@@ -180,6 +240,9 @@ const rootRouteChildren: RootRouteChildren = {
   CaminoRoute: CaminoRoute,
   CocodriloRoute: CocodriloRoute,
   CuevaRoute: CuevaRoute,
+  EnglishRoute: EnglishRoute,
+  LenguajeRoute: LenguajeRoute,
+  MatematicasRoute: MatematicasRoute,
   PizzeriaRoute: PizzeriaRoute,
   PremiosRoute: PremiosRoute,
   TorreRoute: TorreRoute,
