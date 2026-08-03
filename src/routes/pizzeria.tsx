@@ -201,7 +201,7 @@ function PizzaGame() {
   }
 
   return (
-    <StationShell title="La Pizzería" emoji="🍕">
+    <>
       <Prompt>
         <span className="mr-2 text-3xl">{client}</span> Quiero{" "}
         <span className="text-berry">{order.label}</span> de pizza ({order.tex})
@@ -232,6 +232,6 @@ function PizzaGame() {
       </div>
 
       <Feedback status={status} />
-    </StationShell>
+    </>
   );
 }
