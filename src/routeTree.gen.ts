@@ -12,10 +12,18 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CaminoRouteImport } from './routes/camino'
 import { Route as CocodriloRouteImport } from './routes/cocodrilo'
+import { Route as ConsonantesRouteImport } from './routes/consonantes'
 import { Route as CuevaRouteImport } from './routes/cueva'
+import { Route as EnglishRouteImport } from './routes/english'
+import { Route as LenguajeRouteImport } from './routes/lenguaje'
+import { Route as MatematicasRouteImport } from './routes/matematicas'
+import { Route as OracionesRouteImport } from './routes/oraciones'
+import { Route as PhonicsRouteImport } from './routes/phonics'
 import { Route as PizzeriaRouteImport } from './routes/pizzeria'
 import { Route as PremiosRouteImport } from './routes/premios'
 import { Route as TorreRouteImport } from './routes/torre'
+import { Route as TrazosRouteImport } from './routes/trazos'
+import { Route as VocabularioRouteImport } from './routes/vocabulario'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -32,9 +40,39 @@ const CocodriloRoute = CocodriloRouteImport.update({
   path: '/cocodrilo',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConsonantesRoute = ConsonantesRouteImport.update({
+  id: '/consonantes',
+  path: '/consonantes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CuevaRoute = CuevaRouteImport.update({
   id: '/cueva',
   path: '/cueva',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnglishRoute = EnglishRouteImport.update({
+  id: '/english',
+  path: '/english',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LenguajeRoute = LenguajeRouteImport.update({
+  id: '/lenguaje',
+  path: '/lenguaje',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MatematicasRoute = MatematicasRouteImport.update({
+  id: '/matematicas',
+  path: '/matematicas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OracionesRoute = OracionesRouteImport.update({
+  id: '/oraciones',
+  path: '/oraciones',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PhonicsRoute = PhonicsRouteImport.update({
+  id: '/phonics',
+  path: '/phonics',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PizzeriaRoute = PizzeriaRouteImport.update({
@@ -52,34 +90,68 @@ const TorreRoute = TorreRouteImport.update({
   path: '/torre',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrazosRoute = TrazosRouteImport.update({
+  id: '/trazos',
+  path: '/trazos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VocabularioRoute = VocabularioRouteImport.update({
+  id: '/vocabulario',
+  path: '/vocabulario',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/camino': typeof CaminoRoute
   '/cocodrilo': typeof CocodriloRoute
+  '/consonantes': typeof ConsonantesRoute
   '/cueva': typeof CuevaRoute
+  '/english': typeof EnglishRoute
+  '/lenguaje': typeof LenguajeRoute
+  '/matematicas': typeof MatematicasRoute
+  '/oraciones': typeof OracionesRoute
+  '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/torre': typeof TorreRoute
+  '/trazos': typeof TrazosRoute
+  '/vocabulario': typeof VocabularioRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/camino': typeof CaminoRoute
   '/cocodrilo': typeof CocodriloRoute
+  '/consonantes': typeof ConsonantesRoute
   '/cueva': typeof CuevaRoute
+  '/english': typeof EnglishRoute
+  '/lenguaje': typeof LenguajeRoute
+  '/matematicas': typeof MatematicasRoute
+  '/oraciones': typeof OracionesRoute
+  '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/torre': typeof TorreRoute
+  '/trazos': typeof TrazosRoute
+  '/vocabulario': typeof VocabularioRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/camino': typeof CaminoRoute
   '/cocodrilo': typeof CocodriloRoute
+  '/consonantes': typeof ConsonantesRoute
   '/cueva': typeof CuevaRoute
+  '/english': typeof EnglishRoute
+  '/lenguaje': typeof LenguajeRoute
+  '/matematicas': typeof MatematicasRoute
+  '/oraciones': typeof OracionesRoute
+  '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/torre': typeof TorreRoute
+  '/trazos': typeof TrazosRoute
+  '/vocabulario': typeof VocabularioRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -87,38 +159,70 @@ export interface FileRouteTypes {
     | '/'
     | '/camino'
     | '/cocodrilo'
+    | '/consonantes'
     | '/cueva'
+    | '/english'
+    | '/lenguaje'
+    | '/matematicas'
+    | '/oraciones'
+    | '/phonics'
     | '/pizzeria'
     | '/premios'
     | '/torre'
+    | '/trazos'
+    | '/vocabulario'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/camino'
     | '/cocodrilo'
+    | '/consonantes'
     | '/cueva'
+    | '/english'
+    | '/lenguaje'
+    | '/matematicas'
+    | '/oraciones'
+    | '/phonics'
     | '/pizzeria'
     | '/premios'
     | '/torre'
+    | '/trazos'
+    | '/vocabulario'
   id:
     | '__root__'
     | '/'
     | '/camino'
     | '/cocodrilo'
+    | '/consonantes'
     | '/cueva'
+    | '/english'
+    | '/lenguaje'
+    | '/matematicas'
+    | '/oraciones'
+    | '/phonics'
     | '/pizzeria'
     | '/premios'
     | '/torre'
+    | '/trazos'
+    | '/vocabulario'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CaminoRoute: typeof CaminoRoute
   CocodriloRoute: typeof CocodriloRoute
+  ConsonantesRoute: typeof ConsonantesRoute
   CuevaRoute: typeof CuevaRoute
+  EnglishRoute: typeof EnglishRoute
+  LenguajeRoute: typeof LenguajeRoute
+  MatematicasRoute: typeof MatematicasRoute
+  OracionesRoute: typeof OracionesRoute
+  PhonicsRoute: typeof PhonicsRoute
   PizzeriaRoute: typeof PizzeriaRoute
   PremiosRoute: typeof PremiosRoute
   TorreRoute: typeof TorreRoute
+  TrazosRoute: typeof TrazosRoute
+  VocabularioRoute: typeof VocabularioRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -144,11 +248,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CocodriloRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/consonantes': {
+      id: '/consonantes'
+      path: '/consonantes'
+      fullPath: '/consonantes'
+      preLoaderRoute: typeof ConsonantesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cueva': {
       id: '/cueva'
       path: '/cueva'
       fullPath: '/cueva'
       preLoaderRoute: typeof CuevaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/english': {
+      id: '/english'
+      path: '/english'
+      fullPath: '/english'
+      preLoaderRoute: typeof EnglishRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lenguaje': {
+      id: '/lenguaje'
+      path: '/lenguaje'
+      fullPath: '/lenguaje'
+      preLoaderRoute: typeof LenguajeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/matematicas': {
+      id: '/matematicas'
+      path: '/matematicas'
+      fullPath: '/matematicas'
+      preLoaderRoute: typeof MatematicasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/oraciones': {
+      id: '/oraciones'
+      path: '/oraciones'
+      fullPath: '/oraciones'
+      preLoaderRoute: typeof OracionesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/phonics': {
+      id: '/phonics'
+      path: '/phonics'
+      fullPath: '/phonics'
+      preLoaderRoute: typeof PhonicsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pizzeria': {
@@ -172,6 +318,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TorreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trazos': {
+      id: '/trazos'
+      path: '/trazos'
+      fullPath: '/trazos'
+      preLoaderRoute: typeof TrazosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vocabulario': {
+      id: '/vocabulario'
+      path: '/vocabulario'
+      fullPath: '/vocabulario'
+      preLoaderRoute: typeof VocabularioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -179,10 +339,18 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CaminoRoute: CaminoRoute,
   CocodriloRoute: CocodriloRoute,
+  ConsonantesRoute: ConsonantesRoute,
   CuevaRoute: CuevaRoute,
+  EnglishRoute: EnglishRoute,
+  LenguajeRoute: LenguajeRoute,
+  MatematicasRoute: MatematicasRoute,
+  OracionesRoute: OracionesRoute,
+  PhonicsRoute: PhonicsRoute,
   PizzeriaRoute: PizzeriaRoute,
   PremiosRoute: PremiosRoute,
   TorreRoute: TorreRoute,
+  TrazosRoute: TrazosRoute,
+  VocabularioRoute: VocabularioRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

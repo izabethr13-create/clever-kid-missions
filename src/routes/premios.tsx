@@ -6,7 +6,7 @@ import { AVATAR_COLORS, PRIZES, gameActions, playSound, useGame } from "@/lib/ga
 export const Route = createFileRoute("/premios")({
   head: () => ({
     meta: [
-      { title: "Mis premios y mi avatar | El Mundo de los Números" },
+      { title: "Mis premios y mi avatar | Isla del Aprendizaje" },
       {
         name: "description",
         content:

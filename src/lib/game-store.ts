@@ -1,6 +1,16 @@
 import { useSyncExternalStore } from "react";
 
-export type StationId = "camino" | "cueva" | "pizzeria" | "torre" | "cocodrilo";
+export type StationId =
+  | "camino"
+  | "cueva"
+  | "pizzeria"
+  | "torre"
+  | "cocodrilo"
+  | "trazos"
+  | "consonantes"
+  | "oraciones"
+  | "phonics"
+  | "vocabulario";
 
 export type GameState = {
   name: string;
@@ -35,7 +45,18 @@ function initial(): GameState {
   return {
     name: "",
     stars: 0,
-    starsByStation: { camino: 0, cueva: 0, pizzeria: 0, torre: 0, cocodrilo: 0 },
+    starsByStation: {
+      camino: 0,
+      cueva: 0,
+      pizzeria: 0,
+      torre: 0,
+      cocodrilo: 0,
+      trazos: 0,
+      consonantes: 0,
+      oraciones: 0,
+      phonics: 0,
+      vocabulario: 0,
+    },
     dayKey: today(),
     missionsToday: 0,
     unlocked: [],
@@ -162,4 +183,19 @@ export function shuffle<T>(arr: T[]): T[] {
     [a[i], a[j]] = [a[j]!, a[i]!];
   }
   return a;
+}
+
+export function speak(text: string, lang: "es-ES" | "en-US" = "es-ES") {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang;
+    u.rate = lang === "en-US" ? 0.8 : 0.9;
+    const voice = window.speechSynthesis.getVoices().find((v) => v.lang.startsWith(lang.slice(0, 2)));
+    if (voice) u.voice = voice;
+    window.speechSynthesis.speak(u);
+  } catch {
+    /* ignore */
+  }
 }

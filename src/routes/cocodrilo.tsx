@@ -6,7 +6,7 @@ import { gameActions, playSound, randomInt, shuffle } from "@/lib/game-store";
 export const Route = createFileRoute("/cocodrilo")({
   head: () => ({
     meta: [
-      { title: "El Cocodrilo Hambriento — Mayor y menor | El Mundo de los Números" },
+      { title: "El Cocodrilo Hambriento — Mayor y menor | Isla del Aprendizaje" },
       {
         name: "description",
         content:
