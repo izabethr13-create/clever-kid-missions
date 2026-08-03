@@ -18,10 +18,12 @@ import { Route as EnglishRouteImport } from './routes/english'
 import { Route as LenguajeRouteImport } from './routes/lenguaje'
 import { Route as MatematicasRouteImport } from './routes/matematicas'
 import { Route as OracionesRouteImport } from './routes/oraciones'
+import { Route as PhonicsRouteImport } from './routes/phonics'
 import { Route as PizzeriaRouteImport } from './routes/pizzeria'
 import { Route as PremiosRouteImport } from './routes/premios'
 import { Route as TorreRouteImport } from './routes/torre'
 import { Route as TrazosRouteImport } from './routes/trazos'
+import { Route as VocabularioRouteImport } from './routes/vocabulario'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -68,6 +70,11 @@ const OracionesRoute = OracionesRouteImport.update({
   path: '/oraciones',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PhonicsRoute = PhonicsRouteImport.update({
+  id: '/phonics',
+  path: '/phonics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PizzeriaRoute = PizzeriaRouteImport.update({
   id: '/pizzeria',
   path: '/pizzeria',
@@ -88,6 +95,11 @@ const TrazosRoute = TrazosRouteImport.update({
   path: '/trazos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VocabularioRoute = VocabularioRouteImport.update({
+  id: '/vocabulario',
+  path: '/vocabulario',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -99,10 +111,12 @@ export interface FileRoutesByFullPath {
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
   '/oraciones': typeof OracionesRoute
+  '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
+  '/vocabulario': typeof VocabularioRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -114,10 +128,12 @@ export interface FileRoutesByTo {
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
   '/oraciones': typeof OracionesRoute
+  '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
+  '/vocabulario': typeof VocabularioRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -130,10 +146,12 @@ export interface FileRoutesById {
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
   '/oraciones': typeof OracionesRoute
+  '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
+  '/vocabulario': typeof VocabularioRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -147,10 +165,12 @@ export interface FileRouteTypes {
     | '/lenguaje'
     | '/matematicas'
     | '/oraciones'
+    | '/phonics'
     | '/pizzeria'
     | '/premios'
     | '/torre'
     | '/trazos'
+    | '/vocabulario'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -162,10 +182,12 @@ export interface FileRouteTypes {
     | '/lenguaje'
     | '/matematicas'
     | '/oraciones'
+    | '/phonics'
     | '/pizzeria'
     | '/premios'
     | '/torre'
     | '/trazos'
+    | '/vocabulario'
   id:
     | '__root__'
     | '/'
@@ -177,10 +199,12 @@ export interface FileRouteTypes {
     | '/lenguaje'
     | '/matematicas'
     | '/oraciones'
+    | '/phonics'
     | '/pizzeria'
     | '/premios'
     | '/torre'
     | '/trazos'
+    | '/vocabulario'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -193,10 +217,12 @@ export interface RootRouteChildren {
   LenguajeRoute: typeof LenguajeRoute
   MatematicasRoute: typeof MatematicasRoute
   OracionesRoute: typeof OracionesRoute
+  PhonicsRoute: typeof PhonicsRoute
   PizzeriaRoute: typeof PizzeriaRoute
   PremiosRoute: typeof PremiosRoute
   TorreRoute: typeof TorreRoute
   TrazosRoute: typeof TrazosRoute
+  VocabularioRoute: typeof VocabularioRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -264,6 +290,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OracionesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/phonics': {
+      id: '/phonics'
+      path: '/phonics'
+      fullPath: '/phonics'
+      preLoaderRoute: typeof PhonicsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pizzeria': {
       id: '/pizzeria'
       path: '/pizzeria'
@@ -292,6 +325,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrazosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/vocabulario': {
+      id: '/vocabulario'
+      path: '/vocabulario'
+      fullPath: '/vocabulario'
+      preLoaderRoute: typeof VocabularioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -305,10 +345,12 @@ const rootRouteChildren: RootRouteChildren = {
   LenguajeRoute: LenguajeRoute,
   MatematicasRoute: MatematicasRoute,
   OracionesRoute: OracionesRoute,
+  PhonicsRoute: PhonicsRoute,
   PizzeriaRoute: PizzeriaRoute,
   PremiosRoute: PremiosRoute,
   TorreRoute: TorreRoute,
   TrazosRoute: TrazosRoute,
+  VocabularioRoute: VocabularioRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

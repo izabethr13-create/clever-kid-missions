@@ -88,6 +88,90 @@ function Pizza({
 }
 
 function PizzeriaPage() {
+  const [tab, setTab] = useState<"pizza" | "caja">("pizza");
+  return (
+    <StationShell title="La Pizzería" emoji="🍕">
+      <div className="mb-4 grid grid-cols-2 gap-3">
+        <BigButton tone={tab === "pizza" ? "primary" : "card"} onClick={() => setTab("pizza")}>
+          🍕 Fracciones
+        </BigButton>
+        <BigButton tone={tab === "caja" ? "primary" : "card"} onClick={() => setTab("caja")}>
+          🧾 Caja
+        </BigButton>
+      </div>
+      {tab === "pizza" ? <PizzaGame /> : <CajaGame />}
+    </StationShell>
+  );
+}
+
+function CajaGame() {
+  const [op, setOp] = useState(() => makeOp());
+  const [status, setStatus] = useState<"idle" | "good" | "bad">("idle");
+  const options = useState(() => 0)[0];
+  void options;
+  const choices = shuffle([op.res, op.res + randomInt(1, 3), Math.max(0, op.res - randomInt(1, 3))]);
+
+  function pick(n: number) {
+    if (status !== "idle") return;
+    if (n === op.res) {
+      setStatus("good");
+      playSound("good");
+      gameActions.award("pizzeria", 3);
+      setTimeout(() => {
+        setStatus("idle");
+        setOp(makeOp());
+      }, 1200);
+    } else {
+      setStatus("bad");
+      playSound("bad");
+      setTimeout(() => setStatus("idle"), 900);
+    }
+  }
+
+  return (
+    <>
+      <Prompt>
+        <span className="block text-lg">Cobra la cuenta 🧾</span>
+        {op.vertical ? (
+          <span className="mt-2 inline-block text-right font-display text-4xl leading-tight">
+            <span className="block">{op.a}</span>
+            <span className="block border-b-4 border-foreground pb-1">
+              {op.sign} {op.b}
+            </span>
+            <span className="block pt-1">?</span>
+          </span>
+        ) : (
+          <span className="mt-2 block font-display text-4xl">
+            {op.a} {op.sign} {op.b} = ?
+          </span>
+        )}
+      </Prompt>
+      <div className="grid grid-cols-3 gap-3">
+        {choices.map((c, i) => (
+          <BigButton key={`${c}-${i}`} tone="sun" onClick={() => pick(c)}>
+            {c}
+          </BigButton>
+        ))}
+      </div>
+      <Feedback status={status} />
+    </>
+  );
+}
+
+function makeOp() {
+  const vertical = Math.random() < 0.5;
+  const sum = Math.random() < 0.5;
+  if (sum) {
+    const a = randomInt(20, 60);
+    const b = randomInt(1, 20);
+    return { a, b, sign: "+", res: a + b, vertical };
+  }
+  const a = randomInt(30, 80);
+  const b = randomInt(1, 20);
+  return { a, b, sign: "−", res: a - b, vertical };
+}
+
+function PizzaGame() {
   const [order, setOrder] = useState(() => ORDERS[randomInt(0, ORDERS.length - 1)]!);
   const [cut, setCut] = useState(false);
   const [selected, setSelected] = useState<number[]>([]);
