@@ -6,69 +6,54 @@ import { DAILY_GOAL, useGame, gameActions, type StationId } from "@/lib/game-sto
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Isla del Aprendizaje — Juego de misiones para niños" },
+      { title: "Isla del Aprendizaje — Matemáticas, Español e Inglés para niños" },
       {
         name: "description",
         content:
-          "Aventura matemática para niñas y niños de 6 años: direccionalidad, números del 51 al 80, fracciones, el reloj, mayor y menor, y conjuntos.",
+          "Aventura educativa para niñas y niños de 6 años: Isla de las Matemáticas, Bosque del Lenguaje y Phonics Safari con misiones diarias, estrellas y premios.",
       },
       { property: "og:title", content: "Isla del Aprendizaje — Juego de misiones para niños" },
       {
         property: "og:description",
-        content: "Aventura matemática para niñas y niños de 6 años: direccionalidad, números del 51 al 80, fracciones, el reloj, mayor y menor, y conjuntos.",
+        content:
+          "Tres regiones de juego: matemáticas, español e inglés, con avatar, estrellas y premios.",
       },
     ],
   }),
   component: MapPage,
 });
 
-const STATIONS: {
-  id: StationId;
+const REGIONS: {
   to: string;
   emoji: string;
   title: string;
   subtitle: string;
   color: string;
+  stations: StationId[];
 }[] = [
   {
-    id: "camino",
-    to: "/camino",
-    emoji: "🧭",
-    title: "Camino Fantasma",
-    subtitle: "Direccionalidad",
+    to: "/matematicas",
+    emoji: "🏝️",
+    title: "Isla de las Matemáticas",
+    subtitle: "Números, fracciones, reloj y conjuntos",
     color: "bg-sky text-sky-foreground",
+    stations: ["camino", "cueva", "pizzeria", "torre", "cocodrilo"],
   },
   {
-    id: "cueva",
-    to: "/cueva",
-    emoji: "🔢",
-    title: "Cueva de los Números",
-    subtitle: "51 al 80, decenas y sumas",
-    color: "bg-primary text-primary-foreground",
-  },
-  {
-    id: "pizzeria",
-    to: "/pizzeria",
-    emoji: "🍕",
-    title: "La Pizzería",
-    subtitle: "Fracciones",
-    color: "bg-sun text-sun-foreground",
-  },
-  {
-    id: "torre",
-    to: "/torre",
-    emoji: "⏰",
-    title: "La Torre del Tiempo",
-    subtitle: "El reloj y el día",
+    to: "/lenguaje",
+    emoji: "🌳",
+    title: "Bosque del Lenguaje",
+    subtitle: "Trazos, consonantes y oraciones",
     color: "bg-grass text-grass-foreground",
+    stations: ["trazos", "consonantes", "oraciones"],
   },
   {
-    id: "cocodrilo",
-    to: "/cocodrilo",
-    emoji: "🐊",
-    title: "El Cocodrilo Hambriento",
-    subtitle: "Mayor, menor y conjuntos",
+    to: "/english",
+    emoji: "🦁",
+    title: "Phonics Safari",
+    subtitle: "Letters, sounds and vocabulary",
     color: "bg-berry text-berry-foreground",
+    stations: ["phonics", "vocabulario"],
   },
 ];
 
@@ -115,30 +100,33 @@ function MapPage() {
 
       <h1 className="mt-6 text-center font-display text-3xl">Isla del Aprendizaje</h1>
       <p className="mt-1 text-center text-sm font-bold text-muted-foreground">
-        Toca una estación para jugar
+        Elige una región para jugar
       </p>
 
       <nav className="relative mx-auto mt-6 max-w-xl px-4">
         <div className="absolute inset-y-6 left-1/2 w-3 -translate-x-1/2 rounded-full bg-card/70" />
         <ul className="relative space-y-5">
-          {STATIONS.map((s, i) => (
-            <li key={s.id} className={i % 2 === 0 ? "pr-6 sm:pr-16" : "pl-6 sm:pl-16"}>
-              <Link
-                to={s.to}
-                className={`flex items-center gap-4 rounded-4xl px-5 py-5 toy-press ${s.color}`}
-              >
-                <span className="text-4xl">{s.emoji}</span>
-                <span className="min-w-0 flex-1">
-                  <span className="block font-display text-xl leading-tight">{s.title}</span>
-                  <span className="block text-sm font-bold opacity-80">{s.subtitle}</span>
-                </span>
-                <span className="flex items-center gap-1 rounded-full bg-card/40 px-2 py-1 text-sm font-bold">
-                  <Star className="h-4 w-4 fill-current" />
-                  {game.starsByStation[s.id]}
-                </span>
-              </Link>
-            </li>
-          ))}
+          {REGIONS.map((r, i) => {
+            const stars = r.stations.reduce((n, s) => n + game.starsByStation[s], 0);
+            return (
+              <li key={r.to} className={i % 2 === 0 ? "pr-6 sm:pr-16" : "pl-6 sm:pl-16"}>
+                <Link
+                  to={r.to}
+                  className={`flex items-center gap-4 rounded-4xl px-5 py-6 toy-press ${r.color}`}
+                >
+                  <span className="text-4xl">{r.emoji}</span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-display text-xl leading-tight">{r.title}</span>
+                    <span className="block text-sm font-bold opacity-80">{r.subtitle}</span>
+                  </span>
+                  <span className="flex items-center gap-1 rounded-full bg-card/40 px-2 py-1 text-sm font-bold">
+                    <Star className="h-4 w-4 fill-current" />
+                    {stars}
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </nav>
 
