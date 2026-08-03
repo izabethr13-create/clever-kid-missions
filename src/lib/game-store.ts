@@ -1,6 +1,16 @@
 import { useSyncExternalStore } from "react";
 
-export type StationId = "camino" | "cueva" | "pizzeria" | "torre" | "cocodrilo";
+export type StationId =
+  | "camino"
+  | "cueva"
+  | "pizzeria"
+  | "torre"
+  | "cocodrilo"
+  | "trazos"
+  | "consonantes"
+  | "oraciones"
+  | "phonics"
+  | "vocabulario";
 
 export type GameState = {
   name: string;
