@@ -107,8 +107,6 @@ function PizzeriaPage() {
 function CajaGame() {
   const [op, setOp] = useState(() => makeOp());
   const [status, setStatus] = useState<"idle" | "good" | "bad">("idle");
-  const options = useState(() => 0)[0];
-  void options;
   const choices = shuffle([op.res, op.res + randomInt(1, 3), Math.max(0, op.res - randomInt(1, 3))]);
 
   function pick(n: number) {
