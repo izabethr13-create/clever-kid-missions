@@ -184,3 +184,18 @@ export function shuffle<T>(arr: T[]): T[] {
   }
   return a;
 }
+
+export function speak(text: string, lang: "es-ES" | "en-US" = "es-ES") {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang;
+    u.rate = lang === "en-US" ? 0.8 : 0.9;
+    const voice = window.speechSynthesis.getVoices().find((v) => v.lang.startsWith(lang.slice(0, 2)));
+    if (voice) u.voice = voice;
+    window.speechSynthesis.speak(u);
+  } catch {
+    /* ignore */
+  }
+}
