@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, Star } from "lucide-react";
-import type { ReactNode } from "react";
-import { DAILY_GOAL, useGame } from "@/lib/game-store";
+import { useEffect, type ReactNode } from "react";
+import { DAILY_GOAL, useGame, sayResult } from "@/lib/game-store";
+import { Confetti } from "@/components/game/Confetti";
 
 export function StationShell({
   title,
