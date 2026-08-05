@@ -294,3 +294,8 @@ export function speak(text: string, lang: "es-ES" | "en-US" = "es-ES") {
     /* ignore */
   }
 }
+
+export function sayResult(ok: boolean) {
+  if (!state.voice) return;
+  speak(ok ? "¡Bien hecho!" : "Inténtalo de nuevo", "es-ES");
+}
