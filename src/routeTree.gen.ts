@@ -15,6 +15,7 @@ import { Route as CienciaRouteImport } from './routes/ciencia'
 import { Route as CocodriloRouteImport } from './routes/cocodrilo'
 import { Route as ConsonantesRouteImport } from './routes/consonantes'
 import { Route as CuevaRouteImport } from './routes/cueva'
+import { Route as EnergiaRouteImport } from './routes/energia'
 import { Route as EnglishRouteImport } from './routes/english'
 import { Route as HuertoRouteImport } from './routes/huerto'
 import { Route as LenguajeRouteImport } from './routes/lenguaje'
@@ -55,6 +56,11 @@ const ConsonantesRoute = ConsonantesRouteImport.update({
 const CuevaRoute = CuevaRouteImport.update({
   id: '/cueva',
   path: '/cueva',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnergiaRoute = EnergiaRouteImport.update({
+  id: '/energia',
+  path: '/energia',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnglishRoute = EnglishRouteImport.update({
@@ -120,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/cocodrilo': typeof CocodriloRoute
   '/consonantes': typeof ConsonantesRoute
   '/cueva': typeof CuevaRoute
+  '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
   '/huerto': typeof HuertoRoute
   '/lenguaje': typeof LenguajeRoute
@@ -139,6 +146,7 @@ export interface FileRoutesByTo {
   '/cocodrilo': typeof CocodriloRoute
   '/consonantes': typeof ConsonantesRoute
   '/cueva': typeof CuevaRoute
+  '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
   '/huerto': typeof HuertoRoute
   '/lenguaje': typeof LenguajeRoute
@@ -159,6 +167,7 @@ export interface FileRoutesById {
   '/cocodrilo': typeof CocodriloRoute
   '/consonantes': typeof ConsonantesRoute
   '/cueva': typeof CuevaRoute
+  '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
   '/huerto': typeof HuertoRoute
   '/lenguaje': typeof LenguajeRoute
@@ -180,6 +189,7 @@ export interface FileRouteTypes {
     | '/cocodrilo'
     | '/consonantes'
     | '/cueva'
+    | '/energia'
     | '/english'
     | '/huerto'
     | '/lenguaje'
@@ -199,6 +209,7 @@ export interface FileRouteTypes {
     | '/cocodrilo'
     | '/consonantes'
     | '/cueva'
+    | '/energia'
     | '/english'
     | '/huerto'
     | '/lenguaje'
@@ -218,6 +229,7 @@ export interface FileRouteTypes {
     | '/cocodrilo'
     | '/consonantes'
     | '/cueva'
+    | '/energia'
     | '/english'
     | '/huerto'
     | '/lenguaje'
@@ -238,6 +250,7 @@ export interface RootRouteChildren {
   CocodriloRoute: typeof CocodriloRoute
   ConsonantesRoute: typeof ConsonantesRoute
   CuevaRoute: typeof CuevaRoute
+  EnergiaRoute: typeof EnergiaRoute
   EnglishRoute: typeof EnglishRoute
   HuertoRoute: typeof HuertoRoute
   LenguajeRoute: typeof LenguajeRoute
@@ -293,6 +306,13 @@ declare module '@tanstack/react-router' {
       path: '/cueva'
       fullPath: '/cueva'
       preLoaderRoute: typeof CuevaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/energia': {
+      id: '/energia'
+      path: '/energia'
+      fullPath: '/energia'
+      preLoaderRoute: typeof EnergiaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/english': {
@@ -382,6 +402,7 @@ const rootRouteChildren: RootRouteChildren = {
   CocodriloRoute: CocodriloRoute,
   ConsonantesRoute: ConsonantesRoute,
   CuevaRoute: CuevaRoute,
+  EnergiaRoute: EnergiaRoute,
   EnglishRoute: EnglishRoute,
   HuertoRoute: HuertoRoute,
   LenguajeRoute: LenguajeRoute,

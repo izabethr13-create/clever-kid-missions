@@ -145,7 +145,7 @@ function Naturaleza() {
           🌿 Animada
           <span className="block text-base opacity-80">tiene vida</span>
         </BigButton>
-        <BigButton tone="sky" onClick={() => resolve(!item.vivo)}>
+        <BigButton tone="primary" onClick={() => resolve(!item.vivo)}>
           🪨 Inanimada
           <span className="block text-base opacity-80">sin vida</span>
         </BigButton>
