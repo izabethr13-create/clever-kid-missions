@@ -108,7 +108,7 @@ function MapPage() {
 
       <h1 className="mt-6 text-center font-display text-3xl">Isla del Aprendizaje</h1>
       <p className="mt-1 text-center text-sm font-bold text-muted-foreground">
-        Elige una región para jugar
+        Elige una isla del archipiélago para jugar
       </p>
 
       <nav className="relative mx-auto mt-6 max-w-xl px-4">
