@@ -138,13 +138,35 @@ function MapPage() {
         </ul>
       </nav>
 
-      <div className="mx-auto mt-8 max-w-xl px-4">
+      <div className="mx-auto mt-8 max-w-xl space-y-3 px-4">
         <Link
           to="/premios"
           className="block rounded-4xl bg-card px-5 py-4 text-center font-display text-xl toy-press"
         >
           🎁 Mis premios y mi avatar
         </Link>
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            onClick={() => gameActions.toggleMusic()}
+            aria-pressed={game.music}
+            className={`rounded-4xl px-4 py-4 font-display text-lg toy-press ${
+              game.music ? "bg-grass text-grass-foreground" : "bg-card text-card-foreground"
+            }`}
+          >
+            {game.music ? "🎵 Música: sí" : "🔇 Música: no"}
+          </button>
+          <button
+            type="button"
+            onClick={() => gameActions.toggleVoice()}
+            aria-pressed={game.voice}
+            className={`rounded-4xl px-4 py-4 font-display text-lg toy-press ${
+              game.voice ? "bg-sky text-sky-foreground" : "bg-card text-card-foreground"
+            }`}
+          >
+            {game.voice ? "🗣️ Voz: sí" : "🤫 Voz: no"}
+          </button>
+        </div>
       </div>
     </div>
   );
