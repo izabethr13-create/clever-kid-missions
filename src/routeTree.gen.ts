@@ -25,6 +25,7 @@ import { Route as PhonicsRouteImport } from './routes/phonics'
 import { Route as PizzeriaRouteImport } from './routes/pizzeria'
 import { Route as PremiosRouteImport } from './routes/premios'
 import { Route as ReservaRouteImport } from './routes/reserva'
+import { Route as RestaurantRouteImport } from './routes/restaurant'
 import { Route as TorreRouteImport } from './routes/torre'
 import { Route as TrazosRouteImport } from './routes/trazos'
 import { Route as VocabularioRouteImport } from './routes/vocabulario'
@@ -109,6 +110,11 @@ const ReservaRoute = ReservaRouteImport.update({
   path: '/reserva',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RestaurantRoute = RestaurantRouteImport.update({
+  id: '/restaurant',
+  path: '/restaurant',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TorreRoute = TorreRouteImport.update({
   id: '/torre',
   path: '/torre',
@@ -142,6 +148,7 @@ export interface FileRoutesByFullPath {
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/reserva': typeof ReservaRoute
+  '/restaurant': typeof RestaurantRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
   '/vocabulario': typeof VocabularioRoute
@@ -163,6 +170,7 @@ export interface FileRoutesByTo {
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/reserva': typeof ReservaRoute
+  '/restaurant': typeof RestaurantRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
   '/vocabulario': typeof VocabularioRoute
@@ -185,6 +193,7 @@ export interface FileRoutesById {
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/reserva': typeof ReservaRoute
+  '/restaurant': typeof RestaurantRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
   '/vocabulario': typeof VocabularioRoute
@@ -208,6 +217,7 @@ export interface FileRouteTypes {
     | '/pizzeria'
     | '/premios'
     | '/reserva'
+    | '/restaurant'
     | '/torre'
     | '/trazos'
     | '/vocabulario'
@@ -229,6 +239,7 @@ export interface FileRouteTypes {
     | '/pizzeria'
     | '/premios'
     | '/reserva'
+    | '/restaurant'
     | '/torre'
     | '/trazos'
     | '/vocabulario'
@@ -250,6 +261,7 @@ export interface FileRouteTypes {
     | '/pizzeria'
     | '/premios'
     | '/reserva'
+    | '/restaurant'
     | '/torre'
     | '/trazos'
     | '/vocabulario'
@@ -272,6 +284,7 @@ export interface RootRouteChildren {
   PizzeriaRoute: typeof PizzeriaRoute
   PremiosRoute: typeof PremiosRoute
   ReservaRoute: typeof ReservaRoute
+  RestaurantRoute: typeof RestaurantRoute
   TorreRoute: typeof TorreRoute
   TrazosRoute: typeof TrazosRoute
   VocabularioRoute: typeof VocabularioRoute
@@ -391,6 +404,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReservaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/restaurant': {
+      id: '/restaurant'
+      path: '/restaurant'
+      fullPath: '/restaurant'
+      preLoaderRoute: typeof RestaurantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/torre': {
       id: '/torre'
       path: '/torre'
@@ -432,6 +452,7 @@ const rootRouteChildren: RootRouteChildren = {
   PizzeriaRoute: PizzeriaRoute,
   PremiosRoute: PremiosRoute,
   ReservaRoute: ReservaRoute,
+  RestaurantRoute: RestaurantRoute,
   TorreRoute: TorreRoute,
   TrazosRoute: TrazosRoute,
   VocabularioRoute: VocabularioRoute,
