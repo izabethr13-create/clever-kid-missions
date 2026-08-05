@@ -8,7 +8,7 @@ export const Route = createFileRoute("/matematicas")({
       {
         name: "description",
         content:
-          "Módulos de matemáticas: direccionalidad y conjuntos, números del 51 al 80, fracciones y operaciones, reloj y comparación de números.",
+          "Módulos de matemáticas: direccionalidad y conjuntos, números del 50 al 89, fracciones y operaciones, reloj y comparación de números.",
       },
       { property: "og:title", content: "Isla de las Matemáticas" },
       {
@@ -42,7 +42,7 @@ const MODULES: ModuleCard[] = [
     to: "/cueva",
     emoji: "🔢",
     title: "M2 · Cueva de los Números",
-    subtitle: "51 al 80, antes/después, decenas",
+    subtitle: "50 al 89, antes/después, decenas",
     color: "bg-primary text-primary-foreground",
   },
   {

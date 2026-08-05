@@ -10,7 +10,12 @@ export type StationId =
   | "consonantes"
   | "oraciones"
   | "phonics"
-  | "vocabulario";
+  | "vocabulario"
+  | "huerto"
+  | "energia"
+  | "reserva"
+  | "restaurant"
+  | "commands";
 
 export type GameState = {
   name: string;
@@ -20,6 +25,8 @@ export type GameState = {
   missionsToday: number;
   unlocked: string[];
   avatar: { hat: string | null; item: string | null; color: string };
+  music: boolean;
+  voice: boolean;
 };
 
 export const DAILY_GOAL = 10;
@@ -56,11 +63,18 @@ function initial(): GameState {
       oraciones: 0,
       phonics: 0,
       vocabulario: 0,
+      huerto: 0,
+      energia: 0,
+      reserva: 0,
+      restaurant: 0,
+      commands: 0,
     },
     dayKey: today(),
     missionsToday: 0,
     unlocked: [],
     avatar: { hat: null, item: null, color: AVATAR_COLORS[0]! },
+    music: true,
+    voice: true,
   };
 }
 
@@ -142,10 +156,91 @@ export const gameActions = {
   setColor(color: string) {
     set((s) => ({ ...s, avatar: { ...s.avatar, color } }));
   },
+  toggleMusic() {
+    set((s) => ({ ...s, music: !s.music }));
+    if (state.music) startMusic();
+    else stopMusic();
+  },
+  toggleVoice() {
+    set((s) => ({ ...s, voice: !s.voice }));
+  },
   reset() {
     set(() => initial());
   },
 };
+
+/* ---------- Música infantil de fondo (sintetizada, en bucle) ---------- */
+
+let musicCtx: AudioContext | null = null;
+let musicTimer: number | null = null;
+let musicGain: GainNode | null = null;
+
+const MELODY = [
+  [523, 0.4], [587, 0.4], [659, 0.4], [523, 0.4],
+  [659, 0.4], [698, 0.4], [784, 0.8],
+  [784, 0.3], [880, 0.3], [784, 0.3], [659, 0.3],
+  [587, 0.4], [523, 0.8],
+] as const;
+
+function makeCtx() {
+  const Ctx =
+    window.AudioContext ??
+    (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+  return new Ctx();
+}
+
+export function startMusic() {
+  if (typeof window === "undefined" || musicTimer !== null) return;
+  try {
+    musicCtx = musicCtx ?? makeCtx();
+    void musicCtx.resume();
+    musicGain = musicCtx.createGain();
+    musicGain.gain.value = 0.07;
+    musicGain.connect(musicCtx.destination);
+
+    const loop = () => {
+      const ctx = musicCtx;
+      const out = musicGain;
+      if (!ctx || !out) return;
+      let t = ctx.currentTime + 0.05;
+      MELODY.forEach(([freq, dur]) => {
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        osc.type = "triangle";
+        osc.frequency.value = freq;
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(1, t + 0.04);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + dur * 0.95);
+        osc.connect(g).connect(out);
+        osc.start(t);
+        osc.stop(t + dur);
+        t += dur;
+      });
+      const total = MELODY.reduce((n, [, d]) => n + d, 0);
+      musicTimer = window.setTimeout(loop, total * 1000);
+    };
+    loop();
+  } catch {
+    /* ignore */
+  }
+}
+
+export function stopMusic() {
+  if (musicTimer !== null) {
+    clearTimeout(musicTimer);
+    musicTimer = null;
+  }
+  try {
+    musicGain?.disconnect();
+  } catch {
+    /* ignore */
+  }
+  musicGain = null;
+}
+
+export function isMusicPlaying() {
+  return musicTimer !== null;
+}
 
 export function playSound(kind: "good" | "bad" | "win") {
   if (typeof window === "undefined") return;
@@ -198,4 +293,9 @@ export function speak(text: string, lang: "es-ES" | "en-US" = "es-ES") {
   } catch {
     /* ignore */
   }
+}
+
+export function sayResult(ok: boolean) {
+  if (!state.voice) return;
+  speak(ok ? "¡Bien hecho!" : "Inténtalo de nuevo", "es-ES");
 }

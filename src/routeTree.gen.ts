@@ -11,16 +11,22 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CaminoRouteImport } from './routes/camino'
+import { Route as CienciaRouteImport } from './routes/ciencia'
 import { Route as CocodriloRouteImport } from './routes/cocodrilo'
+import { Route as CommandsRouteImport } from './routes/commands'
 import { Route as ConsonantesRouteImport } from './routes/consonantes'
 import { Route as CuevaRouteImport } from './routes/cueva'
+import { Route as EnergiaRouteImport } from './routes/energia'
 import { Route as EnglishRouteImport } from './routes/english'
+import { Route as HuertoRouteImport } from './routes/huerto'
 import { Route as LenguajeRouteImport } from './routes/lenguaje'
 import { Route as MatematicasRouteImport } from './routes/matematicas'
 import { Route as OracionesRouteImport } from './routes/oraciones'
 import { Route as PhonicsRouteImport } from './routes/phonics'
 import { Route as PizzeriaRouteImport } from './routes/pizzeria'
 import { Route as PremiosRouteImport } from './routes/premios'
+import { Route as ReservaRouteImport } from './routes/reserva'
+import { Route as RestaurantRouteImport } from './routes/restaurant'
 import { Route as TorreRouteImport } from './routes/torre'
 import { Route as TrazosRouteImport } from './routes/trazos'
 import { Route as VocabularioRouteImport } from './routes/vocabulario'
@@ -35,9 +41,19 @@ const CaminoRoute = CaminoRouteImport.update({
   path: '/camino',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CienciaRoute = CienciaRouteImport.update({
+  id: '/ciencia',
+  path: '/ciencia',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CocodriloRoute = CocodriloRouteImport.update({
   id: '/cocodrilo',
   path: '/cocodrilo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommandsRoute = CommandsRouteImport.update({
+  id: '/commands',
+  path: '/commands',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConsonantesRoute = ConsonantesRouteImport.update({
@@ -50,9 +66,19 @@ const CuevaRoute = CuevaRouteImport.update({
   path: '/cueva',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnergiaRoute = EnergiaRouteImport.update({
+  id: '/energia',
+  path: '/energia',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnglishRoute = EnglishRouteImport.update({
   id: '/english',
   path: '/english',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HuertoRoute = HuertoRouteImport.update({
+  id: '/huerto',
+  path: '/huerto',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LenguajeRoute = LenguajeRouteImport.update({
@@ -85,6 +111,16 @@ const PremiosRoute = PremiosRouteImport.update({
   path: '/premios',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReservaRoute = ReservaRouteImport.update({
+  id: '/reserva',
+  path: '/reserva',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RestaurantRoute = RestaurantRouteImport.update({
+  id: '/restaurant',
+  path: '/restaurant',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TorreRoute = TorreRouteImport.update({
   id: '/torre',
   path: '/torre',
@@ -104,16 +140,22 @@ const VocabularioRoute = VocabularioRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/camino': typeof CaminoRoute
+  '/ciencia': typeof CienciaRoute
   '/cocodrilo': typeof CocodriloRoute
+  '/commands': typeof CommandsRoute
   '/consonantes': typeof ConsonantesRoute
   '/cueva': typeof CuevaRoute
+  '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
+  '/huerto': typeof HuertoRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
   '/oraciones': typeof OracionesRoute
   '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
+  '/reserva': typeof ReservaRoute
+  '/restaurant': typeof RestaurantRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
   '/vocabulario': typeof VocabularioRoute
@@ -121,16 +163,22 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/camino': typeof CaminoRoute
+  '/ciencia': typeof CienciaRoute
   '/cocodrilo': typeof CocodriloRoute
+  '/commands': typeof CommandsRoute
   '/consonantes': typeof ConsonantesRoute
   '/cueva': typeof CuevaRoute
+  '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
+  '/huerto': typeof HuertoRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
   '/oraciones': typeof OracionesRoute
   '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
+  '/reserva': typeof ReservaRoute
+  '/restaurant': typeof RestaurantRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
   '/vocabulario': typeof VocabularioRoute
@@ -139,16 +187,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/camino': typeof CaminoRoute
+  '/ciencia': typeof CienciaRoute
   '/cocodrilo': typeof CocodriloRoute
+  '/commands': typeof CommandsRoute
   '/consonantes': typeof ConsonantesRoute
   '/cueva': typeof CuevaRoute
+  '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
+  '/huerto': typeof HuertoRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
   '/oraciones': typeof OracionesRoute
   '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
+  '/reserva': typeof ReservaRoute
+  '/restaurant': typeof RestaurantRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
   '/vocabulario': typeof VocabularioRoute
@@ -158,16 +212,22 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/camino'
+    | '/ciencia'
     | '/cocodrilo'
+    | '/commands'
     | '/consonantes'
     | '/cueva'
+    | '/energia'
     | '/english'
+    | '/huerto'
     | '/lenguaje'
     | '/matematicas'
     | '/oraciones'
     | '/phonics'
     | '/pizzeria'
     | '/premios'
+    | '/reserva'
+    | '/restaurant'
     | '/torre'
     | '/trazos'
     | '/vocabulario'
@@ -175,16 +235,22 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/camino'
+    | '/ciencia'
     | '/cocodrilo'
+    | '/commands'
     | '/consonantes'
     | '/cueva'
+    | '/energia'
     | '/english'
+    | '/huerto'
     | '/lenguaje'
     | '/matematicas'
     | '/oraciones'
     | '/phonics'
     | '/pizzeria'
     | '/premios'
+    | '/reserva'
+    | '/restaurant'
     | '/torre'
     | '/trazos'
     | '/vocabulario'
@@ -192,16 +258,22 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/camino'
+    | '/ciencia'
     | '/cocodrilo'
+    | '/commands'
     | '/consonantes'
     | '/cueva'
+    | '/energia'
     | '/english'
+    | '/huerto'
     | '/lenguaje'
     | '/matematicas'
     | '/oraciones'
     | '/phonics'
     | '/pizzeria'
     | '/premios'
+    | '/reserva'
+    | '/restaurant'
     | '/torre'
     | '/trazos'
     | '/vocabulario'
@@ -210,16 +282,22 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CaminoRoute: typeof CaminoRoute
+  CienciaRoute: typeof CienciaRoute
   CocodriloRoute: typeof CocodriloRoute
+  CommandsRoute: typeof CommandsRoute
   ConsonantesRoute: typeof ConsonantesRoute
   CuevaRoute: typeof CuevaRoute
+  EnergiaRoute: typeof EnergiaRoute
   EnglishRoute: typeof EnglishRoute
+  HuertoRoute: typeof HuertoRoute
   LenguajeRoute: typeof LenguajeRoute
   MatematicasRoute: typeof MatematicasRoute
   OracionesRoute: typeof OracionesRoute
   PhonicsRoute: typeof PhonicsRoute
   PizzeriaRoute: typeof PizzeriaRoute
   PremiosRoute: typeof PremiosRoute
+  ReservaRoute: typeof ReservaRoute
+  RestaurantRoute: typeof RestaurantRoute
   TorreRoute: typeof TorreRoute
   TrazosRoute: typeof TrazosRoute
   VocabularioRoute: typeof VocabularioRoute
@@ -241,11 +319,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CaminoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ciencia': {
+      id: '/ciencia'
+      path: '/ciencia'
+      fullPath: '/ciencia'
+      preLoaderRoute: typeof CienciaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cocodrilo': {
       id: '/cocodrilo'
       path: '/cocodrilo'
       fullPath: '/cocodrilo'
       preLoaderRoute: typeof CocodriloRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/commands': {
+      id: '/commands'
+      path: '/commands'
+      fullPath: '/commands'
+      preLoaderRoute: typeof CommandsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/consonantes': {
@@ -262,11 +354,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CuevaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/energia': {
+      id: '/energia'
+      path: '/energia'
+      fullPath: '/energia'
+      preLoaderRoute: typeof EnergiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/english': {
       id: '/english'
       path: '/english'
       fullPath: '/english'
       preLoaderRoute: typeof EnglishRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/huerto': {
+      id: '/huerto'
+      path: '/huerto'
+      fullPath: '/huerto'
+      preLoaderRoute: typeof HuertoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lenguaje': {
@@ -311,6 +417,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PremiosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reserva': {
+      id: '/reserva'
+      path: '/reserva'
+      fullPath: '/reserva'
+      preLoaderRoute: typeof ReservaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/restaurant': {
+      id: '/restaurant'
+      path: '/restaurant'
+      fullPath: '/restaurant'
+      preLoaderRoute: typeof RestaurantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/torre': {
       id: '/torre'
       path: '/torre'
@@ -338,16 +458,22 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CaminoRoute: CaminoRoute,
+  CienciaRoute: CienciaRoute,
   CocodriloRoute: CocodriloRoute,
+  CommandsRoute: CommandsRoute,
   ConsonantesRoute: ConsonantesRoute,
   CuevaRoute: CuevaRoute,
+  EnergiaRoute: EnergiaRoute,
   EnglishRoute: EnglishRoute,
+  HuertoRoute: HuertoRoute,
   LenguajeRoute: LenguajeRoute,
   MatematicasRoute: MatematicasRoute,
   OracionesRoute: OracionesRoute,
   PhonicsRoute: PhonicsRoute,
   PizzeriaRoute: PizzeriaRoute,
   PremiosRoute: PremiosRoute,
+  ReservaRoute: ReservaRoute,
+  RestaurantRoute: RestaurantRoute,
   TorreRoute: TorreRoute,
   TrazosRoute: TrazosRoute,
   VocabularioRoute: VocabularioRoute,

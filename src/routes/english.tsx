@@ -30,19 +30,35 @@ const MODULES: ModuleCard[] = [
     color: "bg-sun text-sun-foreground",
   },
   {
+    id: "restaurant",
+    to: "/restaurant",
+    emoji: "🍽️",
+    title: "E2 · Restaurant & Conversation",
+    subtitle: "Eating out, our things and questions",
+    color: "bg-berry text-berry-foreground",
+  },
+  {
     id: "vocabulario",
     to: "/vocabulario",
     emoji: "🎒",
-    title: "E2 · Vocabulary & Spelling",
+    title: "E3 · Vocabulary & Spelling",
     subtitle: "Match, listen and spell",
     color: "bg-sky text-sky-foreground",
+  },
+  {
+    id: "commands",
+    to: "/commands",
+    emoji: "🔬",
+    title: "E4 · Science & Commands",
+    subtitle: "Patterns in nature and listening commands",
+    color: "bg-grass text-grass-foreground",
   },
 ];
 
 function EnglishPage() {
   return (
     <RegionShell
-      title="Phonics Safari"
+      title="Isla Language Arts"
       emoji="🦁"
       intro="Tap a module to start your mission"
       modules={MODULES}

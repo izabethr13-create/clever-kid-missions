@@ -42,18 +42,26 @@ const REGIONS: {
   {
     to: "/lenguaje",
     emoji: "🌳",
-    title: "Bosque del Lenguaje",
+    title: "Isla del Lenguaje",
     subtitle: "Trazos, consonantes y oraciones",
     color: "bg-grass text-grass-foreground",
     stations: ["trazos", "consonantes", "oraciones"],
   },
   {
+    to: "/ciencia",
+    emoji: "🌱",
+    title: "Isla de la Ciencia",
+    subtitle: "Huerto, energía, naturaleza y animales",
+    color: "bg-primary text-primary-foreground",
+    stations: ["huerto", "energia", "reserva"],
+  },
+  {
     to: "/english",
     emoji: "🦁",
-    title: "Phonics Safari",
-    subtitle: "Letters, sounds and vocabulary",
+    title: "Isla Language Arts",
+    subtitle: "Phonics, restaurant, spelling & science",
     color: "bg-berry text-berry-foreground",
-    stations: ["phonics", "vocabulario"],
+    stations: ["phonics", "vocabulario", "restaurant", "commands"],
   },
 ];
 
@@ -100,7 +108,7 @@ function MapPage() {
 
       <h1 className="mt-6 text-center font-display text-3xl">Isla del Aprendizaje</h1>
       <p className="mt-1 text-center text-sm font-bold text-muted-foreground">
-        Elige una región para jugar
+        Elige una isla del archipiélago para jugar
       </p>
 
       <nav className="relative mx-auto mt-6 max-w-xl px-4">
@@ -130,13 +138,35 @@ function MapPage() {
         </ul>
       </nav>
 
-      <div className="mx-auto mt-8 max-w-xl px-4">
+      <div className="mx-auto mt-8 max-w-xl space-y-3 px-4">
         <Link
           to="/premios"
           className="block rounded-4xl bg-card px-5 py-4 text-center font-display text-xl toy-press"
         >
           🎁 Mis premios y mi avatar
         </Link>
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            onClick={() => gameActions.toggleMusic()}
+            aria-pressed={game.music}
+            className={`rounded-4xl px-4 py-4 font-display text-lg toy-press ${
+              game.music ? "bg-grass text-grass-foreground" : "bg-card text-card-foreground"
+            }`}
+          >
+            {game.music ? "🎵 Música: sí" : "🔇 Música: no"}
+          </button>
+          <button
+            type="button"
+            onClick={() => gameActions.toggleVoice()}
+            aria-pressed={game.voice}
+            className={`rounded-4xl px-4 py-4 font-display text-lg toy-press ${
+              game.voice ? "bg-sky text-sky-foreground" : "bg-card text-card-foreground"
+            }`}
+          >
+            {game.voice ? "🗣️ Voz: sí" : "🤫 Voz: no"}
+          </button>
+        </div>
       </div>
     </div>
   );

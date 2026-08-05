@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, Star } from "lucide-react";
-import type { ReactNode } from "react";
-import { DAILY_GOAL, useGame } from "@/lib/game-store";
+import { useEffect, type ReactNode } from "react";
+import { DAILY_GOAL, useGame, sayResult } from "@/lib/game-store";
+import { Confetti } from "@/components/game/Confetti";
 
 export function StationShell({
   title,
@@ -63,17 +64,25 @@ export function Prompt({ children }: { children: ReactNode }) {
 }
 
 export function Feedback({ status }: { status: "idle" | "good" | "bad" }) {
+  useEffect(() => {
+    if (status === "idle") return;
+    sayResult(status === "good");
+  }, [status]);
+
   if (status === "idle") return null;
   return (
-    <div className="pointer-events-none fixed inset-0 z-30 grid place-items-center">
-      <div
-        className={`animate-pop-in rounded-4xl px-8 py-6 font-display text-4xl text-card ${
-          status === "good" ? "bg-grass" : "bg-berry"
-        }`}
-      >
-        {status === "good" ? "¡Muy bien! ⭐" : "¡Casi! Intenta otra vez"}
+    <>
+      {status === "good" && <Confetti />}
+      <div className="pointer-events-none fixed inset-0 z-30 grid place-items-center">
+        <div
+          className={`animate-pop-in rounded-4xl px-8 py-6 text-center font-display text-4xl text-card ${
+            status === "good" ? "bg-grass" : "bg-berry"
+          }`}
+        >
+          {status === "good" ? "¡Bien hecho! ⭐" : "Inténtalo de nuevo"}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
