@@ -63,11 +63,18 @@ function initial(): GameState {
       oraciones: 0,
       phonics: 0,
       vocabulario: 0,
+      huerto: 0,
+      energia: 0,
+      reserva: 0,
+      restaurant: 0,
+      commands: 0,
     },
     dayKey: today(),
     missionsToday: 0,
     unlocked: [],
     avatar: { hat: null, item: null, color: AVATAR_COLORS[0]! },
+    music: true,
+    voice: true,
   };
 }
 
