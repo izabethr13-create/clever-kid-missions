@@ -10,7 +10,12 @@ export type StationId =
   | "consonantes"
   | "oraciones"
   | "phonics"
-  | "vocabulario";
+  | "vocabulario"
+  | "huerto"
+  | "energia"
+  | "reserva"
+  | "restaurant"
+  | "commands";
 
 export type GameState = {
   name: string;
@@ -20,6 +25,8 @@ export type GameState = {
   missionsToday: number;
   unlocked: string[];
   avatar: { hat: string | null; item: string | null; color: string };
+  music: boolean;
+  voice: boolean;
 };
 
 export const DAILY_GOAL = 10;
