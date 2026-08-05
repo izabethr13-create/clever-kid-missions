@@ -42,18 +42,26 @@ const REGIONS: {
   {
     to: "/lenguaje",
     emoji: "🌳",
-    title: "Bosque del Lenguaje",
+    title: "Isla del Lenguaje",
     subtitle: "Trazos, consonantes y oraciones",
     color: "bg-grass text-grass-foreground",
     stations: ["trazos", "consonantes", "oraciones"],
   },
   {
+    to: "/ciencia",
+    emoji: "🌱",
+    title: "Isla de la Ciencia",
+    subtitle: "Huerto, energía, naturaleza y animales",
+    color: "bg-primary text-primary-foreground",
+    stations: ["huerto", "energia", "reserva"],
+  },
+  {
     to: "/english",
     emoji: "🦁",
-    title: "Phonics Safari",
-    subtitle: "Letters, sounds and vocabulary",
+    title: "Isla Language Arts",
+    subtitle: "Phonics, restaurant, spelling & science",
     color: "bg-berry text-berry-foreground",
-    stations: ["phonics", "vocabulario"],
+    stations: ["phonics", "vocabulario", "restaurant", "commands"],
   },
 ];
 
