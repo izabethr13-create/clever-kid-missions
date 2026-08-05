@@ -6,16 +6,16 @@ import { gameActions, playSound, randomInt, shuffle } from "@/lib/game-store";
 export const Route = createFileRoute("/cueva")({
   head: () => ({
     meta: [
-      { title: "Cueva de los Números 51 al 80 | Isla del Aprendizaje" },
+      { title: "Cueva de los Números 50 al 89 | Isla del Aprendizaje" },
       {
         name: "description",
         content:
-          "Cuenta y escribe números del 51 al 80, practica antes y después, secuencias, decenas y unidades, y sumas y restas.",
+          "Cuenta y escribe números del 50 al 89, practica antes y después, secuencias, decenas y unidades, y sumas y restas.",
       },
       { property: "og:title", content: "Cueva de los Números" },
       {
         property: "og:description",
-        content: "Cinco mini juegos de números del 51 al 80 para primer grado.",
+        content: "Cinco mini juegos de números del 50 al 89 para primer grado.",
       },
     ],
   }),
@@ -90,7 +90,7 @@ function useRound<T>(make: () => T) {
 
 function Contar() {
   const { item, status, resolve } = useRound(() => {
-    const n = randomInt(51, 80);
+    const n = randomInt(50, 89);
     return { n, options: shuffle([n, n + 1, n - 1, n + 10].slice(0, 4)) };
   });
 
@@ -103,7 +103,7 @@ function Contar() {
         ))}
       </div>
       <p className="mt-2 text-center text-sm font-bold text-muted-foreground">
-        Pista: hay 5 filas de 10 cristales azules 💎 y luego los otros 🔷
+        Pista: cuenta de 10 en 10 los cristales azules 💎 y luego los otros 🔷
       </p>
       <div className="mt-4 grid grid-cols-2 gap-3">
         {item.options.map((o) => (
@@ -119,7 +119,7 @@ function Contar() {
 
 function Vecinos() {
   const { item, status, resolve } = useRound(() => {
-    const n = randomInt(52, 79);
+    const n = randomInt(51, 88);
     const ask: "antes" | "despues" = Math.random() < 0.5 ? "antes" : "despues";
     const correct = ask === "antes" ? n - 1 : n + 1;
     return { n, ask, correct, options: shuffle([correct, n, ask === "antes" ? n + 1 : n - 1]) };
@@ -150,7 +150,7 @@ function Vecinos() {
 
 function Secuencia() {
   const { item, status, resolve } = useRound(() => {
-    const start = randomInt(51, 74);
+    const start = randomInt(50, 64);
     const hole = randomInt(1, 4);
     const seq = [start, start + 1, start + 2, start + 3, start + 4, start + 5];
     const correct = seq[hole]!;
@@ -185,7 +185,7 @@ function Secuencia() {
 }
 
 function Bloques() {
-  const [target, setTarget] = useState(() => randomInt(51, 80));
+  const [target, setTarget] = useState(() => randomInt(50, 89));
   const [tens, setTens] = useState(0);
   const [ones, setOnes] = useState(0);
   const [status, setStatus] = useState<"idle" | "good" | "bad">("idle");
@@ -198,7 +198,7 @@ function Bloques() {
       gameActions.award("cueva", 3);
       setTimeout(() => {
         setStatus("idle");
-        setTarget(randomInt(51, 80));
+        setTarget(randomInt(50, 89));
         setTens(0);
         setOnes(0);
       }, 1200);
@@ -260,8 +260,8 @@ function Operaciones() {
   const { item, status, resolve } = useRound(() => {
     const suma = Math.random() < 0.5;
     const vertical = Math.random() < 0.5;
-    const a = randomInt(51, 78);
-    const b = suma ? randomInt(1, 80 - a) : randomInt(1, a - 50);
+    const a = randomInt(51, 87);
+    const b = suma ? randomInt(1, 89 - a) : randomInt(1, a - 50);
     const correct = suma ? a + b : a - b;
     return {
       a,
