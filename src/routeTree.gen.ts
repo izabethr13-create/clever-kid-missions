@@ -29,6 +29,7 @@ import { Route as ReservaRouteImport } from './routes/reserva'
 import { Route as RestaurantRouteImport } from './routes/restaurant'
 import { Route as TorreRouteImport } from './routes/torre'
 import { Route as TrazosRouteImport } from './routes/trazos'
+import { Route as UniversoRouteImport } from './routes/universo'
 import { Route as VocabularioRouteImport } from './routes/vocabulario'
 
 const IndexRoute = IndexRouteImport.update({
@@ -131,6 +132,11 @@ const TrazosRoute = TrazosRouteImport.update({
   path: '/trazos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UniversoRoute = UniversoRouteImport.update({
+  id: '/universo',
+  path: '/universo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VocabularioRoute = VocabularioRouteImport.update({
   id: '/vocabulario',
   path: '/vocabulario',
@@ -158,6 +164,7 @@ export interface FileRoutesByFullPath {
   '/restaurant': typeof RestaurantRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
+  '/universo': typeof UniversoRoute
   '/vocabulario': typeof VocabularioRoute
 }
 export interface FileRoutesByTo {
@@ -181,6 +188,7 @@ export interface FileRoutesByTo {
   '/restaurant': typeof RestaurantRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
+  '/universo': typeof UniversoRoute
   '/vocabulario': typeof VocabularioRoute
 }
 export interface FileRoutesById {
@@ -205,6 +213,7 @@ export interface FileRoutesById {
   '/restaurant': typeof RestaurantRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
+  '/universo': typeof UniversoRoute
   '/vocabulario': typeof VocabularioRoute
 }
 export interface FileRouteTypes {
@@ -230,6 +239,7 @@ export interface FileRouteTypes {
     | '/restaurant'
     | '/torre'
     | '/trazos'
+    | '/universo'
     | '/vocabulario'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -253,6 +263,7 @@ export interface FileRouteTypes {
     | '/restaurant'
     | '/torre'
     | '/trazos'
+    | '/universo'
     | '/vocabulario'
   id:
     | '__root__'
@@ -276,6 +287,7 @@ export interface FileRouteTypes {
     | '/restaurant'
     | '/torre'
     | '/trazos'
+    | '/universo'
     | '/vocabulario'
   fileRoutesById: FileRoutesById
 }
@@ -300,6 +312,7 @@ export interface RootRouteChildren {
   RestaurantRoute: typeof RestaurantRoute
   TorreRoute: typeof TorreRoute
   TrazosRoute: typeof TrazosRoute
+  UniversoRoute: typeof UniversoRoute
   VocabularioRoute: typeof VocabularioRoute
 }
 
@@ -445,6 +458,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrazosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/universo': {
+      id: '/universo'
+      path: '/universo'
+      fullPath: '/universo'
+      preLoaderRoute: typeof UniversoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/vocabulario': {
       id: '/vocabulario'
       path: '/vocabulario'
@@ -476,6 +496,7 @@ const rootRouteChildren: RootRouteChildren = {
   RestaurantRoute: RestaurantRoute,
   TorreRoute: TorreRoute,
   TrazosRoute: TrazosRoute,
+  UniversoRoute: UniversoRoute,
   VocabularioRoute: VocabularioRoute,
 }
 export const routeTree = rootRouteImport
