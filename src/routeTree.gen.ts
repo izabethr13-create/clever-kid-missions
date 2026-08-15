@@ -18,6 +18,7 @@ import { Route as ConsonantesRouteImport } from './routes/consonantes'
 import { Route as CuevaRouteImport } from './routes/cueva'
 import { Route as EnergiaRouteImport } from './routes/energia'
 import { Route as EnglishRouteImport } from './routes/english'
+import { Route as GuatemalaRouteImport } from './routes/guatemala'
 import { Route as HuertoRouteImport } from './routes/huerto'
 import { Route as LenguajeRouteImport } from './routes/lenguaje'
 import { Route as MatematicasRouteImport } from './routes/matematicas'
@@ -75,6 +76,11 @@ const EnergiaRoute = EnergiaRouteImport.update({
 const EnglishRoute = EnglishRouteImport.update({
   id: '/english',
   path: '/english',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuatemalaRoute = GuatemalaRouteImport.update({
+  id: '/guatemala',
+  path: '/guatemala',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HuertoRoute = HuertoRouteImport.update({
@@ -153,6 +159,7 @@ export interface FileRoutesByFullPath {
   '/cueva': typeof CuevaRoute
   '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
+  '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
@@ -177,6 +184,7 @@ export interface FileRoutesByTo {
   '/cueva': typeof CuevaRoute
   '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
+  '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
@@ -202,6 +210,7 @@ export interface FileRoutesById {
   '/cueva': typeof CuevaRoute
   '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
+  '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
@@ -228,6 +237,7 @@ export interface FileRouteTypes {
     | '/cueva'
     | '/energia'
     | '/english'
+    | '/guatemala'
     | '/huerto'
     | '/lenguaje'
     | '/matematicas'
@@ -252,6 +262,7 @@ export interface FileRouteTypes {
     | '/cueva'
     | '/energia'
     | '/english'
+    | '/guatemala'
     | '/huerto'
     | '/lenguaje'
     | '/matematicas'
@@ -276,6 +287,7 @@ export interface FileRouteTypes {
     | '/cueva'
     | '/energia'
     | '/english'
+    | '/guatemala'
     | '/huerto'
     | '/lenguaje'
     | '/matematicas'
@@ -301,6 +313,7 @@ export interface RootRouteChildren {
   CuevaRoute: typeof CuevaRoute
   EnergiaRoute: typeof EnergiaRoute
   EnglishRoute: typeof EnglishRoute
+  GuatemalaRoute: typeof GuatemalaRoute
   HuertoRoute: typeof HuertoRoute
   LenguajeRoute: typeof LenguajeRoute
   MatematicasRoute: typeof MatematicasRoute
@@ -379,6 +392,13 @@ declare module '@tanstack/react-router' {
       path: '/english'
       fullPath: '/english'
       preLoaderRoute: typeof EnglishRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guatemala': {
+      id: '/guatemala'
+      path: '/guatemala'
+      fullPath: '/guatemala'
+      preLoaderRoute: typeof GuatemalaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/huerto': {
@@ -485,6 +505,7 @@ const rootRouteChildren: RootRouteChildren = {
   CuevaRoute: CuevaRoute,
   EnergiaRoute: EnergiaRoute,
   EnglishRoute: EnglishRoute,
+  GuatemalaRoute: GuatemalaRoute,
   HuertoRoute: HuertoRoute,
   LenguajeRoute: LenguajeRoute,
   MatematicasRoute: MatematicasRoute,
