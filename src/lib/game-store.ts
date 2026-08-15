@@ -6,15 +6,26 @@ export type StationId =
   | "pizzeria"
   | "torre"
   | "cocodrilo"
+  | "numeros100"
+  | "romanos"
+  | "calendario"
+  | "moneda"
   | "trazos"
   | "consonantes"
+  | "inversas"
   | "oraciones"
+  | "evaluacion"
+  | "tecnicas"
   | "phonics"
   | "vocabulario"
   | "huerto"
   | "energia"
   | "reserva"
+  | "universo"
+  | "guatemala"
   | "restaurant"
+  | "zoo"
+  | "cvc"
   | "commands";
 
 export type GameState = {
@@ -58,15 +69,26 @@ function initial(): GameState {
       pizzeria: 0,
       torre: 0,
       cocodrilo: 0,
+      numeros100: 0,
+      romanos: 0,
+      calendario: 0,
+      moneda: 0,
       trazos: 0,
       consonantes: 0,
+      inversas: 0,
       oraciones: 0,
+      evaluacion: 0,
+      tecnicas: 0,
       phonics: 0,
       vocabulario: 0,
       huerto: 0,
       energia: 0,
       reserva: 0,
+      universo: 0,
+      guatemala: 0,
       restaurant: 0,
+      zoo: 0,
+      cvc: 0,
       commands: 0,
     },
     dayKey: today(),

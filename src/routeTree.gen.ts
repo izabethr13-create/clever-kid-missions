@@ -18,6 +18,7 @@ import { Route as ConsonantesRouteImport } from './routes/consonantes'
 import { Route as CuevaRouteImport } from './routes/cueva'
 import { Route as EnergiaRouteImport } from './routes/energia'
 import { Route as EnglishRouteImport } from './routes/english'
+import { Route as GuatemalaRouteImport } from './routes/guatemala'
 import { Route as HuertoRouteImport } from './routes/huerto'
 import { Route as LenguajeRouteImport } from './routes/lenguaje'
 import { Route as MatematicasRouteImport } from './routes/matematicas'
@@ -29,6 +30,7 @@ import { Route as ReservaRouteImport } from './routes/reserva'
 import { Route as RestaurantRouteImport } from './routes/restaurant'
 import { Route as TorreRouteImport } from './routes/torre'
 import { Route as TrazosRouteImport } from './routes/trazos'
+import { Route as UniversoRouteImport } from './routes/universo'
 import { Route as VocabularioRouteImport } from './routes/vocabulario'
 
 const IndexRoute = IndexRouteImport.update({
@@ -74,6 +76,11 @@ const EnergiaRoute = EnergiaRouteImport.update({
 const EnglishRoute = EnglishRouteImport.update({
   id: '/english',
   path: '/english',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuatemalaRoute = GuatemalaRouteImport.update({
+  id: '/guatemala',
+  path: '/guatemala',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HuertoRoute = HuertoRouteImport.update({
@@ -131,6 +138,11 @@ const TrazosRoute = TrazosRouteImport.update({
   path: '/trazos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UniversoRoute = UniversoRouteImport.update({
+  id: '/universo',
+  path: '/universo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VocabularioRoute = VocabularioRouteImport.update({
   id: '/vocabulario',
   path: '/vocabulario',
@@ -147,6 +159,7 @@ export interface FileRoutesByFullPath {
   '/cueva': typeof CuevaRoute
   '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
+  '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
@@ -158,6 +171,7 @@ export interface FileRoutesByFullPath {
   '/restaurant': typeof RestaurantRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
+  '/universo': typeof UniversoRoute
   '/vocabulario': typeof VocabularioRoute
 }
 export interface FileRoutesByTo {
@@ -170,6 +184,7 @@ export interface FileRoutesByTo {
   '/cueva': typeof CuevaRoute
   '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
+  '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
@@ -181,6 +196,7 @@ export interface FileRoutesByTo {
   '/restaurant': typeof RestaurantRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
+  '/universo': typeof UniversoRoute
   '/vocabulario': typeof VocabularioRoute
 }
 export interface FileRoutesById {
@@ -194,6 +210,7 @@ export interface FileRoutesById {
   '/cueva': typeof CuevaRoute
   '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
+  '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
@@ -205,6 +222,7 @@ export interface FileRoutesById {
   '/restaurant': typeof RestaurantRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
+  '/universo': typeof UniversoRoute
   '/vocabulario': typeof VocabularioRoute
 }
 export interface FileRouteTypes {
@@ -219,6 +237,7 @@ export interface FileRouteTypes {
     | '/cueva'
     | '/energia'
     | '/english'
+    | '/guatemala'
     | '/huerto'
     | '/lenguaje'
     | '/matematicas'
@@ -230,6 +249,7 @@ export interface FileRouteTypes {
     | '/restaurant'
     | '/torre'
     | '/trazos'
+    | '/universo'
     | '/vocabulario'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -242,6 +262,7 @@ export interface FileRouteTypes {
     | '/cueva'
     | '/energia'
     | '/english'
+    | '/guatemala'
     | '/huerto'
     | '/lenguaje'
     | '/matematicas'
@@ -253,6 +274,7 @@ export interface FileRouteTypes {
     | '/restaurant'
     | '/torre'
     | '/trazos'
+    | '/universo'
     | '/vocabulario'
   id:
     | '__root__'
@@ -265,6 +287,7 @@ export interface FileRouteTypes {
     | '/cueva'
     | '/energia'
     | '/english'
+    | '/guatemala'
     | '/huerto'
     | '/lenguaje'
     | '/matematicas'
@@ -276,6 +299,7 @@ export interface FileRouteTypes {
     | '/restaurant'
     | '/torre'
     | '/trazos'
+    | '/universo'
     | '/vocabulario'
   fileRoutesById: FileRoutesById
 }
@@ -289,6 +313,7 @@ export interface RootRouteChildren {
   CuevaRoute: typeof CuevaRoute
   EnergiaRoute: typeof EnergiaRoute
   EnglishRoute: typeof EnglishRoute
+  GuatemalaRoute: typeof GuatemalaRoute
   HuertoRoute: typeof HuertoRoute
   LenguajeRoute: typeof LenguajeRoute
   MatematicasRoute: typeof MatematicasRoute
@@ -300,6 +325,7 @@ export interface RootRouteChildren {
   RestaurantRoute: typeof RestaurantRoute
   TorreRoute: typeof TorreRoute
   TrazosRoute: typeof TrazosRoute
+  UniversoRoute: typeof UniversoRoute
   VocabularioRoute: typeof VocabularioRoute
 }
 
@@ -366,6 +392,13 @@ declare module '@tanstack/react-router' {
       path: '/english'
       fullPath: '/english'
       preLoaderRoute: typeof EnglishRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guatemala': {
+      id: '/guatemala'
+      path: '/guatemala'
+      fullPath: '/guatemala'
+      preLoaderRoute: typeof GuatemalaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/huerto': {
@@ -445,6 +478,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrazosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/universo': {
+      id: '/universo'
+      path: '/universo'
+      fullPath: '/universo'
+      preLoaderRoute: typeof UniversoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/vocabulario': {
       id: '/vocabulario'
       path: '/vocabulario'
@@ -465,6 +505,7 @@ const rootRouteChildren: RootRouteChildren = {
   CuevaRoute: CuevaRoute,
   EnergiaRoute: EnergiaRoute,
   EnglishRoute: EnglishRoute,
+  GuatemalaRoute: GuatemalaRoute,
   HuertoRoute: HuertoRoute,
   LenguajeRoute: LenguajeRoute,
   MatematicasRoute: MatematicasRoute,
@@ -476,8 +517,19 @@ const rootRouteChildren: RootRouteChildren = {
   RestaurantRoute: RestaurantRoute,
   TorreRoute: TorreRoute,
   TrazosRoute: TrazosRoute,
+  UniversoRoute: UniversoRoute,
   VocabularioRoute: VocabularioRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
