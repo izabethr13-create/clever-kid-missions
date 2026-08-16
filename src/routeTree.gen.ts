@@ -22,6 +22,7 @@ import { Route as GuatemalaRouteImport } from './routes/guatemala'
 import { Route as HuertoRouteImport } from './routes/huerto'
 import { Route as LenguajeRouteImport } from './routes/lenguaje'
 import { Route as MatematicasRouteImport } from './routes/matematicas'
+import { Route as Numeros100RouteImport } from './routes/numeros100'
 import { Route as OracionesRouteImport } from './routes/oraciones'
 import { Route as PhonicsRouteImport } from './routes/phonics'
 import { Route as PizzeriaRouteImport } from './routes/pizzeria'
@@ -98,6 +99,11 @@ const MatematicasRoute = MatematicasRouteImport.update({
   path: '/matematicas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Numeros100Route = Numeros100RouteImport.update({
+  id: '/numeros100',
+  path: '/numeros100',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OracionesRoute = OracionesRouteImport.update({
   id: '/oraciones',
   path: '/oraciones',
@@ -163,6 +169,7 @@ export interface FileRoutesByFullPath {
   '/huerto': typeof HuertoRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
+  '/numeros100': typeof Numeros100Route
   '/oraciones': typeof OracionesRoute
   '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
@@ -188,6 +195,7 @@ export interface FileRoutesByTo {
   '/huerto': typeof HuertoRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
+  '/numeros100': typeof Numeros100Route
   '/oraciones': typeof OracionesRoute
   '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
@@ -214,6 +222,7 @@ export interface FileRoutesById {
   '/huerto': typeof HuertoRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
+  '/numeros100': typeof Numeros100Route
   '/oraciones': typeof OracionesRoute
   '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
@@ -241,6 +250,7 @@ export interface FileRouteTypes {
     | '/huerto'
     | '/lenguaje'
     | '/matematicas'
+    | '/numeros100'
     | '/oraciones'
     | '/phonics'
     | '/pizzeria'
@@ -266,6 +276,7 @@ export interface FileRouteTypes {
     | '/huerto'
     | '/lenguaje'
     | '/matematicas'
+    | '/numeros100'
     | '/oraciones'
     | '/phonics'
     | '/pizzeria'
@@ -291,6 +302,7 @@ export interface FileRouteTypes {
     | '/huerto'
     | '/lenguaje'
     | '/matematicas'
+    | '/numeros100'
     | '/oraciones'
     | '/phonics'
     | '/pizzeria'
@@ -317,6 +329,7 @@ export interface RootRouteChildren {
   HuertoRoute: typeof HuertoRoute
   LenguajeRoute: typeof LenguajeRoute
   MatematicasRoute: typeof MatematicasRoute
+  Numeros100Route: typeof Numeros100Route
   OracionesRoute: typeof OracionesRoute
   PhonicsRoute: typeof PhonicsRoute
   PizzeriaRoute: typeof PizzeriaRoute
@@ -422,6 +435,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MatematicasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/numeros100': {
+      id: '/numeros100'
+      path: '/numeros100'
+      fullPath: '/numeros100'
+      preLoaderRoute: typeof Numeros100RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/oraciones': {
       id: '/oraciones'
       path: '/oraciones'
@@ -509,6 +529,7 @@ const rootRouteChildren: RootRouteChildren = {
   HuertoRoute: HuertoRoute,
   LenguajeRoute: LenguajeRoute,
   MatematicasRoute: MatematicasRoute,
+  Numeros100Route: Numeros100Route,
   OracionesRoute: OracionesRoute,
   PhonicsRoute: PhonicsRoute,
   PizzeriaRoute: PizzeriaRoute,
