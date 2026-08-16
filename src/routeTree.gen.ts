@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CalendarioRouteImport } from './routes/calendario'
 import { Route as CaminoRouteImport } from './routes/camino'
 import { Route as CienciaRouteImport } from './routes/ciencia'
 import { Route as CocodriloRouteImport } from './routes/cocodrilo'
@@ -18,16 +19,22 @@ import { Route as ConsonantesRouteImport } from './routes/consonantes'
 import { Route as CuevaRouteImport } from './routes/cueva'
 import { Route as EnergiaRouteImport } from './routes/energia'
 import { Route as EnglishRouteImport } from './routes/english'
+import { Route as EvaluacionRouteImport } from './routes/evaluacion'
 import { Route as GuatemalaRouteImport } from './routes/guatemala'
 import { Route as HuertoRouteImport } from './routes/huerto'
+import { Route as InversasRouteImport } from './routes/inversas'
 import { Route as LenguajeRouteImport } from './routes/lenguaje'
 import { Route as MatematicasRouteImport } from './routes/matematicas'
+import { Route as MonedaRouteImport } from './routes/moneda'
+import { Route as Numeros100RouteImport } from './routes/numeros100'
 import { Route as OracionesRouteImport } from './routes/oraciones'
 import { Route as PhonicsRouteImport } from './routes/phonics'
 import { Route as PizzeriaRouteImport } from './routes/pizzeria'
 import { Route as PremiosRouteImport } from './routes/premios'
 import { Route as ReservaRouteImport } from './routes/reserva'
 import { Route as RestaurantRouteImport } from './routes/restaurant'
+import { Route as RomanosRouteImport } from './routes/romanos'
+import { Route as TecnicasRouteImport } from './routes/tecnicas'
 import { Route as TorreRouteImport } from './routes/torre'
 import { Route as TrazosRouteImport } from './routes/trazos'
 import { Route as UniversoRouteImport } from './routes/universo'
@@ -36,6 +43,11 @@ import { Route as VocabularioRouteImport } from './routes/vocabulario'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalendarioRoute = CalendarioRouteImport.update({
+  id: '/calendario',
+  path: '/calendario',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CaminoRoute = CaminoRouteImport.update({
@@ -78,6 +90,11 @@ const EnglishRoute = EnglishRouteImport.update({
   path: '/english',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EvaluacionRoute = EvaluacionRouteImport.update({
+  id: '/evaluacion',
+  path: '/evaluacion',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GuatemalaRoute = GuatemalaRouteImport.update({
   id: '/guatemala',
   path: '/guatemala',
@@ -88,6 +105,11 @@ const HuertoRoute = HuertoRouteImport.update({
   path: '/huerto',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InversasRoute = InversasRouteImport.update({
+  id: '/inversas',
+  path: '/inversas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LenguajeRoute = LenguajeRouteImport.update({
   id: '/lenguaje',
   path: '/lenguaje',
@@ -96,6 +118,16 @@ const LenguajeRoute = LenguajeRouteImport.update({
 const MatematicasRoute = MatematicasRouteImport.update({
   id: '/matematicas',
   path: '/matematicas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MonedaRoute = MonedaRouteImport.update({
+  id: '/moneda',
+  path: '/moneda',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Numeros100Route = Numeros100RouteImport.update({
+  id: '/numeros100',
+  path: '/numeros100',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OracionesRoute = OracionesRouteImport.update({
@@ -128,6 +160,16 @@ const RestaurantRoute = RestaurantRouteImport.update({
   path: '/restaurant',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RomanosRoute = RomanosRouteImport.update({
+  id: '/romanos',
+  path: '/romanos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TecnicasRoute = TecnicasRouteImport.update({
+  id: '/tecnicas',
+  path: '/tecnicas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TorreRoute = TorreRouteImport.update({
   id: '/torre',
   path: '/torre',
@@ -151,6 +193,7 @@ const VocabularioRoute = VocabularioRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/calendario': typeof CalendarioRoute
   '/camino': typeof CaminoRoute
   '/ciencia': typeof CienciaRoute
   '/cocodrilo': typeof CocodriloRoute
@@ -159,16 +202,22 @@ export interface FileRoutesByFullPath {
   '/cueva': typeof CuevaRoute
   '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
+  '/evaluacion': typeof EvaluacionRoute
   '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
+  '/inversas': typeof InversasRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
+  '/moneda': typeof MonedaRoute
+  '/numeros100': typeof Numeros100Route
   '/oraciones': typeof OracionesRoute
   '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
+  '/romanos': typeof RomanosRoute
+  '/tecnicas': typeof TecnicasRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
   '/universo': typeof UniversoRoute
@@ -176,6 +225,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/calendario': typeof CalendarioRoute
   '/camino': typeof CaminoRoute
   '/ciencia': typeof CienciaRoute
   '/cocodrilo': typeof CocodriloRoute
@@ -184,16 +234,22 @@ export interface FileRoutesByTo {
   '/cueva': typeof CuevaRoute
   '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
+  '/evaluacion': typeof EvaluacionRoute
   '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
+  '/inversas': typeof InversasRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
+  '/moneda': typeof MonedaRoute
+  '/numeros100': typeof Numeros100Route
   '/oraciones': typeof OracionesRoute
   '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
+  '/romanos': typeof RomanosRoute
+  '/tecnicas': typeof TecnicasRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
   '/universo': typeof UniversoRoute
@@ -202,6 +258,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/calendario': typeof CalendarioRoute
   '/camino': typeof CaminoRoute
   '/ciencia': typeof CienciaRoute
   '/cocodrilo': typeof CocodriloRoute
@@ -210,16 +267,22 @@ export interface FileRoutesById {
   '/cueva': typeof CuevaRoute
   '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
+  '/evaluacion': typeof EvaluacionRoute
   '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
+  '/inversas': typeof InversasRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
+  '/moneda': typeof MonedaRoute
+  '/numeros100': typeof Numeros100Route
   '/oraciones': typeof OracionesRoute
   '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
   '/premios': typeof PremiosRoute
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
+  '/romanos': typeof RomanosRoute
+  '/tecnicas': typeof TecnicasRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
   '/universo': typeof UniversoRoute
@@ -229,6 +292,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/calendario'
     | '/camino'
     | '/ciencia'
     | '/cocodrilo'
@@ -237,16 +301,22 @@ export interface FileRouteTypes {
     | '/cueva'
     | '/energia'
     | '/english'
+    | '/evaluacion'
     | '/guatemala'
     | '/huerto'
+    | '/inversas'
     | '/lenguaje'
     | '/matematicas'
+    | '/moneda'
+    | '/numeros100'
     | '/oraciones'
     | '/phonics'
     | '/pizzeria'
     | '/premios'
     | '/reserva'
     | '/restaurant'
+    | '/romanos'
+    | '/tecnicas'
     | '/torre'
     | '/trazos'
     | '/universo'
@@ -254,6 +324,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/calendario'
     | '/camino'
     | '/ciencia'
     | '/cocodrilo'
@@ -262,16 +333,22 @@ export interface FileRouteTypes {
     | '/cueva'
     | '/energia'
     | '/english'
+    | '/evaluacion'
     | '/guatemala'
     | '/huerto'
+    | '/inversas'
     | '/lenguaje'
     | '/matematicas'
+    | '/moneda'
+    | '/numeros100'
     | '/oraciones'
     | '/phonics'
     | '/pizzeria'
     | '/premios'
     | '/reserva'
     | '/restaurant'
+    | '/romanos'
+    | '/tecnicas'
     | '/torre'
     | '/trazos'
     | '/universo'
@@ -279,6 +356,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/calendario'
     | '/camino'
     | '/ciencia'
     | '/cocodrilo'
@@ -287,16 +365,22 @@ export interface FileRouteTypes {
     | '/cueva'
     | '/energia'
     | '/english'
+    | '/evaluacion'
     | '/guatemala'
     | '/huerto'
+    | '/inversas'
     | '/lenguaje'
     | '/matematicas'
+    | '/moneda'
+    | '/numeros100'
     | '/oraciones'
     | '/phonics'
     | '/pizzeria'
     | '/premios'
     | '/reserva'
     | '/restaurant'
+    | '/romanos'
+    | '/tecnicas'
     | '/torre'
     | '/trazos'
     | '/universo'
@@ -305,6 +389,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CalendarioRoute: typeof CalendarioRoute
   CaminoRoute: typeof CaminoRoute
   CienciaRoute: typeof CienciaRoute
   CocodriloRoute: typeof CocodriloRoute
@@ -313,16 +398,22 @@ export interface RootRouteChildren {
   CuevaRoute: typeof CuevaRoute
   EnergiaRoute: typeof EnergiaRoute
   EnglishRoute: typeof EnglishRoute
+  EvaluacionRoute: typeof EvaluacionRoute
   GuatemalaRoute: typeof GuatemalaRoute
   HuertoRoute: typeof HuertoRoute
+  InversasRoute: typeof InversasRoute
   LenguajeRoute: typeof LenguajeRoute
   MatematicasRoute: typeof MatematicasRoute
+  MonedaRoute: typeof MonedaRoute
+  Numeros100Route: typeof Numeros100Route
   OracionesRoute: typeof OracionesRoute
   PhonicsRoute: typeof PhonicsRoute
   PizzeriaRoute: typeof PizzeriaRoute
   PremiosRoute: typeof PremiosRoute
   ReservaRoute: typeof ReservaRoute
   RestaurantRoute: typeof RestaurantRoute
+  RomanosRoute: typeof RomanosRoute
+  TecnicasRoute: typeof TecnicasRoute
   TorreRoute: typeof TorreRoute
   TrazosRoute: typeof TrazosRoute
   UniversoRoute: typeof UniversoRoute
@@ -336,6 +427,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendario': {
+      id: '/calendario'
+      path: '/calendario'
+      fullPath: '/calendario'
+      preLoaderRoute: typeof CalendarioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/camino': {
@@ -394,6 +492,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnglishRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/evaluacion': {
+      id: '/evaluacion'
+      path: '/evaluacion'
+      fullPath: '/evaluacion'
+      preLoaderRoute: typeof EvaluacionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/guatemala': {
       id: '/guatemala'
       path: '/guatemala'
@@ -408,6 +513,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HuertoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/inversas': {
+      id: '/inversas'
+      path: '/inversas'
+      fullPath: '/inversas'
+      preLoaderRoute: typeof InversasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lenguaje': {
       id: '/lenguaje'
       path: '/lenguaje'
@@ -420,6 +532,20 @@ declare module '@tanstack/react-router' {
       path: '/matematicas'
       fullPath: '/matematicas'
       preLoaderRoute: typeof MatematicasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/moneda': {
+      id: '/moneda'
+      path: '/moneda'
+      fullPath: '/moneda'
+      preLoaderRoute: typeof MonedaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/numeros100': {
+      id: '/numeros100'
+      path: '/numeros100'
+      fullPath: '/numeros100'
+      preLoaderRoute: typeof Numeros100RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/oraciones': {
@@ -464,6 +590,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RestaurantRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/romanos': {
+      id: '/romanos'
+      path: '/romanos'
+      fullPath: '/romanos'
+      preLoaderRoute: typeof RomanosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tecnicas': {
+      id: '/tecnicas'
+      path: '/tecnicas'
+      fullPath: '/tecnicas'
+      preLoaderRoute: typeof TecnicasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/torre': {
       id: '/torre'
       path: '/torre'
@@ -497,6 +637,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CalendarioRoute: CalendarioRoute,
   CaminoRoute: CaminoRoute,
   CienciaRoute: CienciaRoute,
   CocodriloRoute: CocodriloRoute,
@@ -505,16 +646,22 @@ const rootRouteChildren: RootRouteChildren = {
   CuevaRoute: CuevaRoute,
   EnergiaRoute: EnergiaRoute,
   EnglishRoute: EnglishRoute,
+  EvaluacionRoute: EvaluacionRoute,
   GuatemalaRoute: GuatemalaRoute,
   HuertoRoute: HuertoRoute,
+  InversasRoute: InversasRoute,
   LenguajeRoute: LenguajeRoute,
   MatematicasRoute: MatematicasRoute,
+  MonedaRoute: MonedaRoute,
+  Numeros100Route: Numeros100Route,
   OracionesRoute: OracionesRoute,
   PhonicsRoute: PhonicsRoute,
   PizzeriaRoute: PizzeriaRoute,
   PremiosRoute: PremiosRoute,
   ReservaRoute: ReservaRoute,
   RestaurantRoute: RestaurantRoute,
+  RomanosRoute: RomanosRoute,
+  TecnicasRoute: TecnicasRoute,
   TorreRoute: TorreRoute,
   TrazosRoute: TrazosRoute,
   UniversoRoute: UniversoRoute,
