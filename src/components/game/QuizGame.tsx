@@ -12,6 +12,7 @@ export type QuizItem = {
 };
 
 export type IslandId =
+  | "trazado"
   | "ciencia_ciudadania"
   | "comunicacion_lenguaje"
   | "lectura"
@@ -33,6 +34,114 @@ const BACKGROUND_PLAYLIST = [
   "https://actions.google.com/sounds/v1/cartoon/happy_whistle.ogg",
 ];
 
+// --- SUBCOMPONENTE DE TRAZADO INTERACTIVO (SIN LÍNEA VERDE OBLIGATORIA) ---
+function TracingCanvas({
+  letter = "b",
+  onComplete,
+}: {
+  letter?: string;
+  onComplete?: () => void;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [isDrawing, setIsDrawing] = useState(false);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }, [letter]);
+
+  const getCoordinates = (
+    e: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent
+  ) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return { x: 0, y: 0 };
+    const rect = canvas.getBoundingClientRect();
+
+    if ("touches" in e && e.touches.length > 0) {
+      return {
+        x: e.touches[0].clientX - rect.left,
+        y: e.touches[0].clientY - rect.top,
+      };
+    } else if ("clientX" in e) {
+      return {
+        x: (e as MouseEvent).clientX - rect.left,
+        y: (e as MouseEvent).clientY - rect.top,
+      };
+    }
+    return { x: 0, y: 0 };
+  };
+
+  const startDrawing = (e: React.MouseEvent | React.TouchEvent) => {
+    setIsDrawing(true);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const { x, y } = getCoordinates(e);
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.strokeStyle = "#3b82f6"; // Color azul del trazo
+    ctx.lineWidth = 18;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+  };
+
+  const draw = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDrawing) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const { x, y } = getCoordinates(e);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+  };
+
+  // Al soltar el dedo o ratón, completa directamente sin pedir la línea verde
+  const stopDrawing = () => {
+    if (!isDrawing) return;
+    setIsDrawing(false);
+    playSound?.("success" as any);
+    if (onComplete) {
+      onComplete();
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center gap-3">
+      <div className="relative w-72 h-72 bg-white rounded-3xl shadow-md border border-border flex items-center justify-center overflow-hidden touch-none">
+        {/* Letra de guía clara al fondo */}
+        <span className="absolute select-none text-[180px] font-bold text-muted-foreground/20 pointer-events-none">
+          {letter}
+        </span>
+
+        {/* Canvas interactivo */}
+        <canvas
+          ref={canvasRef}
+          width={288}
+          height={288}
+          className="absolute inset-0 z-10 cursor-crosshair touch-none"
+          onMouseDown={startDrawing}
+          onMouseMove={draw}
+          onMouseUp={stopDrawing}
+          onMouseLeave={stopDrawing}
+          onTouchStart={startDrawing}
+          onTouchMove={draw}
+          onTouchEnd={stopDrawing}
+        />
+      </div>
+      <p className="text-sm font-semibold text-center text-muted-foreground">
+        Escribe la letra encima
+      </p>
+    </div>
+  );
+}
+
 export function QuizGame({
   station,
   items = [],
@@ -46,8 +155,11 @@ export function QuizGame({
   stars?: number;
   columns?: 1 | 2 | 3;
 }) {
-  const [activeTab, setActiveTab] = useState<IslandId>("ciencia_ciudadania");
+  const [activeTab, setActiveTab] = useState<IslandId>("trazado");
   const [idx, setIdx] = useState(0);
+
+  // Lista de letras para el módulo de trazado
+  const lettersList = ["b", "g", "y", "f", "h", "a", "m", "p", "s", "t"];
 
   // --- REPRODUCTOR DE MÚSICA MULTI-CANCIÓN ---
   const [isMuted, setIsMuted] = useState(false);
@@ -55,18 +167,14 @@ export function QuizGame({
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Crear el elemento de audio para la música de fondo
     const audio = new Audio(BACKGROUND_PLAYLIST[currentTrackIdx]);
-    audio.volume = 0.15; // Volumen suave de fondo
+    audio.volume = 0.15;
     audioRef.current = audio;
 
     if (!isMuted) {
-      audio.play().catch(() => {
-        // Los navegadores bloquean el autoplai hasta la primera interacción del usuario
-      });
+      audio.play().catch(() => {});
     }
 
-    // Cuando termina una canción, pasar a la siguiente automáticamente
     const handleEnded = () => {
       setCurrentTrackIdx((prev) => (prev + 1) % BACKGROUND_PLAYLIST.length);
     };
@@ -110,6 +218,7 @@ export function QuizGame({
     }
 
     return {
+      trazado: [],
       ciencia_ciudadania: [
         { q: "¿Qué relación hay entre los cuerpos celestes de nuestro cielo?", visual: "☀️", answer: "La Tierra y los planetas giran alrededor del Sol", options: ["La Tierra y los planetas giran alrededor del Sol", "Las estrellas están pegadas a las nubes"] },
         { q: "¿Cuál representa un grave foco de contaminación ambiental?", visual: "🗑️", answer: "Tirar basura en las calles y humo de fábricas", options: ["Tirar basura en las calles y humo de fábricas", "Sembrar plantas medicinales"] },
@@ -256,6 +365,7 @@ export function QuizGame({
   };
 
   const tabsList: { id: IslandId; label: string }[] = [
+    { id: "trazado", label: "✍️ Trazar Letras" },
     { id: "ciencia_ciudadania", label: "🌱 Ciencia y Ciudadanía" },
     { id: "comunicacion_lenguaje", label: "🗣️ Comunicación" },
     { id: "lectura", label: "📖 Lectura" },
@@ -294,7 +404,7 @@ export function QuizGame({
         </div>
       </div>
 
-      {/* Selector con flex-wrap para mostrar las 13 islas */}
+      {/* Selector de pestañas / Islas */}
       <div className="flex flex-wrap gap-2 mb-2 justify-center">
         {tabsList.map((t) => (
           <BigButton
@@ -311,53 +421,99 @@ export function QuizGame({
         ))}
       </div>
 
-      {currentItem && (
-        <div className="flex flex-col gap-4">
-          {currentItem.visual && (
-            <div className="text-4xl text-center">{currentItem.visual}</div>
-          )}
-
-          {currentItem.text && (
-            <p className="text-lg italic font-medium text-center">
-              📖 "{currentItem.text}"
-            </p>
-          )}
-
-          <h2 className="text-xl font-bold text-center whitespace-pre-line">
-            {currentItem.q}
+      {/* RENDERIZADO SI LA PESTAÑA ES TRAZADO DE LETRAS */}
+      {activeTab === "trazado" ? (
+        <div className="flex flex-col items-center gap-4">
+          <h2 className="text-xl font-bold text-center">
+            Traza la letra <span className="text-primary">{lettersList[idx]}</span> 🔊
           </h2>
 
           <BigButton
             tone="card"
-            onClick={() =>
-              speak(
-                currentItem.text
-                  ? `${currentItem.text} ... Pregunta: ${currentItem.q}`
-                  : currentItem.q,
-                lang
-              )
-            }
+            onClick={() => speak(`Traza la letra ${lettersList[idx]}`, lang)}
           >
-            {currentItem.text ? "🔊 Escuchar Historia" : "🔊 Escuchar Pregunta"}
+            🔊 Escuchar Instrucción
           </BigButton>
 
-          <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
-            {currentItem.options.map((o) => (
-              <BigButton
-                key={o}
-                tone="sun"
-                onClick={() => pick(o)}
-                className="py-4 text-base"
+          <TracingCanvas
+            letter={lettersList[idx]}
+            onComplete={() => {
+              // Avanza automáticamente a la siguiente letra sin pedir la línea verde
+              setIdx((prev) => (prev + 1) % lettersList.length);
+            }}
+          />
+
+          {/* Selector interactivo de letras abajo */}
+          <div className="flex flex-wrap justify-center gap-2 mt-2">
+            {lettersList.map((letra, i) => (
+              <button
+                key={letra}
+                onClick={() => setIdx(i)}
+                className={`w-10 h-10 rounded-full font-bold text-lg border transition-colors ${
+                  idx === i
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-card text-card-foreground border-border"
+                }`}
               >
-                {o}
-              </BigButton>
+                {letra}
+              </button>
             ))}
           </div>
 
           <p className="text-sm text-center text-muted-foreground mt-2">
-            Pregunta {idx + 1} de {currentQuestions.length}
+            Misión {idx + 1} de {lettersList.length}
           </p>
         </div>
+      ) : (
+        /* RENDERIZADO DE LAS DEMÁS ISLAS / PREGUNTAS */
+        currentItem && (
+          <div className="flex flex-col gap-4">
+            {currentItem.visual && (
+              <div className="text-4xl text-center">{currentItem.visual}</div>
+            )}
+
+            {currentItem.text && (
+              <p className="text-lg italic font-medium text-center">
+                📖 "{currentItem.text}"
+              </p>
+            )}
+
+            <h2 className="text-xl font-bold text-center whitespace-pre-line">
+              {currentItem.q}
+            </h2>
+
+            <BigButton
+              tone="card"
+              onClick={() =>
+                speak(
+                  currentItem.text
+                    ? `${currentItem.text} ... Pregunta: ${currentItem.q}`
+                    : currentItem.q,
+                  lang
+                )
+              }
+            >
+              {currentItem.text ? "🔊 Escuchar Historia" : "🔊 Escuchar Pregunta"}
+            </BigButton>
+
+            <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
+              {currentItem.options.map((o) => (
+                <BigButton
+                  key={o}
+                  tone="sun"
+                  onClick={() => pick(o)}
+                  className="py-4 text-base"
+                >
+                  {o}
+                </BigButton>
+              ))}
+            </div>
+
+            <p className="text-sm text-center text-muted-foreground mt-2">
+              Pregunta {idx + 1} de {currentQuestions.length}
+            </p>
+          </div>
+        )
       )}
     </div>
   );
