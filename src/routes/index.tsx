@@ -10,14 +10,9 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Aventura educativa para niñas y niños de 6 años: Isla de las Matemáticas, Bosque del Lenguaje y Phonics Safari con misiones diarias, estrellas y premios.",
+          "Aventura educativa para niños con misiones diarias, estrellas y premios.",
       },
-      { property: "og:title", content: "Isla del Aprendizaje — Juego de misiones para niños" },
-      {
-        property: "og:description",
-        content:
-          "Tres regiones de juego: matemáticas, español e inglés, con avatar, estrellas y premios.",
-      },
+      { property: "og:title", content: "Isla del Aprendizaje — Juego de misiones" },
     ],
   }),
   component: MapPage,
@@ -32,36 +27,116 @@ const REGIONS: {
   stations: StationId[];
 }[] = [
   {
-    to: "/matematicas",
-    emoji: "🏝️",
-    title: "Isla de las Matemáticas",
-    subtitle: "Números, fracciones, reloj y conjuntos",
-    color: "bg-sky text-sky-foreground",
-    stations: ["camino", "cueva", "pizzeria", "torre", "cocodrilo"],
+    to: "/trazado",
+    emoji: "✍️",
+    title: "Trazado de Letras",
+    subtitle: "Práctica de trazo digital e interactivo",
+    color: "bg-amber-400 text-amber-950",
+    stations: ["trazado" as StationId],
   },
   {
-    to: "/lenguaje",
-    emoji: "🌳",
-    title: "Isla del Lenguaje",
-    subtitle: "Trazos, consonantes y oraciones",
+    to: "/comunicacion_lenguaje",
+    emoji: "🗣️",
+    title: "Comunicación y Lenguaje",
+    subtitle: "Consonantes, diéresis y oraciones",
     color: "bg-grass text-grass-foreground",
-    stations: ["trazos", "consonantes", "oraciones"],
+    stations: ["comunicacion_lenguaje" as StationId],
   },
   {
-    to: "/ciencia",
+    to: "/lectura",
+    emoji: "📖",
+    title: "Comprensión Lectora",
+    subtitle: "Lectura rápida y cuentos cortos",
+    color: "bg-teal-400 text-teal-950",
+    stations: ["lectura" as StationId],
+  },
+  {
+    to: "/matematicas_espanol",
+    emoji: "🔢",
+    title: "Matemáticas (Español)",
+    subtitle: "Números romanos, mayas y sumas",
+    color: "bg-sky text-sky-foreground",
+    stations: ["matemáticas_espanol" as StationId],
+  },
+  {
+    to: "/ciencia_ciudadania",
     emoji: "🌱",
-    title: "Isla de la Ciencia",
-    subtitle: "Huerto, energía, naturaleza y animales",
+    title: "Ciencia y Ciudadanía",
+    subtitle: "Cuerpos celestes y civismo",
     color: "bg-primary text-primary-foreground",
-    stations: ["huerto", "energia", "reserva"],
+    stations: ["ciencia_ciudadania" as StationId],
   },
   {
-    to: "/english",
-    emoji: "🦁",
-    title: "Isla Language Arts",
-    subtitle: "Phonics, restaurant, spelling & science",
+    to: "/conversation",
+    emoji: "💬",
+    title: "English Conversation",
+    subtitle: "Animals, zoo routines and travel",
+    color: "bg-blue-400 text-blue-950",
+    stations: ["conversation" as StationId],
+  },
+  {
+    to: "/grammar",
+    emoji: "📝",
+    title: "English Grammar",
+    subtitle: "Zookeeper routines and descriptions",
+    color: "bg-indigo-400 text-indigo-950",
+    stations: ["grammar" as StationId],
+  },
+  {
+    to: "/phonics",
+    emoji: "🔊",
+    title: "Phonics & Vowels",
+    subtitle: "Long and short vowel sounds",
     color: "bg-berry text-berry-foreground",
-    stations: ["phonics", "vocabulario", "restaurant", "commands"],
+    stations: ["phonics" as StationId],
+  },
+  {
+    to: "/numbers",
+    emoji: "⏰",
+    title: "Numbers & Time",
+    subtitle: "Clocks and sequence counting",
+    color: "bg-purple-400 text-purple-950",
+    stations: ["numbers" as StationId],
+  },
+  {
+    to: "/science",
+    emoji: "🔬",
+    title: "Science in English",
+    subtitle: "Caterpillar metamorphosis and nature",
+    color: "bg-rose-400 text-rose-950",
+    stations: ["science" as StationId],
+  },
+  {
+    to: "/vocabulary",
+    emoji: "🎨",
+    title: "Vocabulary Building",
+    subtitle: "Animals, places and object names",
+    color: "bg-pink-400 text-pink-950",
+    stations: ["vocabulary" as StationId],
+  },
+  {
+    to: "/math",
+    emoji: "➕",
+    title: "Math (English)",
+    subtitle: "Tens, ones and basic math",
+    color: "bg-cyan-400 text-cyan-950",
+    stations: ["math" as StationId],
+  },
+  {
+    to: "/pre_reading",
+    emoji: "🔤",
+    title: "Pre-Reading CVC",
+    subtitle: "Short CVC word lists and phonics",
+    color: "bg-fuchsia-400 text-fuchsia-950",
+    stations: ["pre_reading" as StationId],
+  },
+  {
+    to: "/spelling",
+    emoji: "🐝",
+    title: "Spelling Bee",
+    subtitle: "Interactive spelling practice",
+    color: "bg-orange-400 text-orange-950",
+    stations: ["spelling" as StationId],
   },
 ];
 
@@ -115,7 +190,7 @@ function MapPage() {
         <div className="absolute inset-y-6 left-1/2 w-3 -translate-x-1/2 rounded-full bg-card/70" />
         <ul className="relative space-y-5">
           {REGIONS.map((r, i) => {
-            const stars = r.stations.reduce((n, s) => n + game.starsByStation[s], 0);
+            const stars = r.stations.reduce((n, s) => n + (game.starsByStation[s] || 0), 0);
             return (
               <li key={r.to} className={i % 2 === 0 ? "pr-6 sm:pr-16" : "pl-6 sm:pl-16"}>
                 <Link
