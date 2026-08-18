@@ -17,6 +17,7 @@ import { Route as CocodriloRouteImport } from './routes/cocodrilo'
 import { Route as CommandsRouteImport } from './routes/commands'
 import { Route as ConsonantesRouteImport } from './routes/consonantes'
 import { Route as CuevaRouteImport } from './routes/cueva'
+import { Route as CvcRouteImport } from './routes/cvc'
 import { Route as EnergiaRouteImport } from './routes/energia'
 import { Route as EnglishRouteImport } from './routes/english'
 import { Route as EvaluacionRouteImport } from './routes/evaluacion'
@@ -39,6 +40,8 @@ import { Route as TorreRouteImport } from './routes/torre'
 import { Route as TrazosRouteImport } from './routes/trazos'
 import { Route as UniversoRouteImport } from './routes/universo'
 import { Route as VocabularioRouteImport } from './routes/vocabulario'
+import { Route as VowelsRouteImport } from './routes/vowels'
+import { Route as ZooRouteImport } from './routes/zoo'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -78,6 +81,11 @@ const ConsonantesRoute = ConsonantesRouteImport.update({
 const CuevaRoute = CuevaRouteImport.update({
   id: '/cueva',
   path: '/cueva',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CvcRoute = CvcRouteImport.update({
+  id: '/cvc',
+  path: '/cvc',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnergiaRoute = EnergiaRouteImport.update({
@@ -190,6 +198,16 @@ const VocabularioRoute = VocabularioRouteImport.update({
   path: '/vocabulario',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VowelsRoute = VowelsRouteImport.update({
+  id: '/vowels',
+  path: '/vowels',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ZooRoute = ZooRouteImport.update({
+  id: '/zoo',
+  path: '/zoo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -200,6 +218,7 @@ export interface FileRoutesByFullPath {
   '/commands': typeof CommandsRoute
   '/consonantes': typeof ConsonantesRoute
   '/cueva': typeof CuevaRoute
+  '/cvc': typeof CvcRoute
   '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
   '/evaluacion': typeof EvaluacionRoute
@@ -222,6 +241,8 @@ export interface FileRoutesByFullPath {
   '/trazos': typeof TrazosRoute
   '/universo': typeof UniversoRoute
   '/vocabulario': typeof VocabularioRoute
+  '/vowels': typeof VowelsRoute
+  '/zoo': typeof ZooRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -232,6 +253,7 @@ export interface FileRoutesByTo {
   '/commands': typeof CommandsRoute
   '/consonantes': typeof ConsonantesRoute
   '/cueva': typeof CuevaRoute
+  '/cvc': typeof CvcRoute
   '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
   '/evaluacion': typeof EvaluacionRoute
@@ -254,6 +276,8 @@ export interface FileRoutesByTo {
   '/trazos': typeof TrazosRoute
   '/universo': typeof UniversoRoute
   '/vocabulario': typeof VocabularioRoute
+  '/vowels': typeof VowelsRoute
+  '/zoo': typeof ZooRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -265,6 +289,7 @@ export interface FileRoutesById {
   '/commands': typeof CommandsRoute
   '/consonantes': typeof ConsonantesRoute
   '/cueva': typeof CuevaRoute
+  '/cvc': typeof CvcRoute
   '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
   '/evaluacion': typeof EvaluacionRoute
@@ -287,6 +312,8 @@ export interface FileRoutesById {
   '/trazos': typeof TrazosRoute
   '/universo': typeof UniversoRoute
   '/vocabulario': typeof VocabularioRoute
+  '/vowels': typeof VowelsRoute
+  '/zoo': typeof ZooRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -299,6 +326,7 @@ export interface FileRouteTypes {
     | '/commands'
     | '/consonantes'
     | '/cueva'
+    | '/cvc'
     | '/energia'
     | '/english'
     | '/evaluacion'
@@ -321,6 +349,8 @@ export interface FileRouteTypes {
     | '/trazos'
     | '/universo'
     | '/vocabulario'
+    | '/vowels'
+    | '/zoo'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -331,6 +361,7 @@ export interface FileRouteTypes {
     | '/commands'
     | '/consonantes'
     | '/cueva'
+    | '/cvc'
     | '/energia'
     | '/english'
     | '/evaluacion'
@@ -353,6 +384,8 @@ export interface FileRouteTypes {
     | '/trazos'
     | '/universo'
     | '/vocabulario'
+    | '/vowels'
+    | '/zoo'
   id:
     | '__root__'
     | '/'
@@ -363,6 +396,7 @@ export interface FileRouteTypes {
     | '/commands'
     | '/consonantes'
     | '/cueva'
+    | '/cvc'
     | '/energia'
     | '/english'
     | '/evaluacion'
@@ -385,6 +419,8 @@ export interface FileRouteTypes {
     | '/trazos'
     | '/universo'
     | '/vocabulario'
+    | '/vowels'
+    | '/zoo'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -396,6 +432,7 @@ export interface RootRouteChildren {
   CommandsRoute: typeof CommandsRoute
   ConsonantesRoute: typeof ConsonantesRoute
   CuevaRoute: typeof CuevaRoute
+  CvcRoute: typeof CvcRoute
   EnergiaRoute: typeof EnergiaRoute
   EnglishRoute: typeof EnglishRoute
   EvaluacionRoute: typeof EvaluacionRoute
@@ -418,6 +455,8 @@ export interface RootRouteChildren {
   TrazosRoute: typeof TrazosRoute
   UniversoRoute: typeof UniversoRoute
   VocabularioRoute: typeof VocabularioRoute
+  VowelsRoute: typeof VowelsRoute
+  ZooRoute: typeof ZooRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -476,6 +515,13 @@ declare module '@tanstack/react-router' {
       path: '/cueva'
       fullPath: '/cueva'
       preLoaderRoute: typeof CuevaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cvc': {
+      id: '/cvc'
+      path: '/cvc'
+      fullPath: '/cvc'
+      preLoaderRoute: typeof CvcRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/energia': {
@@ -632,6 +678,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VocabularioRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/vowels': {
+      id: '/vowels'
+      path: '/vowels'
+      fullPath: '/vowels'
+      preLoaderRoute: typeof VowelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/zoo': {
+      id: '/zoo'
+      path: '/zoo'
+      fullPath: '/zoo'
+      preLoaderRoute: typeof ZooRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -644,6 +704,7 @@ const rootRouteChildren: RootRouteChildren = {
   CommandsRoute: CommandsRoute,
   ConsonantesRoute: ConsonantesRoute,
   CuevaRoute: CuevaRoute,
+  CvcRoute: CvcRoute,
   EnergiaRoute: EnergiaRoute,
   EnglishRoute: EnglishRoute,
   EvaluacionRoute: EvaluacionRoute,
@@ -666,6 +727,8 @@ const rootRouteChildren: RootRouteChildren = {
   TrazosRoute: TrazosRoute,
   UniversoRoute: UniversoRoute,
   VocabularioRoute: VocabularioRoute,
+  VowelsRoute: VowelsRoute,
+  ZooRoute: ZooRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
