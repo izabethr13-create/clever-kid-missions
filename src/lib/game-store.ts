@@ -1,32 +1,20 @@
 import { useSyncExternalStore } from "react";
 
 export type StationId =
-  | "camino"
-  | "cueva"
-  | "pizzeria"
-  | "torre"
-  | "cocodrilo"
-  | "numeros100"
-  | "romanos"
-  | "calendario"
-  | "moneda"
-  | "trazos"
-  | "consonantes"
-  | "inversas"
-  | "oraciones"
-  | "evaluacion"
-  | "tecnicas"
+  | "trazado"
+  | "ciencia_ciudadania"
+  | "comunicacion_lenguaje"
+  | "lectura"
+  | "matemáticas_espanol"
+  | "conversation"
+  | "grammar"
   | "phonics"
-  | "vocabulario"
-  | "huerto"
-  | "energia"
-  | "reserva"
-  | "universo"
-  | "guatemala"
-  | "restaurant"
-  | "zoo"
-  | "cvc"
-  | "commands";
+  | "numbers"
+  | "science"
+  | "vocabulary"
+  | "math"
+  | "pre_reading"
+  | "spelling";
 
 export type GameState = {
   name: string;
