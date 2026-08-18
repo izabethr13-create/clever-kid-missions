@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { BigButton } from "@/components/game/StationShell";
 import { speak, playSound, type StationId } from "@/lib/game-store";
 
@@ -26,6 +26,13 @@ export type IslandId =
   | "pre_reading"
   | "spelling";
 
+// --- LISTA DE REPRODUCCIÓN DE MÚSICA INFANTIL DE FONDO ---
+const BACKGROUND_PLAYLIST = [
+  "https://actions.google.com/sounds/v1/ambiences/children_playing.ogg",
+  "https://actions.google.com/sounds/v1/cartoon/toy_music_box.ogg",
+  "https://actions.google.com/sounds/v1/cartoon/happy_whistle.ogg",
+];
+
 export function QuizGame({
   station,
   items = [],
@@ -41,6 +48,51 @@ export function QuizGame({
 }) {
   const [activeTab, setActiveTab] = useState<IslandId>("ciencia_ciudadania");
   const [idx, setIdx] = useState(0);
+
+  // --- REPRODUCTOR DE MÚSICA MULTI-CANCIÓN ---
+  const [isMuted, setIsMuted] = useState(false);
+  const [currentTrackIdx, setCurrentTrackIdx] = useState(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    // Crear el elemento de audio para la música de fondo
+    const audio = new Audio(BACKGROUND_PLAYLIST[currentTrackIdx]);
+    audio.volume = 0.15; // Volumen suave de fondo
+    audioRef.current = audio;
+
+    if (!isMuted) {
+      audio.play().catch(() => {
+        // Los navegadores bloquean el autoplai hasta la primera interacción del usuario
+      });
+    }
+
+    // Cuando termina una canción, pasar a la siguiente automáticamente
+    const handleEnded = () => {
+      setCurrentTrackIdx((prev) => (prev + 1) % BACKGROUND_PLAYLIST.length);
+    };
+
+    audio.addEventListener("ended", handleEnded);
+
+    return () => {
+      audio.removeEventListener("ended", handleEnded);
+      audio.pause();
+    };
+  }, [currentTrackIdx]);
+
+  const toggleMusic = () => {
+    if (!audioRef.current) return;
+    if (isMuted) {
+      audioRef.current.play().catch(() => {});
+      setIsMuted(false);
+    } else {
+      audioRef.current.pause();
+      setIsMuted(true);
+    }
+  };
+
+  const nextSong = () => {
+    setCurrentTrackIdx((prev) => (prev + 1) % BACKGROUND_PLAYLIST.length);
+  };
 
   // --- BASE DE DATOS ORGANIZADA POR ISLAS ---
   const islasData: Record<IslandId, QuizItem[]> = useMemo(() => {
@@ -71,7 +123,7 @@ export function QuizGame({
         { q: "Letras Inversas: Identifica la palabra con la inversión vocal-s (as, es, is, os, us):", visual: "🏰", answer: "Castillo", options: ["Castillo", "Saco", "Rosa"] },
         { q: "Uso de la Diéresis: ¿Qué palabra lleva los puntitos en la Ü (güe / güi)?", visual: "🐧", answer: "Pingüino", options: ["Pingüino", "Pinguino", "Pinginia"] },
         { q: "Combinación de dos consonantes: Completa la palabra [_ _ á t a n o]", visual: "🍌", answer: "Pl", options: ["Pl", "Bl", "Cl", "Gl"] },
-        { q: "Combinación de two consonantes: Completa la palabra [_ _ u t a]", visual: "🍎", answer: "Fr", options: ["Fr", "Pr", "Tr", "Dr"] },
+        { q: "Combinación de dos consonantes: Completa la palabra [_ _ u t a]", visual: "🍎", answer: "Fr", options: ["Fr", "Pr", "Tr", "Dr"] },
       ],
       lectura: [
         { q: "Técnica Lectoras: Lee rápido y encuentra la sílaba que falta: bla, ble, ___, blo, blu", visual: "✏️", answer: "bli", options: ["bli", "bil", "bal"] },
@@ -186,7 +238,6 @@ export function QuizGame({
     };
   }, []);
 
-  // Si se le pasan items desde la vista principal, se usan esos; si no, se usan las islas completas
   const currentQuestions = items.length > 0 ? items : islasData[activeTab] ?? [];
   const currentItem = currentQuestions[idx] ?? currentQuestions[0];
 
@@ -222,8 +273,29 @@ export function QuizGame({
 
   return (
     <div className="flex flex-col gap-4">
+      {/* Barra de control de música */}
+      <div className="flex justify-between items-center bg-card/60 p-2 rounded-xl border border-border">
+        <span className="text-xs font-semibold flex items-center gap-1">
+          🎵 Música de fondo ({currentTrackIdx + 1}/{BACKGROUND_PLAYLIST.length})
+        </span>
+        <div className="flex gap-2">
+          <button
+            onClick={nextSong}
+            className="text-xs bg-secondary text-secondary-foreground px-2 py-1 rounded-lg font-bold"
+          >
+            ⏭️ Siguiente
+          </button>
+          <button
+            onClick={toggleMusic}
+            className="text-xs bg-primary text-primary-foreground px-2 py-1 rounded-lg font-bold"
+          >
+            {isMuted ? "🔇 Activar" : "🔊 Silenciar"}
+          </button>
+        </div>
+      </div>
+
       {/* Selector con flex-wrap para mostrar las 13 islas */}
-      <div className="flex flex-wrap gap-2 mb-4 justify-center">
+      <div className="flex flex-wrap gap-2 mb-2 justify-center">
         {tabsList.map((t) => (
           <BigButton
             key={t.id}
