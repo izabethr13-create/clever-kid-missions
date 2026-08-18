@@ -44,7 +44,6 @@ export function QuizGame({
 
   // --- BASE DE DATOS ORGANIZADA POR ISLAS ---
   const islasData: Record<IslandId, QuizItem[]> = useMemo(() => {
-    // Sumas dinámicas para la isla de matemáticas
     const mathDynamic: QuizItem[] = [];
     for (let i = 0; i < 10; i++) {
       const n1 = Math.floor(Math.random() * 25) + 51;
@@ -59,7 +58,6 @@ export function QuizGame({
     }
 
     return {
-      // 1. Isla de Educación para la ciencia y la ciudadanía
       ciencia_ciudadania: [
         { q: "¿Qué relación hay entre los cuerpos celestes de nuestro cielo?", visual: "☀️", answer: "La Tierra y los planetas giran alrededor del Sol", options: ["La Tierra y los planetas giran alrededor del Sol", "Las estrellas están pegadas a las nubes"] },
         { q: "¿Cuál representa un grave foco de contaminación ambiental?", visual: "🗑️", answer: "Tirar basura en las calles y humo de fábricas", options: ["Tirar basura en las calles y humo de fábricas", "Sembrar plantas medicinales"] },
@@ -68,17 +66,13 @@ export function QuizGame({
         { q: "¿Cuál es un símbolo patrio oficial de la República de Guatemala?", visual: "🇬🇹", answer: "La Monja Blanca y la Ceiba", options: ["La Monja Blanca y la Ceiba", "El Tigre y la Palma", "El Escudo de México"] },
         { q: "¿Cuál es una ronda, juego o tradición típica de Guatemala?", visual: "🪁", answer: "Volar barriletes gigantes y jugar trompo", options: ["Volar barriletes gigantes y jugar trompo", "Hacer muñecos de nieve"] },
       ],
-
-      // 2. Isla de Destrezas de comunicación y lenguaje
       comunicacion_lenguaje: [
         { q: "Consonantes: Elige la palabra escrita correctamente con 'Ww' o 'Xx':", visual: "📝", answer: "Xilófono", options: ["Xilófono", "Wilófono", "Silófono"] },
         { q: "Letras Inversas: Identifica la palabra con la inversión vocal-s (as, es, is, os, us):", visual: "🏰", answer: "Castillo", options: ["Castillo", "Saco", "Rosa"] },
         { q: "Uso de la Diéresis: ¿Qué palabra lleva los puntitos en la Ü (güe / güi)?", visual: "🐧", answer: "Pingüino", options: ["Pingüino", "Pinguino", "Pinginia"] },
         { q: "Combinación de dos consonantes: Completa la palabra [_ _ á t a n o]", visual: "🍌", answer: "Pl", options: ["Pl", "Bl", "Cl", "Gl"] },
-        { q: "Combinación de dos consonantes: Completa la palabra [_ _ u t a]", visual: "🍎", answer: "Fr", options: ["Fr", "Pr", "Tr", "Dr"] },
+        { q: "Combinación de two consonantes: Completa la palabra [_ _ u t a]", visual: "🍎", answer: "Fr", options: ["Fr", "Pr", "Tr", "Dr"] },
       ],
-
-      // 3. Isla de Lectura
       lectura: [
         { q: "Técnica Lectoras: Lee rápido y encuentra la sílaba que falta: bla, ble, ___, blo, blu", visual: "✏️", answer: "bli", options: ["bli", "bil", "bal"] },
         {
@@ -103,8 +97,6 @@ export function QuizGame({
           options: ["En una linda mariposa", "En un caracol rápido", "En una abejita"],
         },
       ],
-
-      // 4. Isla de Destrezas de aprendizaje matemático
       matemáticas_espanol: [
         { q: "¿Cómo se escribe el número Romano para el valor 5?", visual: "🏛️", answer: "V", options: ["V", "X", "I"] },
         { q: "¿Cómo se escribe el número Romano para el valor 10?", visual: "🏛️", answer: "X", options: ["X", "V", "L"] },
@@ -115,8 +107,6 @@ export function QuizGame({
         { q: "Medidas de tiempo: ¿Qué instrumento nos ayuda a ver las semanas y meses del año?", visual: "📅", answer: "El calendario", options: ["El calendario", "El reloj", "La regla"] },
         ...mathDynamic,
       ],
-
-      // 5. Isla de Conversation
       conversation: [
         { q: "What is this? 🦘", visual: "🦘", answer: "It is a kangaroo.", options: ["It is a kangaroo.", "It is a lion.", "It is an elephant."] },
         { q: "Do you see the crocodiles? 🐊", visual: "🐊", answer: "Yes, I do.", options: ["Yes, I do.", "No, I am not.", "Yes, it is."] },
@@ -124,16 +114,12 @@ export function QuizGame({
         { q: "Where do you want to go? ⛰️", visual: "⛰️", answer: "I want to go to the mountains.", options: ["I want to go to the mountains.", "I want to go to the beach.", "I want to go to the lake."] },
         { q: "What we can do in the mountains?", visual: "🥾", answer: "Let's go hiking.", options: ["Let's go hiking.", "Let's go fishing.", "Let's go jogging."] },
       ],
-
-      // 6. Isla de Grammar
       grammar: [
         { q: "Zookeeper routine: What happens in the morning?", visual: "🌅", answer: "The zookeeper opens the zoo.", options: ["The zookeeper opens the zoo.", "The zookeeper closes the zoo.", "The zookeeper sweeps the exhibit."] },
         { q: "Zookeeper routine: What happens in the afternoon?", visual: "☀️", answer: "The zookeeper sweeps the monkey's exhibit.", options: ["The zookeeper sweeps the monkey's exhibit.", "The zookeeper opens the zoo."] },
         { q: "Zookeeper routine: What happens at night?", visual: "🌃", answer: "The zookeeper closes the zoo.", options: ["The zookeeper closes the zoo.", "The zookeeper opens the zoo."] },
         { q: "Describe the transportation: I see a plane.", visual: "✈️", answer: "It is big.", options: ["It is big.", "It is small.", "It is slow."] },
       ],
-
-      // 7. Isla de Phonics
       phonics: [
         { q: "Long A: Which word makes the long A sound?", visual: "🍰", answer: "Cake", options: ["Cake", "Cat", "Map", "Bat"] },
         { q: "Long A: Complete the words list: Rain, Plane, Game, and...", visual: "✈️", answer: "Day", options: ["Day", "Dad", "Man", "Hat"] },
@@ -146,33 +132,23 @@ export function QuizGame({
         { q: "Long U: Which word has the long U sound like 'Music'?", visual: "🎵", answer: "Universe", options: ["Universe", "Bug", "Sun", "Rug"] },
         { q: "Long U: Complete the list: Mute, Human, Cube, and...", visual: "🧊", answer: "Music", options: ["Music", "Bus", "Cut", "Up"] },
       ],
-
-      // 8. Isla de Numbers
       numbers: [
         { q: "What time is it? 🕒", visual: "🕒", answer: "It's 2 o'clock.", options: ["It's 2 o'clock.", "It's 5 o'clock.", "It's 12 o'clock."] },
         { q: "Identify the number: Which number comes after 80?", visual: "🔢", answer: "81", options: ["81", "80", "90"] },
         { q: "Count by 10s: 10, 20, 30, 40, ___", visual: "🔟", answer: "50", options: ["50", "45", "60"] },
       ],
-
-      // 9. Isla de Science
       science: [
         { q: "Observación científica: ¿Qué pasa con las orugas (caterpillars)?", visual: "🐛", answer: "Hacen capullos y luego se vuelven mariposas", options: ["Hacen capullos y luego se vuelven mariposas", "Se vuelven hormigas"] },
         { q: "Where do fish live?", visual: "🐠", answer: "Underwater", options: ["Underwater", "On trees", "In the desert"] },
       ],
-
-      // 10. Isla de Vocabulary
       vocabulary: [
         { q: "Which animal is tall and has a long neck?", visual: "🦒", answer: "Giraffe", options: ["Giraffe", "Tiger", "Kangaroo"] },
         { q: "Where do you go to swim in summer?", visual: "🏖️", answer: "Beach", options: ["Beach", "Mountain", "Lake"] },
       ],
-
-      // 11. Isla de Math (Inglés)
       math: [
         { q: "How many ones make a ten?", visual: "🔢", answer: "10", options: ["10", "5", "1"] },
         { q: "Match the numeral with the amount: 5", visual: "🖐️", answer: "Five", options: ["Five", "Ten", "Two"] },
       ],
-
-      // 12. Isla de Pre-reading
       pre_reading: [
         { q: "Short A CVC: Complete the word list: Map, Mad, Dad, Fan, and...", visual: "🥫", answer: "Can", options: ["Can", "Cake", "Car"] },
         { q: "Short E CVC: Complete the word list: Web, Leg, Jet, Wet, and...", visual: "🔴", answer: "Red", options: ["Red", "Read", "Run"] },
@@ -181,8 +157,6 @@ export function QuizGame({
         { q: "Short U CVC: Complete the word list: Bug, Sun, Rug, Cut, and...", visual: "🏃", answer: "Run", options: ["Run", "Rain", "Red"] },
         { q: "Técnica CVC: Junta los sonidos en tu mente rápido. ¿Qué palabra se forma? [ M - A - P ]", visual: "🗺️", answer: "Map", options: ["Map", "Mop", "Man"] },
       ],
-
-      // 13. Isla de Spelling
       spelling: [
         { q: "Spelling Bee: How do you spell 'Cat'?", visual: "🐱", answer: "Cat", options: ["Cat", "Car", "Cut"] },
         { q: "Spelling Bee: How do you spell 'Car'?", visual: "🚗", answer: "Car", options: ["Car", "Cat", "Can"] },
@@ -212,6 +186,7 @@ export function QuizGame({
     };
   }, []);
 
+  // Si se le pasan items desde la vista principal, se usan esos; si no, se usan las islas completas
   const currentQuestions = items.length > 0 ? items : islasData[activeTab] ?? [];
   const currentItem = currentQuestions[idx] ?? currentQuestions[0];
 
@@ -229,12 +204,10 @@ export function QuizGame({
     }
   };
 
-  const gridColsClass = columns === 1 ? "grid-cols-1" : columns === 3 ? "grid-cols-3" : "grid-cols-2";
-
   const tabsList: { id: IslandId; label: string }[] = [
     { id: "ciencia_ciudadania", label: "🌱 Ciencia y Ciudadanía" },
-    { id: "comunicacion_lenguaje", label: "🗣️ Comunicación y Lenguaje" },
-    { id: "lectura", label: "📖 Isla de Lectura" },
+    { id: "comunicacion_lenguaje", label: "🗣️ Comunicación" },
+    { id: "lectura", label: "📖 Lectura" },
     { id: "matemáticas_espanol", label: "🔢 Mate (Español)" },
     { id: "conversation", label: "💬 Conversation" },
     { id: "grammar", label: "📝 Grammar" },
@@ -249,15 +222,22 @@ export function QuizGame({
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Selector de Islas */}
-      <Tabs
-        value={activeTab}
-        onChange={(v) => {
-          setActiveTab(v);
-          setIdx(0);
-        }}
-        tabs={tabsList}
-      />
+      {/* Selector con flex-wrap para mostrar las 13 islas */}
+      <div className="flex flex-wrap gap-2 mb-4 justify-center">
+        {tabsList.map((t) => (
+          <BigButton
+            key={t.id}
+            tone={activeTab === t.id ? "primary" : "card"}
+            onClick={() => {
+              setActiveTab(t.id);
+              setIdx(0);
+            }}
+            className="!text-xs font-bold py-2 px-3 flex-grow sm:flex-grow-0"
+          >
+            {t.label}
+          </BigButton>
+        ))}
+      </div>
 
       {currentItem && (
         <div className="flex flex-col gap-4">
@@ -289,7 +269,7 @@ export function QuizGame({
             {currentItem.text ? "🔊 Escuchar Historia" : "🔊 Escuchar Pregunta"}
           </BigButton>
 
-          <div className={`grid gap-3 ${gridColsClass}`}>
+          <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
             {currentItem.options.map((o) => (
               <BigButton
                 key={o}
@@ -307,31 +287,6 @@ export function QuizGame({
           </p>
         </div>
       )}
-    </div>
-  );
-}
-
-export function Tabs<T extends string>({
-  value,
-  onChange,
-  tabs,
-}: {
-  value: T;
-  onChange: (v: T) => void;
-  tabs: { id: T; label: string }[];
-}) {
-  return (
-    <div className="mb-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-      {tabs.map((t) => (
-        <BigButton
-          key={t.id}
-          tone={value === t.id ? "primary" : "card"}
-          onClick={() => onChange(t.id)}
-          className="!text-xs font-bold whitespace-normal h-auto min-h-[44px] py-2"
-        >
-          {t.label}
-        </BigButton>
-      ))}
     </div>
   );
 }
