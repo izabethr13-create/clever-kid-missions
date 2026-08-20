@@ -34,7 +34,36 @@ const BACKGROUND_PLAYLIST = [
   "https://actions.google.com/sounds/v1/cartoon/happy_whistle.ogg",
 ];
 
-// --- SUBCOMPONENTE DE TRAZADO INTERACTIVO (SIN LÍNEA VERDE OBLIGATORIA) ---
+// --- SUBCOMPONENTE DE PESTAÑAS (REQUERIDO POR OTRAS RUTAS) ---
+export function Tabs({
+  tabs,
+  activeTab,
+  onChange,
+}: {
+  tabs: { id: string; label: string }[];
+  activeTab: string;
+  onChange: (id: string) => void;
+}) {
+  return (
+    <div className="flex space-x-2 border-b border-border mb-4 overflow-x-auto pb-2">
+      {tabs.map((tab) => (
+        <button
+          key={tab.id}
+          onClick={() => onChange(tab.id)}
+          className={`px-4 py-2 rounded-lg font-medium transition ${
+            activeTab === tab.id
+              ? "bg-primary text-primary-foreground"
+              : "bg-muted text-muted-foreground hover:bg-accent"
+          }`}
+        >
+          {tab.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+// --- SUBCOMPONENTE DE TRAZADO INTERACTIVO ---
 function TracingCanvas({
   letter = "b",
   onComplete,
@@ -84,7 +113,7 @@ function TracingCanvas({
     const { x, y } = getCoordinates(e);
     ctx.beginPath();
     ctx.moveTo(x, y);
-    ctx.strokeStyle = "#3b82f6"; // Color azul del trazo
+    ctx.strokeStyle = "#3b82f6";
     ctx.lineWidth = 18;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -102,7 +131,6 @@ function TracingCanvas({
     ctx.stroke();
   };
 
-  // Al soltar el dedo o ratón, completa directamente sin pedir la línea verde
   const stopDrawing = () => {
     if (!isDrawing) return;
     setIsDrawing(false);
@@ -115,12 +143,9 @@ function TracingCanvas({
   return (
     <div className="flex flex-col items-center justify-center gap-3">
       <div className="relative w-72 h-72 bg-white rounded-3xl shadow-md border border-border flex items-center justify-center overflow-hidden touch-none">
-        {/* Letra de guía clara al fondo */}
         <span className="absolute select-none text-[180px] font-bold text-muted-foreground/20 pointer-events-none">
           {letter}
         </span>
-
-        {/* Canvas interactivo */}
         <canvas
           ref={canvasRef}
           width={288}
@@ -149,7 +174,7 @@ export function QuizGame({
   stars = 2,
   columns = 2,
 }: {
-  station: StationId;
+  station?: StationId;
   items?: QuizItem[];
   lang?: "es-ES" | "en-US";
   stars?: number;
@@ -158,10 +183,8 @@ export function QuizGame({
   const [activeTab, setActiveTab] = useState<IslandId>("trazado");
   const [idx, setIdx] = useState(0);
 
-  // Lista de letras para el módulo de trazado
   const lettersList = ["b", "g", "y", "f", "h", "a", "m", "p", "s", "t"];
 
-  // --- REPRODUCTOR DE MÚSICA MULTI-CANCIÓN ---
   const [isMuted, setIsMuted] = useState(false);
   const [currentTrackIdx, setCurrentTrackIdx] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -202,7 +225,6 @@ export function QuizGame({
     setCurrentTrackIdx((prev) => (prev + 1) % BACKGROUND_PLAYLIST.length);
   };
 
-  // --- BASE DE DATOS ORGANIZADA POR ISLAS ---
   const islasData: Record<IslandId, QuizItem[]> = useMemo(() => {
     const mathDynamic: QuizItem[] = [];
     for (let i = 0; i < 10; i++) {
@@ -438,12 +460,10 @@ export function QuizGame({
           <TracingCanvas
             letter={lettersList[idx]}
             onComplete={() => {
-              // Avanza automáticamente a la siguiente letra sin pedir la línea verde
               setIdx((prev) => (prev + 1) % lettersList.length);
             }}
           />
 
-          {/* Selector interactivo de letras abajo */}
           <div className="flex flex-wrap justify-center gap-2 mt-2">
             {lettersList.map((letra, i) => (
               <button
@@ -518,3 +538,5 @@ export function QuizGame({
     </div>
   );
 }
+
+export default QuizGame;
