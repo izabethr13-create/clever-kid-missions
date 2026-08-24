@@ -1,12 +1,15 @@
 import React from "react";
+import { Link } from "@tanstack/react-router";
+import { ArrowLeft, Star } from "lucide-react";
+import { useGame, type StationId } from "@/lib/game-store";
 
 export type ModuleCard = {
-  id: string;
+  id: StationId | string;
   to: string;
   emoji: string;
   title: string;
   subtitle: string;
-  color: string;
+  color?: string;
 };
 
 export const ISLA_MODULES: ModuleCard[] = [
@@ -124,23 +127,81 @@ export const ISLA_MODULES: ModuleCard[] = [
   },
 ];
 
-export function RegionShell({ title, emoji, intro, modules }: { title?: string; emoji?: string; intro?: string; modules?: ModuleCard[] }) {
+export interface RegionShellProps {
+  title?: string;
+  emoji?: string;
+  intro?: string;
+  modules?: ModuleCard[];
+}
+
+export function RegionShell({
+  title = "Isla del Aprendizaje",
+  emoji = "🏝️",
+  intro = "Elige una isla para jugar",
+  modules,
+}: RegionShellProps) {
+  const game = useGame();
   const list = modules || ISLA_MODULES;
+
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-2">{emoji || "🏝️"} {title || "Isla del Aprendizaje"}</h1>
-      <p className="text-gray-600 mb-6">{intro || "Elige una isla del archipiélago para jugar"}</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {list.map((mod) => (
-          <a key={mod.id} href={mod.to} className={`p-4 rounded-xl shadow transition hover:scale-105 ${mod.color}`}>
-            <div className="text-2xl mb-1">{mod.emoji}</div>
-            <div className="font-bold text-lg">{mod.title}</div>
-            <div className="text-sm opacity-90">{mod.subtitle}</div>
-          </a>
-        ))}
-      </div>
+    <div className="min-h-screen pb-16 bg-background text-foreground">
+      <header className="sticky top-0 z-20 border-b border-border/60 bg-card/85 backdrop-blur">
+        <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3">
+          <Link
+            to="/"
+            aria-label="Volver al mapa"
+            className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-secondary text-secondary-foreground toy-press"
+          >
+            <ArrowLeft className="h-6 w-6" />
+          </Link>
+          <h1 className="min-w-0 flex-1 truncate font-display text-xl flex items-center">
+            <span className="mr-1">{emoji}</span>
+            <span className="truncate">{title}</span>
+          </h1>
+          {game && (
+            <span className="flex shrink-0 items-center gap-1 rounded-2xl bg-sun px-3 py-2 font-display text-lg text-sun-foreground">
+              <Star className="h-5 w-5 fill-current" />
+              {game.stars}
+            </span>
+          )}
+        </div>
+      </header>
+
+      <main className="mx-auto max-w-xl px-4 py-6">
+        <p className="text-center text-sm font-bold text-muted-foreground">{intro}</p>
+        <ul className="mt-5 space-y-4">
+          {list.map((module, index) => (
+            <li
+              key={module.id}
+              className={index % 2 === 0 ? "pr-4 sm:pr-12" : "pl-4 sm:pl-12"}
+            >
+              <Link
+                to={module.to as any}
+                className={`flex items-center gap-4 rounded-4xl px-5 py-5 toy-press ${
+                  module.color || "bg-card text-card-foreground border"
+                }`}
+              >
+                <span className="text-4xl">{module.emoji}</span>
+                <span className="min-w-0 flex-1">
+                  <span className="block font-display text-xl leading-tight">
+                    {module.title}
+                  </span>
+                  <span className="block text-sm font-bold opacity-80">
+                    {module.subtitle}
+                  </span>
+                </span>
+                {game?.starsByStation?.[module.id as StationId] !== undefined && (
+                  <span className="flex items-center gap-1 rounded-full bg-card/40 px-2 py-1 text-sm font-bold">
+                    <Star className="h-4 w-4 fill-current" />
+                    {game.starsByStation[module.id as StationId]}
+                  </span>
+                )}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </main>
     </div>
   );
 }
-
 export default RegionShell;

@@ -27,6 +27,44 @@ export type IslandId =
   | "pre_reading"
   | "spelling";
 
+export function Tabs<T extends string>({
+  value,
+  onChange,
+  tabs,
+}: {
+  value: T;
+  onChange: (value: T) => void;
+  tabs: ReadonlyArray<{ id: T; label: string }>;
+}) {
+  return (
+    <div
+      role="tablist"
+      className="mb-5 flex gap-2 overflow-x-auto rounded-3xl bg-muted p-2"
+    >
+      {tabs.map((tab) => {
+        const isActive = tab.id === value;
+
+        return (
+          <button
+            key={tab.id}
+            type="button"
+            role="tab"
+            aria-selected={isActive}
+            onClick={() => onChange(tab.id)}
+            className={`toy-press min-w-16 flex-1 rounded-2xl px-4 py-3 font-display text-lg transition-colors ${
+              isActive
+                ? "bg-primary text-primary-foreground"
+                : "bg-card text-card-foreground"
+            }`}
+          >
+            {tab.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 // --- LISTA DE REPRODUCCIÓN DE MÚSICA INFANTIL DE FONDO ---
 const BACKGROUND_PLAYLIST = [
   "https://actions.google.com/sounds/v1/ambiences/children_playing.ogg",
