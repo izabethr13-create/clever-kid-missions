@@ -204,5 +204,4 @@ export function RegionShell({
     </div>
   );
 }
-
 export default RegionShell;
