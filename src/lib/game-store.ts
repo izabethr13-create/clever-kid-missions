@@ -139,7 +139,7 @@ export const gameActions = {
     set((s) => ({
       ...s,
       stars: s.stars + stars,
-      starsByStation: { ...s.starsByStation, [station]: s.starsByStation[station] + stars },
+      starsByStation: { ...s.starsByStation, [station]: (s.starsByStation[station] ?? 0) + stars },
       missionsToday: Math.min(DAILY_GOAL, s.missionsToday + 1),
       dayKey: today(),
     }));
