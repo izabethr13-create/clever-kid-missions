@@ -1,25 +1,11 @@
 import { useSyncExternalStore } from "react";
 
-export type StationId =
-  | "trazado"
-  | "ciencia_ciudadania"
-  | "comunicacion_lenguaje"
-  | "lectura"
-  | "matemáticas_espanol"
-  | "conversation"
-  | "grammar"
-  | "phonics"
-  | "numbers"
-  | "science"
-  | "vocabulary"
-  | "math"
-  | "pre_reading"
-  | "spelling";
+export type StationId = string;
 
 export type GameState = {
   name: string;
   stars: number;
-  starsByStation: Record<StationId, number>;
+  starsByStation: Record<string, number>;
   dayKey: string;
   missionsToday: number;
   unlocked: string[];
@@ -27,6 +13,7 @@ export type GameState = {
   music: boolean;
   voice: boolean;
 };
+
 
 export const DAILY_GOAL = 10;
 
@@ -152,7 +139,7 @@ export const gameActions = {
     set((s) => ({
       ...s,
       stars: s.stars + stars,
-      starsByStation: { ...s.starsByStation, [station]: s.starsByStation[station] + stars },
+      starsByStation: { ...s.starsByStation, [station]: (s.starsByStation[station] ?? 0) + stars },
       missionsToday: Math.min(DAILY_GOAL, s.missionsToday + 1),
       dayKey: today(),
     }));
