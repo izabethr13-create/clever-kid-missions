@@ -4,17 +4,19 @@ import { RegionShell, type ModuleCard } from "@/components/game/RegionShell";
 export const Route = createFileRoute("/ciencia")({
   head: () => ({
     meta: [
-      { title: "Isla de la Ciencia — Huerto, energía y animales | Isla del Aprendizaje" },
+      { title: "Isla de la Ciencia y Ciudadanía | Isla del Aprendizaje" },
       {
         name: "description",
         content:
-          "Ciencia y ciudadanía para niños: huerto virtual con frutas y verduras, naturaleza animada e inanimada, energía de calor, luz y sonido, cadenas alimenticias y hábitats.",
+          "Ciencia para niños: huerto, energía y reciclaje, cuidado animal, el universo y los astros, y civismo de Guatemala con símbolos patrios.",
       },
-      { property: "og:title", content: "Isla de la Ciencia" },
+      { property: "og:title", content: "Isla de la Ciencia y Ciudadanía" },
       {
         property: "og:description",
-        content: "Siembra, clasifica, recicla y cuida a los animales en tres estaciones de ciencia.",
+        content: "Huerto, energía, animales, universo y Guatemala en cinco misiones.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: CienciaPage,
@@ -25,33 +27,49 @@ const MODULES: ModuleCard[] = [
     id: "huerto",
     to: "/huerto",
     emoji: "🌱",
-    title: "C1 · El Huerto Virtual",
-    subtitle: "Sembrar, regar, cosechar y clasificar",
+    title: "C1 · El Huerto",
+    subtitle: "Siembra, frutas y verduras",
     color: "bg-grass text-grass-foreground",
   },
   {
     id: "energia",
     to: "/energia",
-    emoji: "💡",
-    title: "C2 · Valle de la Energía",
-    subtitle: "Seres vivos, reciclaje, calor, luz y sonido",
+    emoji: "⚡",
+    title: "C2 · Energía y reciclaje",
+    subtitle: "Seres vivos, basura y energía",
     color: "bg-sun text-sun-foreground",
   },
   {
     id: "reserva",
     to: "/reserva",
-    emoji: "🦁",
-    title: "C3 · La Reserva Salvaje",
-    subtitle: "Cadenas alimenticias, hábitats y cuidado animal",
+    emoji: "🐾",
+    title: "C3 · Reserva animal",
+    subtitle: "Hábitats y cadenas alimenticias",
+    color: "bg-primary text-primary-foreground",
+  },
+  {
+    id: "universo",
+    to: "/universo",
+    emoji: "🪐",
+    title: "C4 · El Universo",
+    subtitle: "Astros, clima, recursos y minerales",
     color: "bg-sky text-sky-foreground",
+  },
+  {
+    id: "guatemala",
+    to: "/guatemala",
+    emoji: "🇬🇹",
+    title: "C5 · Guatemala",
+    subtitle: "Civismo, mapa, símbolos y tradiciones",
+    color: "bg-berry text-berry-foreground",
   },
 ];
 
 function CienciaPage() {
   return (
     <RegionShell
-      title="Isla de la Ciencia"
-      emoji="🌍"
+      title="Isla de la Ciencia y Ciudadanía"
+      emoji="🔬"
       intro="Toca un módulo para empezar la misión"
       modules={MODULES}
     />
