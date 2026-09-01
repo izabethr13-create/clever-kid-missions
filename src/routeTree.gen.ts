@@ -24,6 +24,7 @@ import { Route as EvaluacionRouteImport } from './routes/evaluacion'
 import { Route as GuatemalaRouteImport } from './routes/guatemala'
 import { Route as HuertoRouteImport } from './routes/huerto'
 import { Route as InversasRouteImport } from './routes/inversas'
+import { Route as LecturaRouteImport } from './routes/lectura'
 import { Route as LenguajeRouteImport } from './routes/lenguaje'
 import { Route as MatematicasRouteImport } from './routes/matematicas'
 import { Route as MonedaRouteImport } from './routes/moneda'
@@ -116,6 +117,11 @@ const HuertoRoute = HuertoRouteImport.update({
 const InversasRoute = InversasRouteImport.update({
   id: '/inversas',
   path: '/inversas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LecturaRoute = LecturaRouteImport.update({
+  id: '/lectura',
+  path: '/lectura',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LenguajeRoute = LenguajeRouteImport.update({
@@ -225,6 +231,7 @@ export interface FileRoutesByFullPath {
   '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
   '/inversas': typeof InversasRoute
+  '/lectura': typeof LecturaRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
   '/moneda': typeof MonedaRoute
@@ -260,6 +267,7 @@ export interface FileRoutesByTo {
   '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
   '/inversas': typeof InversasRoute
+  '/lectura': typeof LecturaRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
   '/moneda': typeof MonedaRoute
@@ -296,6 +304,7 @@ export interface FileRoutesById {
   '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
   '/inversas': typeof InversasRoute
+  '/lectura': typeof LecturaRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
   '/moneda': typeof MonedaRoute
@@ -333,6 +342,7 @@ export interface FileRouteTypes {
     | '/guatemala'
     | '/huerto'
     | '/inversas'
+    | '/lectura'
     | '/lenguaje'
     | '/matematicas'
     | '/moneda'
@@ -368,6 +378,7 @@ export interface FileRouteTypes {
     | '/guatemala'
     | '/huerto'
     | '/inversas'
+    | '/lectura'
     | '/lenguaje'
     | '/matematicas'
     | '/moneda'
@@ -403,6 +414,7 @@ export interface FileRouteTypes {
     | '/guatemala'
     | '/huerto'
     | '/inversas'
+    | '/lectura'
     | '/lenguaje'
     | '/matematicas'
     | '/moneda'
@@ -439,6 +451,7 @@ export interface RootRouteChildren {
   GuatemalaRoute: typeof GuatemalaRoute
   HuertoRoute: typeof HuertoRoute
   InversasRoute: typeof InversasRoute
+  LecturaRoute: typeof LecturaRoute
   LenguajeRoute: typeof LenguajeRoute
   MatematicasRoute: typeof MatematicasRoute
   MonedaRoute: typeof MonedaRoute
@@ -564,6 +577,13 @@ declare module '@tanstack/react-router' {
       path: '/inversas'
       fullPath: '/inversas'
       preLoaderRoute: typeof InversasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lectura': {
+      id: '/lectura'
+      path: '/lectura'
+      fullPath: '/lectura'
+      preLoaderRoute: typeof LecturaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lenguaje': {
@@ -711,6 +731,7 @@ const rootRouteChildren: RootRouteChildren = {
   GuatemalaRoute: GuatemalaRoute,
   HuertoRoute: HuertoRoute,
   InversasRoute: InversasRoute,
+  LecturaRoute: LecturaRoute,
   LenguajeRoute: LenguajeRoute,
   MatematicasRoute: MatematicasRoute,
   MonedaRoute: MonedaRoute,
