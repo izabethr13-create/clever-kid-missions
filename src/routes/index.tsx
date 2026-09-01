@@ -1,18 +1,24 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Star } from "lucide-react";
 import { Avatar } from "@/components/game/Avatar";
-import { DAILY_GOAL, useGame, gameActions, type StationId } from "@/lib/game-store";
+import { DAILY_GOAL, useGame, gameActions } from "@/lib/game-store";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Isla del Aprendizaje — Matemáticas, Español e Inglés para niños" },
+      { title: "Isla del Aprendizaje — Matemáticas, Español, Ciencia e Inglés" },
       {
         name: "description",
         content:
-          "Aventura educativa para niños con misiones diarias, estrellas y premios.",
+          "Aventura educativa para niños de 6 años con misiones diarias, estrellas y premios. Matemáticas, lenguaje, lectura, ciencia y English.",
       },
       { property: "og:title", content: "Isla del Aprendizaje — Juego de misiones" },
+      {
+        property: "og:description",
+        content: "Cinco islas de juegos con voz, música y actividades adaptadas.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: MapPage,
@@ -24,119 +30,68 @@ const REGIONS: {
   title: string;
   subtitle: string;
   color: string;
-  stations: StationId[];
+  stations: string[];
 }[] = [
   {
-    to: "/trazado",
-    emoji: "✍️",
-    title: "Trazado de Letras",
-    subtitle: "Práctica de trazo digital e interactivo",
-    color: "bg-amber-400 text-amber-950",
-    stations: ["trazado" as StationId],
+    to: "/matematicas",
+    emoji: "🏝️",
+    title: "Isla de las Matemáticas",
+    subtitle: "Números 1-100, romanos, mayas, reloj y moneda",
+    color: "bg-sky text-sky-foreground",
+    stations: [
+      "camino",
+      "cueva",
+      "pizzeria",
+      "torre",
+      "cocodrilo",
+      "numeros100",
+      "romanos",
+      "mayas",
+      "calendario",
+      "moneda",
+    ],
   },
   {
-    to: "/comunicacion_lenguaje",
-    emoji: "🗣️",
-    title: "Comunicación y Lenguaje",
-    subtitle: "Consonantes, diéresis y oraciones",
+    to: "/lenguaje",
+    emoji: "🌳",
+    title: "Bosque del Lenguaje",
+    subtitle: "Trazos, consonantes, inversas, güe/güi y oraciones",
     color: "bg-grass text-grass-foreground",
-    stations: ["comunicacion_lenguaje" as StationId],
+    stations: ["trazos", "consonantes", "inversas", "oraciones"],
   },
   {
     to: "/lectura",
     emoji: "📖",
-    title: "Comprensión Lectora",
-    subtitle: "Lectura rápida y cuentos cortos",
-    color: "bg-teal-400 text-teal-950",
-    stations: ["lectura" as StationId],
-  },
-  {
-    to: "/matematicas_espanol",
-    emoji: "🔢",
-    title: "Matemáticas (Español)",
-    subtitle: "Números romanos, mayas y sumas",
-    color: "bg-sky text-sky-foreground",
-    stations: ["matemáticas_espanol" as StationId],
-  },
-  {
-    to: "/ciencia_ciudadania",
-    emoji: "🌱",
-    title: "Ciencia y Ciudadanía",
-    subtitle: "Cuerpos celestes y civismo",
-    color: "bg-primary text-primary-foreground",
-    stations: ["ciencia_ciudadania" as StationId],
-  },
-  {
-    to: "/conversation",
-    emoji: "💬",
-    title: "English Conversation",
-    subtitle: "Animals, zoo routines and travel",
-    color: "bg-blue-400 text-blue-950",
-    stations: ["conversation" as StationId],
-  },
-  {
-    to: "/grammar",
-    emoji: "📝",
-    title: "English Grammar",
-    subtitle: "Zookeeper routines and descriptions",
-    color: "bg-indigo-400 text-indigo-950",
-    stations: ["grammar" as StationId],
-  },
-  {
-    to: "/phonics",
-    emoji: "🔊",
-    title: "Phonics & Vowels",
-    subtitle: "Long and short vowel sounds",
+    title: "Isla de la Lectura",
+    subtitle: "Evaluaciones cortas y técnicas de comprensión",
     color: "bg-berry text-berry-foreground",
-    stations: ["phonics" as StationId],
+    stations: ["evaluacion", "tecnicas"],
   },
   {
-    to: "/numbers",
-    emoji: "⏰",
-    title: "Numbers & Time",
-    subtitle: "Clocks and sequence counting",
-    color: "bg-purple-400 text-purple-950",
-    stations: ["numbers" as StationId],
-  },
-  {
-    to: "/science",
+    to: "/ciencia",
     emoji: "🔬",
-    title: "Science in English",
-    subtitle: "Caterpillar metamorphosis and nature",
-    color: "bg-rose-400 text-rose-950",
-    stations: ["science" as StationId],
+    title: "Isla de la Ciencia y Ciudadanía",
+    subtitle: "Huerto, energía, animales, universo y Guatemala",
+    color: "bg-primary text-primary-foreground",
+    stations: ["huerto", "energia", "reserva", "universo", "guatemala"],
   },
   {
-    to: "/vocabulary",
-    emoji: "🎨",
-    title: "Vocabulary Building",
-    subtitle: "Animals, places and object names",
-    color: "bg-pink-400 text-pink-950",
-    stations: ["vocabulary" as StationId],
-  },
-  {
-    to: "/math",
-    emoji: "➕",
-    title: "Math (English)",
-    subtitle: "Tens, ones and basic math",
-    color: "bg-cyan-400 text-cyan-950",
-    stations: ["math" as StationId],
-  },
-  {
-    to: "/pre_reading",
-    emoji: "🔤",
-    title: "Pre-Reading CVC",
-    subtitle: "Short CVC word lists and phonics",
-    color: "bg-fuchsia-400 text-fuchsia-950",
-    stations: ["pre_reading" as StationId],
-  },
-  {
-    to: "/spelling",
-    emoji: "🐝",
-    title: "Spelling Bee",
-    subtitle: "Interactive spelling practice",
-    color: "bg-orange-400 text-orange-950",
-    stations: ["spelling" as StationId],
+    to: "/english",
+    emoji: "🦁",
+    title: "Phonics Safari (English)",
+    subtitle: "Zoo, places, phonics, CVC, vowels y Spelling Bee",
+    color: "bg-sun text-sun-foreground",
+    stations: [
+      "phonics",
+      "vowels",
+      "cvc",
+      "vocabulario",
+      "zoo",
+      "places",
+      "spelling",
+      "restaurant",
+      "commands",
+    ],
   },
 ];
 
@@ -181,7 +136,9 @@ function MapPage() {
         </div>
       </header>
 
-      <h1 className="mt-6 text-center font-display text-3xl">Isla del Aprendizaje</h1>
+      <h1 className="mt-6 text-center font-display text-3xl tracking-wide">
+        Isla del Aprendizaje
+      </h1>
       <p className="mt-1 text-center text-sm font-bold text-muted-foreground">
         Elige una isla del archipiélago para jugar
       </p>
@@ -197,13 +154,15 @@ function MapPage() {
                   to={r.to}
                   className={`flex items-center gap-4 rounded-4xl px-5 py-6 toy-press ${r.color}`}
                 >
-                  <span className="text-4xl">{r.emoji}</span>
+                  <span className="text-5xl">{r.emoji}</span>
                   <span className="min-w-0 flex-1">
-                    <span className="block font-display text-xl leading-tight">{r.title}</span>
+                    <span className="block font-display text-2xl leading-tight tracking-wide">
+                      {r.title}
+                    </span>
                     <span className="block text-sm font-bold opacity-80">{r.subtitle}</span>
                   </span>
-                  <span className="flex items-center gap-1 rounded-full bg-card/40 px-2 py-1 text-sm font-bold">
-                    <Star className="h-4 w-4 fill-current" />
+                  <span className="flex shrink-0 items-center gap-1 font-display text-xl">
+                    <Star className="h-5 w-5 fill-current" />
                     {stars}
                   </span>
                 </Link>
@@ -212,37 +171,6 @@ function MapPage() {
           })}
         </ul>
       </nav>
-
-      <div className="mx-auto mt-8 max-w-xl space-y-3 px-4">
-        <Link
-          to="/premios"
-          className="block rounded-4xl bg-card px-5 py-4 text-center font-display text-xl toy-press"
-        >
-          🎁 Mis premios y mi avatar
-        </Link>
-        <div className="grid grid-cols-2 gap-3">
-          <button
-            type="button"
-            onClick={() => gameActions.toggleMusic()}
-            aria-pressed={game.music}
-            className={`rounded-4xl px-4 py-4 font-display text-lg toy-press ${
-              game.music ? "bg-grass text-grass-foreground" : "bg-card text-card-foreground"
-            }`}
-          >
-            {game.music ? "🎵 Música: sí" : "🔇 Música: no"}
-          </button>
-          <button
-            type="button"
-            onClick={() => gameActions.toggleVoice()}
-            aria-pressed={game.voice}
-            className={`rounded-4xl px-4 py-4 font-display text-lg toy-press ${
-              game.voice ? "bg-sky text-sky-foreground" : "bg-card text-card-foreground"
-            }`}
-          >
-            {game.voice ? "🗣️ Voz: sí" : "🤫 Voz: no"}
-          </button>
-        </div>
-      </div>
     </div>
   );
 }
