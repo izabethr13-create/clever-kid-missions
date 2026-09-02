@@ -27,11 +27,13 @@ import { Route as InversasRouteImport } from './routes/inversas'
 import { Route as LecturaRouteImport } from './routes/lectura'
 import { Route as LenguajeRouteImport } from './routes/lenguaje'
 import { Route as MatematicasRouteImport } from './routes/matematicas'
+import { Route as MayasRouteImport } from './routes/mayas'
 import { Route as MonedaRouteImport } from './routes/moneda'
 import { Route as Numeros100RouteImport } from './routes/numeros100'
 import { Route as OracionesRouteImport } from './routes/oraciones'
 import { Route as PhonicsRouteImport } from './routes/phonics'
 import { Route as PizzeriaRouteImport } from './routes/pizzeria'
+import { Route as PlacesRouteImport } from './routes/places'
 import { Route as PremiosRouteImport } from './routes/premios'
 import { Route as ReservaRouteImport } from './routes/reserva'
 import { Route as RestaurantRouteImport } from './routes/restaurant'
@@ -134,6 +136,11 @@ const MatematicasRoute = MatematicasRouteImport.update({
   path: '/matematicas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MayasRoute = MayasRouteImport.update({
+  id: '/mayas',
+  path: '/mayas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MonedaRoute = MonedaRouteImport.update({
   id: '/moneda',
   path: '/moneda',
@@ -157,6 +164,11 @@ const PhonicsRoute = PhonicsRouteImport.update({
 const PizzeriaRoute = PizzeriaRouteImport.update({
   id: '/pizzeria',
   path: '/pizzeria',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlacesRoute = PlacesRouteImport.update({
+  id: '/places',
+  path: '/places',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PremiosRoute = PremiosRouteImport.update({
@@ -234,11 +246,13 @@ export interface FileRoutesByFullPath {
   '/lectura': typeof LecturaRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
+  '/mayas': typeof MayasRoute
   '/moneda': typeof MonedaRoute
   '/numeros100': typeof Numeros100Route
   '/oraciones': typeof OracionesRoute
   '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
+  '/places': typeof PlacesRoute
   '/premios': typeof PremiosRoute
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
@@ -270,11 +284,13 @@ export interface FileRoutesByTo {
   '/lectura': typeof LecturaRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
+  '/mayas': typeof MayasRoute
   '/moneda': typeof MonedaRoute
   '/numeros100': typeof Numeros100Route
   '/oraciones': typeof OracionesRoute
   '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
+  '/places': typeof PlacesRoute
   '/premios': typeof PremiosRoute
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
@@ -307,11 +323,13 @@ export interface FileRoutesById {
   '/lectura': typeof LecturaRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
+  '/mayas': typeof MayasRoute
   '/moneda': typeof MonedaRoute
   '/numeros100': typeof Numeros100Route
   '/oraciones': typeof OracionesRoute
   '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
+  '/places': typeof PlacesRoute
   '/premios': typeof PremiosRoute
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
@@ -345,11 +363,13 @@ export interface FileRouteTypes {
     | '/lectura'
     | '/lenguaje'
     | '/matematicas'
+    | '/mayas'
     | '/moneda'
     | '/numeros100'
     | '/oraciones'
     | '/phonics'
     | '/pizzeria'
+    | '/places'
     | '/premios'
     | '/reserva'
     | '/restaurant'
@@ -381,11 +401,13 @@ export interface FileRouteTypes {
     | '/lectura'
     | '/lenguaje'
     | '/matematicas'
+    | '/mayas'
     | '/moneda'
     | '/numeros100'
     | '/oraciones'
     | '/phonics'
     | '/pizzeria'
+    | '/places'
     | '/premios'
     | '/reserva'
     | '/restaurant'
@@ -417,11 +439,13 @@ export interface FileRouteTypes {
     | '/lectura'
     | '/lenguaje'
     | '/matematicas'
+    | '/mayas'
     | '/moneda'
     | '/numeros100'
     | '/oraciones'
     | '/phonics'
     | '/pizzeria'
+    | '/places'
     | '/premios'
     | '/reserva'
     | '/restaurant'
@@ -454,11 +478,13 @@ export interface RootRouteChildren {
   LecturaRoute: typeof LecturaRoute
   LenguajeRoute: typeof LenguajeRoute
   MatematicasRoute: typeof MatematicasRoute
+  MayasRoute: typeof MayasRoute
   MonedaRoute: typeof MonedaRoute
   Numeros100Route: typeof Numeros100Route
   OracionesRoute: typeof OracionesRoute
   PhonicsRoute: typeof PhonicsRoute
   PizzeriaRoute: typeof PizzeriaRoute
+  PlacesRoute: typeof PlacesRoute
   PremiosRoute: typeof PremiosRoute
   ReservaRoute: typeof ReservaRoute
   RestaurantRoute: typeof RestaurantRoute
@@ -600,6 +626,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MatematicasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mayas': {
+      id: '/mayas'
+      path: '/mayas'
+      fullPath: '/mayas'
+      preLoaderRoute: typeof MayasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/moneda': {
       id: '/moneda'
       path: '/moneda'
@@ -633,6 +666,13 @@ declare module '@tanstack/react-router' {
       path: '/pizzeria'
       fullPath: '/pizzeria'
       preLoaderRoute: typeof PizzeriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/places': {
+      id: '/places'
+      path: '/places'
+      fullPath: '/places'
+      preLoaderRoute: typeof PlacesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/premios': {
@@ -734,11 +774,13 @@ const rootRouteChildren: RootRouteChildren = {
   LecturaRoute: LecturaRoute,
   LenguajeRoute: LenguajeRoute,
   MatematicasRoute: MatematicasRoute,
+  MayasRoute: MayasRoute,
   MonedaRoute: MonedaRoute,
   Numeros100Route: Numeros100Route,
   OracionesRoute: OracionesRoute,
   PhonicsRoute: PhonicsRoute,
   PizzeriaRoute: PizzeriaRoute,
+  PlacesRoute: PlacesRoute,
   PremiosRoute: PremiosRoute,
   ReservaRoute: ReservaRoute,
   RestaurantRoute: RestaurantRoute,
