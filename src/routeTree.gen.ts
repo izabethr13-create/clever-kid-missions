@@ -25,6 +25,7 @@ import { Route as GuatemalaRouteImport } from './routes/guatemala'
 import { Route as HuertoRouteImport } from './routes/huerto'
 import { Route as InversasRouteImport } from './routes/inversas'
 import { Route as LecturaRouteImport } from './routes/lectura'
+import { Route as LecturasRouteImport } from './routes/lecturas'
 import { Route as LenguajeRouteImport } from './routes/lenguaje'
 import { Route as MatematicasRouteImport } from './routes/matematicas'
 import { Route as MayasRouteImport } from './routes/mayas'
@@ -125,6 +126,11 @@ const InversasRoute = InversasRouteImport.update({
 const LecturaRoute = LecturaRouteImport.update({
   id: '/lectura',
   path: '/lectura',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LecturasRoute = LecturasRouteImport.update({
+  id: '/lecturas',
+  path: '/lecturas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LenguajeRoute = LenguajeRouteImport.update({
@@ -250,6 +256,7 @@ export interface FileRoutesByFullPath {
   '/huerto': typeof HuertoRoute
   '/inversas': typeof InversasRoute
   '/lectura': typeof LecturaRoute
+  '/lecturas': typeof LecturasRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
   '/mayas': typeof MayasRoute
@@ -289,6 +296,7 @@ export interface FileRoutesByTo {
   '/huerto': typeof HuertoRoute
   '/inversas': typeof InversasRoute
   '/lectura': typeof LecturaRoute
+  '/lecturas': typeof LecturasRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
   '/mayas': typeof MayasRoute
@@ -329,6 +337,7 @@ export interface FileRoutesById {
   '/huerto': typeof HuertoRoute
   '/inversas': typeof InversasRoute
   '/lectura': typeof LecturaRoute
+  '/lecturas': typeof LecturasRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
   '/mayas': typeof MayasRoute
@@ -370,6 +379,7 @@ export interface FileRouteTypes {
     | '/huerto'
     | '/inversas'
     | '/lectura'
+    | '/lecturas'
     | '/lenguaje'
     | '/matematicas'
     | '/mayas'
@@ -409,6 +419,7 @@ export interface FileRouteTypes {
     | '/huerto'
     | '/inversas'
     | '/lectura'
+    | '/lecturas'
     | '/lenguaje'
     | '/matematicas'
     | '/mayas'
@@ -448,6 +459,7 @@ export interface FileRouteTypes {
     | '/huerto'
     | '/inversas'
     | '/lectura'
+    | '/lecturas'
     | '/lenguaje'
     | '/matematicas'
     | '/mayas'
@@ -488,6 +500,7 @@ export interface RootRouteChildren {
   HuertoRoute: typeof HuertoRoute
   InversasRoute: typeof InversasRoute
   LecturaRoute: typeof LecturaRoute
+  LecturasRoute: typeof LecturasRoute
   LenguajeRoute: typeof LenguajeRoute
   MatematicasRoute: typeof MatematicasRoute
   MayasRoute: typeof MayasRoute
@@ -623,6 +636,13 @@ declare module '@tanstack/react-router' {
       path: '/lectura'
       fullPath: '/lectura'
       preLoaderRoute: typeof LecturaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lecturas': {
+      id: '/lecturas'
+      path: '/lecturas'
+      fullPath: '/lecturas'
+      preLoaderRoute: typeof LecturasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lenguaje': {
@@ -792,6 +812,7 @@ const rootRouteChildren: RootRouteChildren = {
   HuertoRoute: HuertoRoute,
   InversasRoute: InversasRoute,
   LecturaRoute: LecturaRoute,
+  LecturasRoute: LecturasRoute,
   LenguajeRoute: LenguajeRoute,
   MatematicasRoute: MatematicasRoute,
   MayasRoute: MayasRoute,
