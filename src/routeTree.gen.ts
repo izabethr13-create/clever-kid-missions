@@ -27,15 +27,18 @@ import { Route as InversasRouteImport } from './routes/inversas'
 import { Route as LecturaRouteImport } from './routes/lectura'
 import { Route as LenguajeRouteImport } from './routes/lenguaje'
 import { Route as MatematicasRouteImport } from './routes/matematicas'
+import { Route as MayasRouteImport } from './routes/mayas'
 import { Route as MonedaRouteImport } from './routes/moneda'
 import { Route as Numeros100RouteImport } from './routes/numeros100'
 import { Route as OracionesRouteImport } from './routes/oraciones'
 import { Route as PhonicsRouteImport } from './routes/phonics'
 import { Route as PizzeriaRouteImport } from './routes/pizzeria'
+import { Route as PlacesRouteImport } from './routes/places'
 import { Route as PremiosRouteImport } from './routes/premios'
 import { Route as ReservaRouteImport } from './routes/reserva'
 import { Route as RestaurantRouteImport } from './routes/restaurant'
 import { Route as RomanosRouteImport } from './routes/romanos'
+import { Route as SpellingRouteImport } from './routes/spelling'
 import { Route as TecnicasRouteImport } from './routes/tecnicas'
 import { Route as TorreRouteImport } from './routes/torre'
 import { Route as TrazosRouteImport } from './routes/trazos'
@@ -134,6 +137,11 @@ const MatematicasRoute = MatematicasRouteImport.update({
   path: '/matematicas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MayasRoute = MayasRouteImport.update({
+  id: '/mayas',
+  path: '/mayas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MonedaRoute = MonedaRouteImport.update({
   id: '/moneda',
   path: '/moneda',
@@ -159,6 +167,11 @@ const PizzeriaRoute = PizzeriaRouteImport.update({
   path: '/pizzeria',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlacesRoute = PlacesRouteImport.update({
+  id: '/places',
+  path: '/places',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PremiosRoute = PremiosRouteImport.update({
   id: '/premios',
   path: '/premios',
@@ -177,6 +190,11 @@ const RestaurantRoute = RestaurantRouteImport.update({
 const RomanosRoute = RomanosRouteImport.update({
   id: '/romanos',
   path: '/romanos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SpellingRoute = SpellingRouteImport.update({
+  id: '/spelling',
+  path: '/spelling',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TecnicasRoute = TecnicasRouteImport.update({
@@ -234,15 +252,18 @@ export interface FileRoutesByFullPath {
   '/lectura': typeof LecturaRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
+  '/mayas': typeof MayasRoute
   '/moneda': typeof MonedaRoute
   '/numeros100': typeof Numeros100Route
   '/oraciones': typeof OracionesRoute
   '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
+  '/places': typeof PlacesRoute
   '/premios': typeof PremiosRoute
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
   '/romanos': typeof RomanosRoute
+  '/spelling': typeof SpellingRoute
   '/tecnicas': typeof TecnicasRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
@@ -270,15 +291,18 @@ export interface FileRoutesByTo {
   '/lectura': typeof LecturaRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
+  '/mayas': typeof MayasRoute
   '/moneda': typeof MonedaRoute
   '/numeros100': typeof Numeros100Route
   '/oraciones': typeof OracionesRoute
   '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
+  '/places': typeof PlacesRoute
   '/premios': typeof PremiosRoute
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
   '/romanos': typeof RomanosRoute
+  '/spelling': typeof SpellingRoute
   '/tecnicas': typeof TecnicasRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
@@ -307,15 +331,18 @@ export interface FileRoutesById {
   '/lectura': typeof LecturaRoute
   '/lenguaje': typeof LenguajeRoute
   '/matematicas': typeof MatematicasRoute
+  '/mayas': typeof MayasRoute
   '/moneda': typeof MonedaRoute
   '/numeros100': typeof Numeros100Route
   '/oraciones': typeof OracionesRoute
   '/phonics': typeof PhonicsRoute
   '/pizzeria': typeof PizzeriaRoute
+  '/places': typeof PlacesRoute
   '/premios': typeof PremiosRoute
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
   '/romanos': typeof RomanosRoute
+  '/spelling': typeof SpellingRoute
   '/tecnicas': typeof TecnicasRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
@@ -345,15 +372,18 @@ export interface FileRouteTypes {
     | '/lectura'
     | '/lenguaje'
     | '/matematicas'
+    | '/mayas'
     | '/moneda'
     | '/numeros100'
     | '/oraciones'
     | '/phonics'
     | '/pizzeria'
+    | '/places'
     | '/premios'
     | '/reserva'
     | '/restaurant'
     | '/romanos'
+    | '/spelling'
     | '/tecnicas'
     | '/torre'
     | '/trazos'
@@ -381,15 +411,18 @@ export interface FileRouteTypes {
     | '/lectura'
     | '/lenguaje'
     | '/matematicas'
+    | '/mayas'
     | '/moneda'
     | '/numeros100'
     | '/oraciones'
     | '/phonics'
     | '/pizzeria'
+    | '/places'
     | '/premios'
     | '/reserva'
     | '/restaurant'
     | '/romanos'
+    | '/spelling'
     | '/tecnicas'
     | '/torre'
     | '/trazos'
@@ -417,15 +450,18 @@ export interface FileRouteTypes {
     | '/lectura'
     | '/lenguaje'
     | '/matematicas'
+    | '/mayas'
     | '/moneda'
     | '/numeros100'
     | '/oraciones'
     | '/phonics'
     | '/pizzeria'
+    | '/places'
     | '/premios'
     | '/reserva'
     | '/restaurant'
     | '/romanos'
+    | '/spelling'
     | '/tecnicas'
     | '/torre'
     | '/trazos'
@@ -454,15 +490,18 @@ export interface RootRouteChildren {
   LecturaRoute: typeof LecturaRoute
   LenguajeRoute: typeof LenguajeRoute
   MatematicasRoute: typeof MatematicasRoute
+  MayasRoute: typeof MayasRoute
   MonedaRoute: typeof MonedaRoute
   Numeros100Route: typeof Numeros100Route
   OracionesRoute: typeof OracionesRoute
   PhonicsRoute: typeof PhonicsRoute
   PizzeriaRoute: typeof PizzeriaRoute
+  PlacesRoute: typeof PlacesRoute
   PremiosRoute: typeof PremiosRoute
   ReservaRoute: typeof ReservaRoute
   RestaurantRoute: typeof RestaurantRoute
   RomanosRoute: typeof RomanosRoute
+  SpellingRoute: typeof SpellingRoute
   TecnicasRoute: typeof TecnicasRoute
   TorreRoute: typeof TorreRoute
   TrazosRoute: typeof TrazosRoute
@@ -600,6 +639,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MatematicasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mayas': {
+      id: '/mayas'
+      path: '/mayas'
+      fullPath: '/mayas'
+      preLoaderRoute: typeof MayasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/moneda': {
       id: '/moneda'
       path: '/moneda'
@@ -635,6 +681,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PizzeriaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/places': {
+      id: '/places'
+      path: '/places'
+      fullPath: '/places'
+      preLoaderRoute: typeof PlacesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/premios': {
       id: '/premios'
       path: '/premios'
@@ -661,6 +714,13 @@ declare module '@tanstack/react-router' {
       path: '/romanos'
       fullPath: '/romanos'
       preLoaderRoute: typeof RomanosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/spelling': {
+      id: '/spelling'
+      path: '/spelling'
+      fullPath: '/spelling'
+      preLoaderRoute: typeof SpellingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tecnicas': {
@@ -734,15 +794,18 @@ const rootRouteChildren: RootRouteChildren = {
   LecturaRoute: LecturaRoute,
   LenguajeRoute: LenguajeRoute,
   MatematicasRoute: MatematicasRoute,
+  MayasRoute: MayasRoute,
   MonedaRoute: MonedaRoute,
   Numeros100Route: Numeros100Route,
   OracionesRoute: OracionesRoute,
   PhonicsRoute: PhonicsRoute,
   PizzeriaRoute: PizzeriaRoute,
+  PlacesRoute: PlacesRoute,
   PremiosRoute: PremiosRoute,
   ReservaRoute: ReservaRoute,
   RestaurantRoute: RestaurantRoute,
   RomanosRoute: RomanosRoute,
+  SpellingRoute: SpellingRoute,
   TecnicasRoute: TecnicasRoute,
   TorreRoute: TorreRoute,
   TrazosRoute: TrazosRoute,
