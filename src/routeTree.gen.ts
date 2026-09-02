@@ -38,6 +38,7 @@ import { Route as PremiosRouteImport } from './routes/premios'
 import { Route as ReservaRouteImport } from './routes/reserva'
 import { Route as RestaurantRouteImport } from './routes/restaurant'
 import { Route as RomanosRouteImport } from './routes/romanos'
+import { Route as SpellingRouteImport } from './routes/spelling'
 import { Route as TecnicasRouteImport } from './routes/tecnicas'
 import { Route as TorreRouteImport } from './routes/torre'
 import { Route as TrazosRouteImport } from './routes/trazos'
@@ -191,6 +192,11 @@ const RomanosRoute = RomanosRouteImport.update({
   path: '/romanos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SpellingRoute = SpellingRouteImport.update({
+  id: '/spelling',
+  path: '/spelling',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TecnicasRoute = TecnicasRouteImport.update({
   id: '/tecnicas',
   path: '/tecnicas',
@@ -257,6 +263,7 @@ export interface FileRoutesByFullPath {
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
   '/romanos': typeof RomanosRoute
+  '/spelling': typeof SpellingRoute
   '/tecnicas': typeof TecnicasRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
@@ -295,6 +302,7 @@ export interface FileRoutesByTo {
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
   '/romanos': typeof RomanosRoute
+  '/spelling': typeof SpellingRoute
   '/tecnicas': typeof TecnicasRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
@@ -334,6 +342,7 @@ export interface FileRoutesById {
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
   '/romanos': typeof RomanosRoute
+  '/spelling': typeof SpellingRoute
   '/tecnicas': typeof TecnicasRoute
   '/torre': typeof TorreRoute
   '/trazos': typeof TrazosRoute
@@ -374,6 +383,7 @@ export interface FileRouteTypes {
     | '/reserva'
     | '/restaurant'
     | '/romanos'
+    | '/spelling'
     | '/tecnicas'
     | '/torre'
     | '/trazos'
@@ -412,6 +422,7 @@ export interface FileRouteTypes {
     | '/reserva'
     | '/restaurant'
     | '/romanos'
+    | '/spelling'
     | '/tecnicas'
     | '/torre'
     | '/trazos'
@@ -450,6 +461,7 @@ export interface FileRouteTypes {
     | '/reserva'
     | '/restaurant'
     | '/romanos'
+    | '/spelling'
     | '/tecnicas'
     | '/torre'
     | '/trazos'
@@ -489,6 +501,7 @@ export interface RootRouteChildren {
   ReservaRoute: typeof ReservaRoute
   RestaurantRoute: typeof RestaurantRoute
   RomanosRoute: typeof RomanosRoute
+  SpellingRoute: typeof SpellingRoute
   TecnicasRoute: typeof TecnicasRoute
   TorreRoute: typeof TorreRoute
   TrazosRoute: typeof TrazosRoute
@@ -703,6 +716,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RomanosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/spelling': {
+      id: '/spelling'
+      path: '/spelling'
+      fullPath: '/spelling'
+      preLoaderRoute: typeof SpellingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tecnicas': {
       id: '/tecnicas'
       path: '/tecnicas'
@@ -785,6 +805,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReservaRoute: ReservaRoute,
   RestaurantRoute: RestaurantRoute,
   RomanosRoute: RomanosRoute,
+  SpellingRoute: SpellingRoute,
   TecnicasRoute: TecnicasRoute,
   TorreRoute: TorreRoute,
   TrazosRoute: TrazosRoute,
