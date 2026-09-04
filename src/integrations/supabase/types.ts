@@ -14,7 +14,24 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      progreso_nube: {
+        Row: {
+          code: string
+          data: Json
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          data?: Json
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          data?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
