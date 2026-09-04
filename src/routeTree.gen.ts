@@ -36,6 +36,7 @@ import { Route as PhonicsRouteImport } from './routes/phonics'
 import { Route as PizzeriaRouteImport } from './routes/pizzeria'
 import { Route as PlacesRouteImport } from './routes/places'
 import { Route as PremiosRouteImport } from './routes/premios'
+import { Route as ProgresoRouteImport } from './routes/progreso'
 import { Route as ReservaRouteImport } from './routes/reserva'
 import { Route as RestaurantRouteImport } from './routes/restaurant'
 import { Route as RomanosRouteImport } from './routes/romanos'
@@ -183,6 +184,11 @@ const PremiosRoute = PremiosRouteImport.update({
   path: '/premios',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProgresoRoute = ProgresoRouteImport.update({
+  id: '/progreso',
+  path: '/progreso',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReservaRoute = ReservaRouteImport.update({
   id: '/reserva',
   path: '/reserva',
@@ -267,6 +273,7 @@ export interface FileRoutesByFullPath {
   '/pizzeria': typeof PizzeriaRoute
   '/places': typeof PlacesRoute
   '/premios': typeof PremiosRoute
+  '/progreso': typeof ProgresoRoute
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
   '/romanos': typeof RomanosRoute
@@ -307,6 +314,7 @@ export interface FileRoutesByTo {
   '/pizzeria': typeof PizzeriaRoute
   '/places': typeof PlacesRoute
   '/premios': typeof PremiosRoute
+  '/progreso': typeof ProgresoRoute
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
   '/romanos': typeof RomanosRoute
@@ -348,6 +356,7 @@ export interface FileRoutesById {
   '/pizzeria': typeof PizzeriaRoute
   '/places': typeof PlacesRoute
   '/premios': typeof PremiosRoute
+  '/progreso': typeof ProgresoRoute
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
   '/romanos': typeof RomanosRoute
@@ -390,6 +399,7 @@ export interface FileRouteTypes {
     | '/pizzeria'
     | '/places'
     | '/premios'
+    | '/progreso'
     | '/reserva'
     | '/restaurant'
     | '/romanos'
@@ -430,6 +440,7 @@ export interface FileRouteTypes {
     | '/pizzeria'
     | '/places'
     | '/premios'
+    | '/progreso'
     | '/reserva'
     | '/restaurant'
     | '/romanos'
@@ -470,6 +481,7 @@ export interface FileRouteTypes {
     | '/pizzeria'
     | '/places'
     | '/premios'
+    | '/progreso'
     | '/reserva'
     | '/restaurant'
     | '/romanos'
@@ -511,6 +523,7 @@ export interface RootRouteChildren {
   PizzeriaRoute: typeof PizzeriaRoute
   PlacesRoute: typeof PlacesRoute
   PremiosRoute: typeof PremiosRoute
+  ProgresoRoute: typeof ProgresoRoute
   ReservaRoute: typeof ReservaRoute
   RestaurantRoute: typeof RestaurantRoute
   RomanosRoute: typeof RomanosRoute
@@ -715,6 +728,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PremiosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/progreso': {
+      id: '/progreso'
+      path: '/progreso'
+      fullPath: '/progreso'
+      preLoaderRoute: typeof ProgresoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reserva': {
       id: '/reserva'
       path: '/reserva'
@@ -823,6 +843,7 @@ const rootRouteChildren: RootRouteChildren = {
   PizzeriaRoute: PizzeriaRoute,
   PlacesRoute: PlacesRoute,
   PremiosRoute: PremiosRoute,
+  ProgresoRoute: ProgresoRoute,
   ReservaRoute: ReservaRoute,
   RestaurantRoute: RestaurantRoute,
   RomanosRoute: RomanosRoute,
