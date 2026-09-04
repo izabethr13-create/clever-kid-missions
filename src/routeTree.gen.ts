@@ -24,6 +24,7 @@ import { Route as EvaluacionRouteImport } from './routes/evaluacion'
 import { Route as GuatemalaRouteImport } from './routes/guatemala'
 import { Route as HuertoRouteImport } from './routes/huerto'
 import { Route as InversasRouteImport } from './routes/inversas'
+import { Route as JardinRouteImport } from './routes/jardin'
 import { Route as LecturaRouteImport } from './routes/lectura'
 import { Route as LecturasRouteImport } from './routes/lecturas'
 import { Route as LenguajeRouteImport } from './routes/lenguaje'
@@ -36,6 +37,7 @@ import { Route as PhonicsRouteImport } from './routes/phonics'
 import { Route as PizzeriaRouteImport } from './routes/pizzeria'
 import { Route as PlacesRouteImport } from './routes/places'
 import { Route as PremiosRouteImport } from './routes/premios'
+import { Route as ProgresoRouteImport } from './routes/progreso'
 import { Route as ReservaRouteImport } from './routes/reserva'
 import { Route as RestaurantRouteImport } from './routes/restaurant'
 import { Route as RomanosRouteImport } from './routes/romanos'
@@ -123,6 +125,11 @@ const InversasRoute = InversasRouteImport.update({
   path: '/inversas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JardinRoute = JardinRouteImport.update({
+  id: '/jardin',
+  path: '/jardin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LecturaRoute = LecturaRouteImport.update({
   id: '/lectura',
   path: '/lectura',
@@ -181,6 +188,11 @@ const PlacesRoute = PlacesRouteImport.update({
 const PremiosRoute = PremiosRouteImport.update({
   id: '/premios',
   path: '/premios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgresoRoute = ProgresoRouteImport.update({
+  id: '/progreso',
+  path: '/progreso',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReservaRoute = ReservaRouteImport.update({
@@ -255,6 +267,7 @@ export interface FileRoutesByFullPath {
   '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
   '/inversas': typeof InversasRoute
+  '/jardin': typeof JardinRoute
   '/lectura': typeof LecturaRoute
   '/lecturas': typeof LecturasRoute
   '/lenguaje': typeof LenguajeRoute
@@ -267,6 +280,7 @@ export interface FileRoutesByFullPath {
   '/pizzeria': typeof PizzeriaRoute
   '/places': typeof PlacesRoute
   '/premios': typeof PremiosRoute
+  '/progreso': typeof ProgresoRoute
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
   '/romanos': typeof RomanosRoute
@@ -295,6 +309,7 @@ export interface FileRoutesByTo {
   '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
   '/inversas': typeof InversasRoute
+  '/jardin': typeof JardinRoute
   '/lectura': typeof LecturaRoute
   '/lecturas': typeof LecturasRoute
   '/lenguaje': typeof LenguajeRoute
@@ -307,6 +322,7 @@ export interface FileRoutesByTo {
   '/pizzeria': typeof PizzeriaRoute
   '/places': typeof PlacesRoute
   '/premios': typeof PremiosRoute
+  '/progreso': typeof ProgresoRoute
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
   '/romanos': typeof RomanosRoute
@@ -336,6 +352,7 @@ export interface FileRoutesById {
   '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
   '/inversas': typeof InversasRoute
+  '/jardin': typeof JardinRoute
   '/lectura': typeof LecturaRoute
   '/lecturas': typeof LecturasRoute
   '/lenguaje': typeof LenguajeRoute
@@ -348,6 +365,7 @@ export interface FileRoutesById {
   '/pizzeria': typeof PizzeriaRoute
   '/places': typeof PlacesRoute
   '/premios': typeof PremiosRoute
+  '/progreso': typeof ProgresoRoute
   '/reserva': typeof ReservaRoute
   '/restaurant': typeof RestaurantRoute
   '/romanos': typeof RomanosRoute
@@ -378,6 +396,7 @@ export interface FileRouteTypes {
     | '/guatemala'
     | '/huerto'
     | '/inversas'
+    | '/jardin'
     | '/lectura'
     | '/lecturas'
     | '/lenguaje'
@@ -390,6 +409,7 @@ export interface FileRouteTypes {
     | '/pizzeria'
     | '/places'
     | '/premios'
+    | '/progreso'
     | '/reserva'
     | '/restaurant'
     | '/romanos'
@@ -418,6 +438,7 @@ export interface FileRouteTypes {
     | '/guatemala'
     | '/huerto'
     | '/inversas'
+    | '/jardin'
     | '/lectura'
     | '/lecturas'
     | '/lenguaje'
@@ -430,6 +451,7 @@ export interface FileRouteTypes {
     | '/pizzeria'
     | '/places'
     | '/premios'
+    | '/progreso'
     | '/reserva'
     | '/restaurant'
     | '/romanos'
@@ -458,6 +480,7 @@ export interface FileRouteTypes {
     | '/guatemala'
     | '/huerto'
     | '/inversas'
+    | '/jardin'
     | '/lectura'
     | '/lecturas'
     | '/lenguaje'
@@ -470,6 +493,7 @@ export interface FileRouteTypes {
     | '/pizzeria'
     | '/places'
     | '/premios'
+    | '/progreso'
     | '/reserva'
     | '/restaurant'
     | '/romanos'
@@ -499,6 +523,7 @@ export interface RootRouteChildren {
   GuatemalaRoute: typeof GuatemalaRoute
   HuertoRoute: typeof HuertoRoute
   InversasRoute: typeof InversasRoute
+  JardinRoute: typeof JardinRoute
   LecturaRoute: typeof LecturaRoute
   LecturasRoute: typeof LecturasRoute
   LenguajeRoute: typeof LenguajeRoute
@@ -511,6 +536,7 @@ export interface RootRouteChildren {
   PizzeriaRoute: typeof PizzeriaRoute
   PlacesRoute: typeof PlacesRoute
   PremiosRoute: typeof PremiosRoute
+  ProgresoRoute: typeof ProgresoRoute
   ReservaRoute: typeof ReservaRoute
   RestaurantRoute: typeof RestaurantRoute
   RomanosRoute: typeof RomanosRoute
@@ -631,6 +657,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InversasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/jardin': {
+      id: '/jardin'
+      path: '/jardin'
+      fullPath: '/jardin'
+      preLoaderRoute: typeof JardinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lectura': {
       id: '/lectura'
       path: '/lectura'
@@ -713,6 +746,13 @@ declare module '@tanstack/react-router' {
       path: '/premios'
       fullPath: '/premios'
       preLoaderRoute: typeof PremiosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/progreso': {
+      id: '/progreso'
+      path: '/progreso'
+      fullPath: '/progreso'
+      preLoaderRoute: typeof ProgresoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reserva': {
@@ -811,6 +851,7 @@ const rootRouteChildren: RootRouteChildren = {
   GuatemalaRoute: GuatemalaRoute,
   HuertoRoute: HuertoRoute,
   InversasRoute: InversasRoute,
+  JardinRoute: JardinRoute,
   LecturaRoute: LecturaRoute,
   LecturasRoute: LecturasRoute,
   LenguajeRoute: LenguajeRoute,
@@ -823,6 +864,7 @@ const rootRouteChildren: RootRouteChildren = {
   PizzeriaRoute: PizzeriaRoute,
   PlacesRoute: PlacesRoute,
   PremiosRoute: PremiosRoute,
+  ProgresoRoute: ProgresoRoute,
   ReservaRoute: ReservaRoute,
   RestaurantRoute: RestaurantRoute,
   RomanosRoute: RomanosRoute,

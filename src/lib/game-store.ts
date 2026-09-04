@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export type StationId = string;
 
@@ -12,18 +13,37 @@ export type GameState = {
   avatar: { hat: string | null; item: string | null; color: string };
   music: boolean;
   voice: boolean;
+  track: string;
+  cloudCode: string;
 };
-
 
 export const DAILY_GOAL = 10;
 
-export const PRIZES: { id: string; label: string; emoji: string; cost: number; slot: "hat" | "item" }[] = [
+export const PRIZES: {
+  id: string;
+  label: string;
+  emoji: string;
+  cost: number;
+  slot: "hat" | "item";
+}[] = [
   { id: "corona", label: "Corona", emoji: "👑", cost: 6, slot: "hat" },
   { id: "gorro", label: "Gorro mágico", emoji: "🎩", cost: 10, slot: "hat" },
   { id: "lazo", label: "Lazo", emoji: "🎀", cost: 14, slot: "hat" },
+  { id: "flor", label: "Flor", emoji: "🌸", cost: 16, slot: "hat" },
+  { id: "casco", label: "Casco de héroe", emoji: "⛑️", cost: 20, slot: "hat" },
+  { id: "gafas", label: "Gafas de sol", emoji: "🕶️", cost: 24, slot: "hat" },
+  { id: "diadema", label: "Diadema de estrellas", emoji: "✨", cost: 28, slot: "hat" },
+  { id: "sombrero", label: "Sombrero vaquero", emoji: "🤠", cost: 34, slot: "hat" },
+  { id: "arcoiris", label: "Arcoíris", emoji: "🌈", cost: 40, slot: "hat" },
   { id: "varita", label: "Varita", emoji: "🪄", cost: 18, slot: "item" },
   { id: "globo", label: "Globo", emoji: "🎈", cost: 22, slot: "item" },
   { id: "mascota", label: "Gatito", emoji: "🐱", cost: 30, slot: "item" },
+  { id: "perrito", label: "Perrito", emoji: "🐶", cost: 36, slot: "item" },
+  { id: "guitarra", label: "Guitarra", emoji: "🎸", cost: 42, slot: "item" },
+  { id: "cohete", label: "Cohete", emoji: "🚀", cost: 48, slot: "item" },
+  { id: "unicornio", label: "Unicornio", emoji: "🦄", cost: 55, slot: "item" },
+  { id: "dragon", label: "Dragoncito", emoji: "🐲", cost: 65, slot: "item" },
+  { id: "trofeo", label: "Trofeo de oro", emoji: "🏆", cost: 80, slot: "item" },
 ];
 
 export const AVATAR_COLORS = ["#f4a261", "#e76f51", "#8ecae6", "#95d5b2", "#cdb4db", "#ffd166"];
@@ -34,44 +54,57 @@ function today() {
   return new Date().toISOString().slice(0, 10);
 }
 
+const STATIONS = [
+  "camino",
+  "cueva",
+  "pizzeria",
+  "torre",
+  "cocodrilo",
+  "numeros100",
+  "romanos",
+  "mayas",
+  "calendario",
+  "moneda",
+  "trazos",
+  "consonantes",
+  "inversas",
+  "oraciones",
+  "evaluacion",
+  "tecnicas",
+  "lecturas",
+  "phonics",
+  "vowels",
+  "cvc",
+  "vocabulario",
+  "zoo",
+  "places",
+  "spelling",
+  "restaurant",
+  "commands",
+  "huerto",
+  "jardin",
+  "cadena",
+  "energia",
+  "reserva",
+  "universo",
+  "guatemala",
+];
+
 function initial(): GameState {
+  const starsByStation: Record<string, number> = {};
+  STATIONS.forEach((s) => (starsByStation[s] = 0));
   return {
     name: "",
     stars: 0,
-    starsByStation: {
-      camino: 0,
-      cueva: 0,
-      pizzeria: 0,
-      torre: 0,
-      cocodrilo: 0,
-      numeros100: 0,
-      romanos: 0,
-      calendario: 0,
-      moneda: 0,
-      trazos: 0,
-      consonantes: 0,
-      inversas: 0,
-      oraciones: 0,
-      evaluacion: 0,
-      tecnicas: 0,
-      phonics: 0,
-      vocabulario: 0,
-      huerto: 0,
-      energia: 0,
-      reserva: 0,
-      universo: 0,
-      guatemala: 0,
-      restaurant: 0,
-      zoo: 0,
-      cvc: 0,
-      commands: 0,
-    },
+    starsByStation,
     dayKey: today(),
     missionsToday: 0,
     unlocked: [],
     avatar: { hat: null, item: null, color: AVATAR_COLORS[0]! },
     music: true,
     voice: true,
+    track: "jonas",
+    cloudCode: "",
   };
 }
 
@@ -85,6 +118,7 @@ function persist() {
   } catch {
     /* ignore */
   }
+  queueCloudSave();
 }
 
 function emit() {
@@ -109,6 +143,7 @@ function load() {
     /* ignore */
   }
   emit();
+  if (state.cloudCode) void cloudLoad(state.cloudCode);
 }
 
 function set(updater: (s: GameState) => GameState) {
@@ -161,10 +196,80 @@ export const gameActions = {
   toggleVoice() {
     set((s) => ({ ...s, voice: !s.voice }));
   },
+  setTrack(id: string) {
+    set((s) => ({ ...s, track: id }));
+    if (state.music) {
+      stopMusic();
+      startMusic();
+    }
+  },
+  setCloudCode(code: string) {
+    set((s) => ({ ...s, cloudCode: code.toUpperCase().trim() }));
+  },
   reset() {
-    set(() => initial());
+    set(() => ({ ...initial(), cloudCode: state.cloudCode }));
   },
 };
+
+/* ---------- Guardado en la nube ---------- */
+
+let cloudTimer: number | null = null;
+
+export function makeCloudCode() {
+  const letters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let out = "";
+  for (let i = 0; i < 6; i++) out += letters[Math.floor(Math.random() * letters.length)];
+  return out;
+}
+
+function queueCloudSave() {
+  if (typeof window === "undefined" || !state.cloudCode) return;
+  if (cloudTimer !== null) clearTimeout(cloudTimer);
+  cloudTimer = window.setTimeout(() => {
+    void cloudSave();
+  }, 1200);
+}
+
+export async function cloudSave() {
+  if (!state.cloudCode) return false;
+  const { stars, starsByStation, unlocked, avatar, name, track, music, voice } = state;
+  const { error } = await supabase
+    .from("progreso_nube")
+    .upsert(
+      {
+        code: state.cloudCode,
+        data: { stars, starsByStation, unlocked, avatar, name, track, music, voice },
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: "code" },
+    );
+  return !error;
+}
+
+export async function cloudLoad(code: string) {
+  const clean = code.toUpperCase().trim();
+  if (!clean) return false;
+  const { data, error } = await supabase
+    .from("progreso_nube")
+    .select("data")
+    .eq("code", clean)
+    .maybeSingle();
+  if (error || !data) return false;
+  const saved = (data.data ?? {}) as Partial<GameState>;
+  state = {
+    ...state,
+    ...saved,
+    starsByStation: { ...initial().starsByStation, ...(saved.starsByStation ?? {}) },
+    cloudCode: clean,
+  };
+  try {
+    localStorage.setItem(KEY, JSON.stringify(state));
+  } catch {
+    /* ignore */
+  }
+  emit();
+  return true;
+}
 
 /* ---------- Música infantil de fondo (sintetizada, en bucle) ---------- */
 
@@ -172,12 +277,66 @@ let musicCtx: AudioContext | null = null;
 let musicTimer: number | null = null;
 let musicGain: GainNode | null = null;
 
-const MELODY = [
-  [523, 0.4], [587, 0.4], [659, 0.4], [523, 0.4],
-  [659, 0.4], [698, 0.4], [784, 0.8],
-  [784, 0.3], [880, 0.3], [784, 0.3], [659, 0.3],
-  [587, 0.4], [523, 0.8],
-] as const;
+type Note = readonly [number, number];
+
+const N = {
+  C4: 262, D4: 294, E4: 330, F4: 349, G4: 392, A4: 440, B4: 494,
+  C5: 523, D5: 587, E5: 659, F5: 698, G5: 784, A5: 880, B5: 988, C6: 1046,
+} as const;
+
+export const MUSIC_TRACKS: { id: string; label: string; emoji: string; melody: Note[] }[] = [
+  {
+    id: "jonas",
+    label: "Jonás",
+    emoji: "🐋",
+    melody: [
+      [N.G4, 0.3], [N.G4, 0.3], [N.A4, 0.3], [N.G4, 0.3],
+      [N.C5, 0.6], [N.B4, 0.6],
+      [N.G4, 0.3], [N.G4, 0.3], [N.A4, 0.3], [N.G4, 0.3],
+      [N.D5, 0.6], [N.C5, 0.6],
+      [N.E5, 0.3], [N.D5, 0.3], [N.C5, 0.3], [N.B4, 0.3],
+      [N.A4, 0.4], [N.G4, 0.8],
+    ],
+  },
+  {
+    id: "diezveces",
+    label: "10 veces más",
+    emoji: "🔟",
+    melody: [
+      [N.C5, 0.25], [N.C5, 0.25], [N.E5, 0.25], [N.G5, 0.5],
+      [N.G5, 0.25], [N.E5, 0.25], [N.C5, 0.5],
+      [N.D5, 0.25], [N.D5, 0.25], [N.F5, 0.25], [N.A5, 0.5],
+      [N.A5, 0.25], [N.F5, 0.25], [N.D5, 0.5],
+      [N.E5, 0.25], [N.G5, 0.25], [N.C6, 0.6], [N.G5, 0.4], [N.C5, 0.8],
+    ],
+  },
+  {
+    id: "fiesta",
+    label: "Esto es una fiesta",
+    emoji: "🎉",
+    melody: [
+      [N.E5, 0.2], [N.E5, 0.2], [N.F5, 0.2], [N.G5, 0.4],
+      [N.G5, 0.2], [N.F5, 0.2], [N.E5, 0.2], [N.D5, 0.4],
+      [N.C5, 0.2], [N.C5, 0.2], [N.D5, 0.2], [N.E5, 0.4],
+      [N.E5, 0.3], [N.D5, 0.3], [N.D5, 0.6],
+      [N.E5, 0.2], [N.E5, 0.2], [N.F5, 0.2], [N.G5, 0.4],
+      [N.G5, 0.2], [N.F5, 0.2], [N.E5, 0.2], [N.D5, 0.4],
+      [N.C5, 0.2], [N.E5, 0.2], [N.G5, 0.2], [N.C6, 0.8],
+    ],
+  },
+  {
+    id: "david",
+    label: "El guerrero David",
+    emoji: "🛡️",
+    melody: [
+      [N.C5, 0.3], [N.E5, 0.3], [N.G5, 0.3], [N.E5, 0.3],
+      [N.F5, 0.3], [N.E5, 0.3], [N.D5, 0.6],
+      [N.C5, 0.3], [N.E5, 0.3], [N.G5, 0.3], [N.C6, 0.6],
+      [N.B5, 0.3], [N.A5, 0.3], [N.G5, 0.6],
+      [N.G5, 0.3], [N.F5, 0.3], [N.E5, 0.3], [N.D5, 0.3], [N.C5, 0.9],
+    ],
+  },
+];
 
 function makeCtx() {
   const Ctx =
@@ -195,12 +354,15 @@ export function startMusic() {
     musicGain.gain.value = 0.07;
     musicGain.connect(musicCtx.destination);
 
+    const melody =
+      (MUSIC_TRACKS.find((t) => t.id === state.track) ?? MUSIC_TRACKS[0]!).melody;
+
     const loop = () => {
       const ctx = musicCtx;
       const out = musicGain;
       if (!ctx || !out) return;
       let t = ctx.currentTime + 0.05;
-      MELODY.forEach(([freq, dur]) => {
+      melody.forEach(([freq, dur]) => {
         const osc = ctx.createOscillator();
         const g = ctx.createGain();
         osc.type = "triangle";
@@ -213,8 +375,8 @@ export function startMusic() {
         osc.stop(t + dur);
         t += dur;
       });
-      const total = MELODY.reduce((n, [, d]) => n + d, 0);
-      musicTimer = window.setTimeout(loop, total * 1000);
+      const total = melody.reduce((n, [, d]) => n + d, 0);
+      musicTimer = window.setTimeout(loop, total * 1000 + 600);
     };
     loop();
   } catch {
@@ -283,7 +445,7 @@ export function speak(text: string, lang: "es-ES" | "en-US" = "es-ES") {
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = lang;
-    u.rate = lang === "en-US" ? 0.8 : 0.9;
+    u.rate = lang === "en-US" ? 0.8 : 0.85;
     const voice = window.speechSynthesis.getVoices().find((v) => v.lang.startsWith(lang.slice(0, 2)));
     if (voice) u.voice = voice;
     window.speechSynthesis.speak(u);
