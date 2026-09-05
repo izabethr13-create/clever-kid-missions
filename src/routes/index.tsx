@@ -100,7 +100,13 @@ function MapPage() {
   const pct = Math.round((game.missionsToday / DAILY_GOAL) * 100);
 
   return (
-    <div className="min-h-screen pb-16">
+    <div
+      className="min-h-screen pb-20"
+      style={{
+        background:
+          "radial-gradient(circle at 20% 10%, #7fd8f7 0%, #35b7e8 45%, #1d8fc9 100%)",
+      }}
+    >
       <header className="mx-auto max-w-3xl px-4 pt-6">
         <div className="card-soft flex items-center gap-4 px-5 py-4">
           <div className="animate-float-soft">
@@ -136,41 +142,101 @@ function MapPage() {
         </div>
       </header>
 
-      <h1 className="mt-6 text-center font-display text-3xl tracking-wide">
+      <h1
+        className="mt-6 text-center font-display text-4xl tracking-wide text-white"
+        style={{ textShadow: "0 4px 0 rgba(0,0,0,.25)" }}
+      >
         Isla del Aprendizaje
       </h1>
-      <p className="mt-1 text-center text-sm font-bold text-muted-foreground">
-        Elige una isla del archipiélago para jugar
+      <p className="mt-1 text-center text-sm font-bold text-white/90">
+        Camina por las islas y toca una piedra para jugar
       </p>
 
-      <nav className="relative mx-auto mt-6 max-w-xl px-4">
-        <div className="absolute inset-y-6 left-1/2 w-3 -translate-x-1/2 rounded-full bg-card/70" />
-        <ul className="relative space-y-5">
+      <nav className="relative mx-auto mt-8 max-w-md px-4">
+        <ul className="relative space-y-2">
           {REGIONS.map((r, i) => {
             const stars = r.stations.reduce((n, s) => n + (game.starsByStation[s] || 0), 0);
+            const left = i % 2 === 0;
             return (
-              <li key={r.to} className={i % 2 === 0 ? "pr-6 sm:pr-16" : "pl-6 sm:pl-16"}>
-                <Link
-                  to={r.to}
-                  className={`flex items-center gap-4 rounded-4xl px-5 py-6 toy-press ${r.color}`}
+              <li key={r.to} className="relative">
+                {/* isla verde */}
+                <div
+                  className={`relative flex ${left ? "justify-start" : "justify-end"}`}
+                  style={{ marginTop: i === 0 ? 0 : "-0.5rem" }}
                 >
-                  <span className="text-5xl">{r.emoji}</span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block font-display text-2xl leading-tight tracking-wide">
-                      {r.title}
+                  <div
+                    className="relative w-[88%] px-3 py-5"
+                    style={{
+                      background: "linear-gradient(180deg,#8ede4a 0%,#63c62f 60%,#3f9c1f 100%)",
+                      borderRadius: "48% 52% 46% 54% / 60% 55% 45% 40%",
+                      boxShadow: "0 14px 0 rgba(0,0,0,.18), inset 0 -10px 0 rgba(0,0,0,.08)",
+                    }}
+                  >
+                    <span
+                      className={`pointer-events-none absolute -top-3 text-4xl ${
+                        left ? "right-4" : "left-4"
+                      }`}
+                    >
+                      🌴
                     </span>
-                    <span className="block text-sm font-bold opacity-80">{r.subtitle}</span>
-                  </span>
-                  <span className="flex shrink-0 items-center gap-1 font-display text-xl">
-                    <Star className="h-5 w-5 fill-current" />
-                    {stars}
-                  </span>
-                </Link>
+                    <Link
+                      to={r.to}
+                      className="toy-press mx-auto flex w-full max-w-[19rem] items-center gap-3 rounded-[2rem] px-4 py-4"
+                      style={{
+                        background: "linear-gradient(180deg,#f3efe4 0%,#ded7c4 100%)",
+                        boxShadow: "0 8px 0 rgba(120,110,90,.55)",
+                      }}
+                    >
+                      <span
+                        className="grid h-14 w-14 shrink-0 place-items-center rounded-full font-display text-3xl text-white"
+                        style={{
+                          background: "linear-gradient(180deg,#7ec8f2,#3aa0dd)",
+                          boxShadow: "inset 0 -4px 0 rgba(0,0,0,.15)",
+                        }}
+                      >
+                        {i + 1}
+                      </span>
+                      <span className="min-w-0 flex-1 text-left">
+                        <span className="block font-display text-xl leading-tight text-[#4a3f2a]">
+                          {r.emoji} {r.title}
+                        </span>
+                        <span className="block text-xs font-bold text-[#6b5f45]">{r.subtitle}</span>
+                        <span className="mt-1 flex items-center gap-1 text-[#a8791f]">
+                          {[0, 1, 2].map((s) => (
+                            <Star
+                              key={s}
+                              className={`h-4 w-4 ${
+                                stars > s * 15 ? "fill-current" : "opacity-30"
+                              }`}
+                            />
+                          ))}
+                          <span className="ml-1 font-display text-sm">{stars}</span>
+                        </span>
+                      </span>
+                    </Link>
+                  </div>
+                </div>
               </li>
             );
           })}
         </ul>
+
+        <div className="mt-8 grid grid-cols-2 gap-3">
+          <Link
+            to="/progreso"
+            className="toy-press rounded-3xl bg-card px-4 py-4 text-center font-display text-lg text-card-foreground"
+          >
+            📊 Mi progreso
+          </Link>
+          <Link
+            to="/premios"
+            className="toy-press rounded-3xl bg-sun px-4 py-4 text-center font-display text-lg text-sun-foreground"
+          >
+            🎁 Mis premios
+          </Link>
+        </div>
       </nav>
     </div>
   );
 }
+

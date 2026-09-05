@@ -22,10 +22,13 @@ export const Route = createFileRoute("/lecturas")({
   component: LecturasPage,
 });
 
+type Question = { q: string; options: string[]; answer: string };
+
 type Story = {
   title: string;
   emoji: string;
   pages: string[]; // una oración por página
+  questions: Question[];
 };
 
 const STORIES: Story[] = [
@@ -38,6 +41,11 @@ const STORIES: Story[] = [
       "Las estrellas son pequeñas luces.",
       "El cielo es azul y bonito.",
     ],
+    questions: [
+      { q: "¿Cuándo sale el sol?", options: ["Por la mañana", "En la noche"], answer: "Por la mañana" },
+      { q: "¿Qué brilla en la noche?", options: ["La luna", "El sol"], answer: "La luna" },
+      { q: "¿De qué color es el cielo?", options: ["Azul", "Rojo"], answer: "Azul" },
+    ],
   },
   {
     title: "Mi perrito Lolo",
@@ -47,6 +55,11 @@ const STORIES: Story[] = [
       "Lolo corre en el parque.",
       "Le gusta comer galletas.",
       "Por la noche duerme conmigo.",
+    ],
+    questions: [
+      { q: "¿De qué color es Lolo?", options: ["Café", "Verde"], answer: "Café" },
+      { q: "¿Dónde corre Lolo?", options: ["En el parque", "En la escuela"], answer: "En el parque" },
+      { q: "¿Qué le gusta comer?", options: ["Galletas", "Zapatos"], answer: "Galletas" },
     ],
   },
   {
@@ -58,8 +71,59 @@ const STORIES: Story[] = [
       "Las flores le dan dulce néctar.",
       "La mariposa es mi amiga.",
     ],
+    questions: [
+      { q: "¿Cómo son sus alas?", options: ["De colores", "De piedra"], answer: "De colores" },
+      { q: "¿A dónde vuela?", options: ["De flor en flor", "Al mar"], answer: "De flor en flor" },
+      { q: "¿Qué le dan las flores?", options: ["Néctar", "Galletas"], answer: "Néctar" },
+    ],
+  },
+  {
+    title: "La lluvia y el arcoíris",
+    emoji: "🌈",
+    pages: [
+      "Ayer llovió toda la tarde.",
+      "Las gotas mojaron el jardín.",
+      "Después salió el sol.",
+      "Y apareció un arcoíris de colores.",
+    ],
+    questions: [
+      { q: "¿Qué pasó en la tarde?", options: ["Llovió", "Nevó"], answer: "Llovió" },
+      { q: "¿Qué salió después de la lluvia?", options: ["El sol", "La luna"], answer: "El sol" },
+      { q: "¿Qué apareció al final?", options: ["Un arcoíris", "Un tren"], answer: "Un arcoíris" },
+    ],
+  },
+  {
+    title: "El mercado de doña Rosa",
+    emoji: "🧺",
+    pages: [
+      "Doña Rosa vende frutas en el mercado.",
+      "Hoy compré tres bananos y una sandía.",
+      "La sandía era grande y pesada.",
+      "En casa la compartimos con mi hermana.",
+    ],
+    questions: [
+      { q: "¿Qué vende doña Rosa?", options: ["Frutas", "Zapatos"], answer: "Frutas" },
+      { q: "¿Cuántos bananos compré?", options: ["Tres", "Diez"], answer: "Tres" },
+      { q: "¿Cómo era la sandía?", options: ["Grande", "Pequeña"], answer: "Grande" },
+    ],
+  },
+  {
+    title: "El volcán dormido",
+    emoji: "🌋",
+    pages: [
+      "Desde mi casa se ve un volcán muy alto.",
+      "Dicen que el volcán está dormido.",
+      "En sus faldas crecen árboles verdes.",
+      "Por la tarde una nube lo cubre.",
+    ],
+    questions: [
+      { q: "¿Cómo es el volcán?", options: ["Muy alto", "Muy pequeño"], answer: "Muy alto" },
+      { q: "¿Qué crece en sus faldas?", options: ["Árboles verdes", "Casas"], answer: "Árboles verdes" },
+      { q: "¿Qué lo cubre por la tarde?", options: ["Una nube", "La arena"], answer: "Una nube" },
+    ],
   },
 ];
+
 
 // Oraciones para el juego de arrastrar y ordenar
 const DRAG_SENTENCES = [
@@ -299,10 +363,78 @@ function DragSentenceGame() {
   );
 }
 
+/* ============ Preguntas de comprensión ============ */
+
+function StoryQuiz({ story, onDone }: { story: Story; onDone: () => void }) {
+  const [i, setI] = useState(0);
+  const [status, setStatus] = useState<"idle" | "good" | "bad">("idle");
+  const [won, setWon] = useState(0);
+  const q = story.questions[i]!;
+
+  function answer(opt: string) {
+    if (opt === q.answer) {
+      setStatus("good");
+      gameActions.award("lecturas", 1);
+      setWon((w) => w + 1);
+      speak("¡Bien hecho!");
+      setTimeout(() => {
+        setStatus("idle");
+        if (i + 1 < story.questions.length) setI(i + 1);
+        else onDone();
+      }, 1200);
+    } else {
+      setStatus("bad");
+      speak("Inténtalo de nuevo");
+      setTimeout(() => setStatus("idle"), 900);
+    }
+  }
+
+  return (
+    <div className="space-y-5">
+      <div className="card-soft px-5 py-5 text-center">
+        <div className="text-5xl">{story.emoji}</div>
+        <p className="mt-1 text-sm font-bold text-muted-foreground">
+          Pregunta {i + 1} de {story.questions.length} · ⭐ {won}
+        </p>
+        <p
+          className="mt-3 font-display text-2xl"
+          style={{ lineHeight: 1.8, letterSpacing: "0.05em" }}
+        >
+          {q.q}
+        </p>
+        <button
+          type="button"
+          onClick={() => speak(`${q.q}. ${q.options.join(", o ")}`)}
+          className="toy-press mt-4 inline-flex items-center gap-2 rounded-3xl bg-grass px-5 py-3 font-display text-xl text-grass-foreground"
+        >
+          <Volume2 className="h-6 w-6" /> Escuchar
+        </button>
+      </div>
+
+      <div className="grid gap-3">
+        {q.options.map((o) => (
+          <button
+            key={o}
+            type="button"
+            onClick={() => answer(o)}
+            className="toy-press rounded-3xl bg-primary px-6 py-5 font-display text-2xl text-primary-foreground"
+            style={{ letterSpacing: "0.05em" }}
+          >
+            {o}
+          </button>
+        ))}
+      </div>
+
+      <Feedback status={status} />
+    </div>
+  );
+}
+
 /* ================= Página principal ================= */
 
+
 function LecturasPage() {
-  const [mode, setMode] = useState<"menu" | "read" | "drag">("menu");
+  const [mode, setMode] = useState<"menu" | "read" | "quiz" | "drag">("menu");
   const [storyIdx, setStoryIdx] = useState(0);
 
   return (
@@ -366,12 +498,32 @@ function LecturasPage() {
             story={STORIES[storyIdx]!}
             onDone={() => {
               gameActions.award("lecturas", 2);
-              speak("¡Muy bien! Terminaste el cuento");
+              speak("¡Muy bien! Ahora las preguntas");
+              setMode("quiz");
+            }}
+          />
+        </div>
+      )}
+
+      {mode === "quiz" && (
+        <div className="space-y-4">
+          <button
+            type="button"
+            onClick={() => setMode("menu")}
+            className="toy-press rounded-3xl bg-card px-5 py-3 font-display text-lg text-card-foreground"
+          >
+            ⬅️ Elegir otro cuento
+          </button>
+          <StoryQuiz
+            story={STORIES[storyIdx]!}
+            onDone={() => {
+              speak("¡Terminaste las preguntas! Muy bien");
               setMode("menu");
             }}
           />
         </div>
       )}
+
 
       {mode === "drag" && (
         <div className="space-y-4">

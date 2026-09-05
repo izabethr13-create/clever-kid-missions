@@ -32,6 +32,23 @@ const MODULES: ModuleCard[] = [
     color: "bg-grass text-grass-foreground",
   },
   {
+    id: "jardin",
+    to: "/jardin",
+    emoji: "🌻",
+    title: "C1b · Mi jardín",
+    subtitle: "Semillas, riego, sol y cosecha",
+    color: "bg-sun text-sun-foreground",
+  },
+  {
+    id: "cadena",
+    to: "/cadena",
+    emoji: "🍃",
+    title: "C1c · Cadena alimenticia",
+    subtitle: "Ordena quién come a quién",
+    color: "bg-grass text-grass-foreground",
+  },
+  {
+
     id: "energia",
     to: "/energia",
     emoji: "⚡",
