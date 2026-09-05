@@ -363,7 +363,75 @@ function DragSentenceGame() {
   );
 }
 
+/* ============ Preguntas de comprensión ============ */
+
+function StoryQuiz({ story, onDone }: { story: Story; onDone: () => void }) {
+  const [i, setI] = useState(0);
+  const [status, setStatus] = useState<"idle" | "good" | "bad">("idle");
+  const [won, setWon] = useState(0);
+  const q = story.questions[i]!;
+
+  function answer(opt: string) {
+    if (opt === q.answer) {
+      setStatus("good");
+      gameActions.award("lecturas", 1);
+      setWon((w) => w + 1);
+      speak("¡Bien hecho!");
+      setTimeout(() => {
+        setStatus("idle");
+        if (i + 1 < story.questions.length) setI(i + 1);
+        else onDone();
+      }, 1200);
+    } else {
+      setStatus("bad");
+      speak("Inténtalo de nuevo");
+      setTimeout(() => setStatus("idle"), 900);
+    }
+  }
+
+  return (
+    <div className="space-y-5">
+      <div className="card-soft px-5 py-5 text-center">
+        <div className="text-5xl">{story.emoji}</div>
+        <p className="mt-1 text-sm font-bold text-muted-foreground">
+          Pregunta {i + 1} de {story.questions.length} · ⭐ {won}
+        </p>
+        <p
+          className="mt-3 font-display text-2xl"
+          style={{ lineHeight: 1.8, letterSpacing: "0.05em" }}
+        >
+          {q.q}
+        </p>
+        <button
+          type="button"
+          onClick={() => speak(`${q.q}. ${q.options.join(", o ")}`)}
+          className="toy-press mt-4 inline-flex items-center gap-2 rounded-3xl bg-grass px-5 py-3 font-display text-xl text-grass-foreground"
+        >
+          <Volume2 className="h-6 w-6" /> Escuchar
+        </button>
+      </div>
+
+      <div className="grid gap-3">
+        {q.options.map((o) => (
+          <button
+            key={o}
+            type="button"
+            onClick={() => answer(o)}
+            className="toy-press rounded-3xl bg-primary px-6 py-5 font-display text-2xl text-primary-foreground"
+            style={{ letterSpacing: "0.05em" }}
+          >
+            {o}
+          </button>
+        ))}
+      </div>
+
+      <Feedback status={status} />
+    </div>
+  );
+}
+
 /* ================= Página principal ================= */
+
 
 function LecturasPage() {
   const [mode, setMode] = useState<"menu" | "read" | "quiz" | "drag">("menu");
