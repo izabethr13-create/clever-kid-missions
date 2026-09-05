@@ -85,9 +85,39 @@ function PremiosPage() {
         })}
       </ul>
 
+      <h2 className="mt-8 font-display text-2xl">Música de la isla 🎵</h2>
+      <p className="mt-1 text-sm font-bold text-muted-foreground">
+        Elige la canción que suena mientras juegas
+      </p>
+      <ul className="mt-3 grid grid-cols-2 gap-3">
+        {MUSIC_TRACKS.map((t) => (
+          <li key={t.id}>
+            <BigButton
+              tone={game.track === t.id ? "grass" : "card"}
+              className="w-full py-5"
+              onClick={() => gameActions.setTrack(t.id)}
+            >
+              <span className="block text-4xl">{t.emoji}</span>
+              <span className="block text-lg">{t.label}</span>
+              <span className="block text-sm opacity-80">
+                {game.track === t.id ? "Sonando ✓" : "Tocar para elegir"}
+              </span>
+            </BigButton>
+          </li>
+        ))}
+      </ul>
+      <BigButton
+        tone={game.music ? "sun" : "card"}
+        className="mt-3 w-full py-4"
+        onClick={() => gameActions.toggleMusic()}
+      >
+        {game.music ? "🔊 Música encendida" : "🔇 Música apagada"}
+      </BigButton>
+
       <p className="mt-6 text-center text-sm font-bold text-muted-foreground">
         Tienes {game.stars} estrellas en total
       </p>
+
     </StationShell>
   );
 }
