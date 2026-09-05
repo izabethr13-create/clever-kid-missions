@@ -502,9 +502,28 @@ function LecturasPage() {
               setMode("quiz");
             }}
           />
-
         </div>
       )}
+
+      {mode === "quiz" && (
+        <div className="space-y-4">
+          <button
+            type="button"
+            onClick={() => setMode("menu")}
+            className="toy-press rounded-3xl bg-card px-5 py-3 font-display text-lg text-card-foreground"
+          >
+            ⬅️ Elegir otro cuento
+          </button>
+          <StoryQuiz
+            story={STORIES[storyIdx]!}
+            onDone={() => {
+              speak("¡Terminaste las preguntas! Muy bien");
+              setMode("menu");
+            }}
+          />
+        </div>
+      )}
+
 
       {mode === "drag" && (
         <div className="space-y-4">
