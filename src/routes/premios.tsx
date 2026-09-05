@@ -1,7 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Avatar } from "@/components/game/Avatar";
 import { BigButton, StationShell } from "@/components/game/StationShell";
-import { AVATAR_COLORS, PRIZES, gameActions, playSound, useGame } from "@/lib/game-store";
+import {
+  AVATAR_COLORS,
+  MUSIC_TRACKS,
+  PRIZES,
+  gameActions,
+  playSound,
+  useGame,
+} from "@/lib/game-store";
+
 
 export const Route = createFileRoute("/premios")({
   head: () => ({
