@@ -366,7 +366,7 @@ function DragSentenceGame() {
 /* ================= Página principal ================= */
 
 function LecturasPage() {
-  const [mode, setMode] = useState<"menu" | "read" | "drag">("menu");
+  const [mode, setMode] = useState<"menu" | "read" | "quiz" | "drag">("menu");
   const [storyIdx, setStoryIdx] = useState(0);
 
   return (
