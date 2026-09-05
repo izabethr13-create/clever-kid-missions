@@ -430,10 +430,11 @@ function LecturasPage() {
             story={STORIES[storyIdx]!}
             onDone={() => {
               gameActions.award("lecturas", 2);
-              speak("¡Muy bien! Terminaste el cuento");
-              setMode("menu");
+              speak("¡Muy bien! Ahora las preguntas");
+              setMode("quiz");
             }}
           />
+
         </div>
       )}
 
