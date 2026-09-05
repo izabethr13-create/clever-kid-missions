@@ -22,10 +22,13 @@ export const Route = createFileRoute("/lecturas")({
   component: LecturasPage,
 });
 
+type Question = { q: string; options: string[]; answer: string };
+
 type Story = {
   title: string;
   emoji: string;
   pages: string[]; // una oración por página
+  questions: Question[];
 };
 
 const STORIES: Story[] = [
@@ -38,6 +41,11 @@ const STORIES: Story[] = [
       "Las estrellas son pequeñas luces.",
       "El cielo es azul y bonito.",
     ],
+    questions: [
+      { q: "¿Cuándo sale el sol?", options: ["Por la mañana", "En la noche"], answer: "Por la mañana" },
+      { q: "¿Qué brilla en la noche?", options: ["La luna", "El sol"], answer: "La luna" },
+      { q: "¿De qué color es el cielo?", options: ["Azul", "Rojo"], answer: "Azul" },
+    ],
   },
   {
     title: "Mi perrito Lolo",
@@ -47,6 +55,11 @@ const STORIES: Story[] = [
       "Lolo corre en el parque.",
       "Le gusta comer galletas.",
       "Por la noche duerme conmigo.",
+    ],
+    questions: [
+      { q: "¿De qué color es Lolo?", options: ["Café", "Verde"], answer: "Café" },
+      { q: "¿Dónde corre Lolo?", options: ["En el parque", "En la escuela"], answer: "En el parque" },
+      { q: "¿Qué le gusta comer?", options: ["Galletas", "Zapatos"], answer: "Galletas" },
     ],
   },
   {
@@ -58,8 +71,59 @@ const STORIES: Story[] = [
       "Las flores le dan dulce néctar.",
       "La mariposa es mi amiga.",
     ],
+    questions: [
+      { q: "¿Cómo son sus alas?", options: ["De colores", "De piedra"], answer: "De colores" },
+      { q: "¿A dónde vuela?", options: ["De flor en flor", "Al mar"], answer: "De flor en flor" },
+      { q: "¿Qué le dan las flores?", options: ["Néctar", "Galletas"], answer: "Néctar" },
+    ],
+  },
+  {
+    title: "La lluvia y el arcoíris",
+    emoji: "🌈",
+    pages: [
+      "Ayer llovió toda la tarde.",
+      "Las gotas mojaron el jardín.",
+      "Después salió el sol.",
+      "Y apareció un arcoíris de colores.",
+    ],
+    questions: [
+      { q: "¿Qué pasó en la tarde?", options: ["Llovió", "Nevó"], answer: "Llovió" },
+      { q: "¿Qué salió después de la lluvia?", options: ["El sol", "La luna"], answer: "El sol" },
+      { q: "¿Qué apareció al final?", options: ["Un arcoíris", "Un tren"], answer: "Un arcoíris" },
+    ],
+  },
+  {
+    title: "El mercado de doña Rosa",
+    emoji: "🧺",
+    pages: [
+      "Doña Rosa vende frutas en el mercado.",
+      "Hoy compré tres bananos y una sandía.",
+      "La sandía era grande y pesada.",
+      "En casa la compartimos con mi hermana.",
+    ],
+    questions: [
+      { q: "¿Qué vende doña Rosa?", options: ["Frutas", "Zapatos"], answer: "Frutas" },
+      { q: "¿Cuántos bananos compré?", options: ["Tres", "Diez"], answer: "Tres" },
+      { q: "¿Cómo era la sandía?", options: ["Grande", "Pequeña"], answer: "Grande" },
+    ],
+  },
+  {
+    title: "El volcán dormido",
+    emoji: "🌋",
+    pages: [
+      "Desde mi casa se ve un volcán muy alto.",
+      "Dicen que el volcán está dormido.",
+      "En sus faldas crecen árboles verdes.",
+      "Por la tarde una nube lo cubre.",
+    ],
+    questions: [
+      { q: "¿Cómo es el volcán?", options: ["Muy alto", "Muy pequeño"], answer: "Muy alto" },
+      { q: "¿Qué crece en sus faldas?", options: ["Árboles verdes", "Casas"], answer: "Árboles verdes" },
+      { q: "¿Qué lo cubre por la tarde?", options: ["Una nube", "La arena"], answer: "Una nube" },
+    ],
   },
 ];
+
 
 // Oraciones para el juego de arrastrar y ordenar
 const DRAG_SENTENCES = [
