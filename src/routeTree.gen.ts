@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CadenaRouteImport } from './routes/cadena'
 import { Route as CalendarioRouteImport } from './routes/calendario'
 import { Route as CaminoRouteImport } from './routes/camino'
 import { Route as CienciaRouteImport } from './routes/ciencia'
@@ -53,6 +54,11 @@ import { Route as ZooRouteImport } from './routes/zoo'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CadenaRoute = CadenaRouteImport.update({
+  id: '/cadena',
+  path: '/cadena',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CalendarioRoute = CalendarioRouteImport.update({
@@ -253,6 +259,7 @@ const ZooRoute = ZooRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cadena': typeof CadenaRoute
   '/calendario': typeof CalendarioRoute
   '/camino': typeof CaminoRoute
   '/ciencia': typeof CienciaRoute
@@ -295,6 +302,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cadena': typeof CadenaRoute
   '/calendario': typeof CalendarioRoute
   '/camino': typeof CaminoRoute
   '/ciencia': typeof CienciaRoute
@@ -338,6 +346,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cadena': typeof CadenaRoute
   '/calendario': typeof CalendarioRoute
   '/camino': typeof CaminoRoute
   '/ciencia': typeof CienciaRoute
@@ -382,6 +391,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/cadena'
     | '/calendario'
     | '/camino'
     | '/ciencia'
@@ -424,6 +434,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/cadena'
     | '/calendario'
     | '/camino'
     | '/ciencia'
@@ -466,6 +477,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/cadena'
     | '/calendario'
     | '/camino'
     | '/ciencia'
@@ -509,6 +521,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CadenaRoute: typeof CadenaRoute
   CalendarioRoute: typeof CalendarioRoute
   CaminoRoute: typeof CaminoRoute
   CienciaRoute: typeof CienciaRoute
@@ -557,6 +570,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cadena': {
+      id: '/cadena'
+      path: '/cadena'
+      fullPath: '/cadena'
+      preLoaderRoute: typeof CadenaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/calendario': {
@@ -837,6 +857,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CadenaRoute: CadenaRoute,
   CalendarioRoute: CalendarioRoute,
   CaminoRoute: CaminoRoute,
   CienciaRoute: CienciaRoute,

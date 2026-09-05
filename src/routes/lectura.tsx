@@ -24,6 +24,14 @@ export const Route = createFileRoute("/lectura")({
 
 const MODULES: ModuleCard[] = [
   {
+    id: "lecturas",
+    to: "/lecturas",
+    emoji: "📖",
+    title: "Lecturas interactivas",
+    subtitle: "Cuentos con voz, preguntas y palabras para arrastrar",
+    color: "bg-grass text-grass-foreground",
+  },
+  {
     id: "evaluacion",
     to: "/evaluacion",
     emoji: "📚",
@@ -40,6 +48,7 @@ const MODULES: ModuleCard[] = [
     color: "bg-sun text-sun-foreground",
   },
 ];
+
 
 function LecturaPage() {
   return (
