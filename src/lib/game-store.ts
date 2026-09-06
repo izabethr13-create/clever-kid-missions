@@ -360,7 +360,22 @@ function makeCtx() {
 }
 
 export function startMusic() {
-  if (typeof window === "undefined" || musicTimer !== null) return;
+  if (typeof window === "undefined" || musicTimer !== null || musicEl !== null) return;
+  const track = MUSIC_TRACKS.find((t) => t.id === state.track) ?? MUSIC_TRACKS[0]!;
+  if (track.src) {
+    try {
+      const el = new Audio(track.src);
+      el.loop = true;
+      el.volume = 0.35;
+      musicEl = el;
+      void el.play().catch(() => {
+        musicEl = null;
+      });
+    } catch {
+      musicEl = null;
+    }
+    return;
+  }
   try {
     musicCtx = musicCtx ?? makeCtx();
     void musicCtx.resume();
