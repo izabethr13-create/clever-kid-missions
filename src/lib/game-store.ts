@@ -425,10 +425,19 @@ export function stopMusic() {
     /* ignore */
   }
   musicGain = null;
+  if (musicEl) {
+    try {
+      musicEl.pause();
+      musicEl.currentTime = 0;
+    } catch {
+      /* ignore */
+    }
+    musicEl = null;
+  }
 }
 
 export function isMusicPlaying() {
-  return musicTimer !== null;
+  return musicTimer !== null || musicEl !== null;
 }
 
 export function playSound(kind: "good" | "bad" | "win") {
