@@ -104,7 +104,7 @@ function initial(): GameState {
     avatar: { hat: null, item: null, color: AVATAR_COLORS[0]! },
     music: true,
     voice: true,
-    track: "jonas",
+    track: "davidcancion",
     cloudCode: "",
   };
 }
