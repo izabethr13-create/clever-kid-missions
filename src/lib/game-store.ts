@@ -1,6 +1,9 @@
 import { useSyncExternalStore } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import guerreroDavid from "@/assets/guerrero-david.m4a.asset.json";
+import abejita from "@/assets/abejita-chiquitita.m4a.asset.json";
+import soyFeliz from "@/assets/soy-feliz.m4a.asset.json";
+import lazaro from "@/assets/lazaro.m4a.asset.json";
 
 export type StationId = string;
 
