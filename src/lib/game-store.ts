@@ -277,6 +277,7 @@ export async function cloudLoad(code: string) {
 let musicCtx: AudioContext | null = null;
 let musicTimer: number | null = null;
 let musicGain: GainNode | null = null;
+let musicEl: HTMLAudioElement | null = null;
 
 type Note = readonly [number, number];
 
