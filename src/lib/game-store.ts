@@ -284,7 +284,20 @@ const N = {
   C5: 523, D5: 587, E5: 659, F5: 698, G5: 784, A5: 880, B5: 988, C6: 1046,
 } as const;
 
-export const MUSIC_TRACKS: { id: string; label: string; emoji: string; melody: Note[] }[] = [
+export const MUSIC_TRACKS: {
+  id: string;
+  label: string;
+  emoji: string;
+  melody: Note[];
+  src?: string;
+}[] = [
+  {
+    id: "davidcancion",
+    label: "El guerrero David (canción)",
+    emoji: "🎶",
+    src: guerreroDavid.url,
+    melody: [],
+  },
   {
     id: "jonas",
     label: "Jonás",
