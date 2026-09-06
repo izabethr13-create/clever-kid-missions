@@ -352,7 +352,7 @@ export function startMusic() {
     try {
       const el = new Audio(track.src);
       el.loop = true;
-      el.volume = 0.35;
+      el.volume = 0.22;
       musicEl = el;
       void el.play().catch(() => {
         musicEl = null;
