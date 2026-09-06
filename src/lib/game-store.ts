@@ -284,11 +284,6 @@ let musicEl: HTMLAudioElement | null = null;
 
 type Note = readonly [number, number];
 
-const N = {
-  C4: 262, D4: 294, E4: 330, F4: 349, G4: 392, A4: 440, B4: 494,
-  C5: 523, D5: 587, E5: 659, F5: 698, G5: 784, A5: 880, B5: 988, C6: 1046,
-} as const;
-
 export const MUSIC_TRACKS: {
   id: string;
   label: string;
@@ -323,18 +318,6 @@ export const MUSIC_TRACKS: {
     emoji: "💪",
     src: lazaro.url,
     melody: [],
-  },
-  {
-    id: "david",
-    label: "El guerrero David",
-    emoji: "🛡️",
-    melody: [
-      [N.C5, 0.3], [N.E5, 0.3], [N.G5, 0.3], [N.E5, 0.3],
-      [N.F5, 0.3], [N.E5, 0.3], [N.D5, 0.6],
-      [N.C5, 0.3], [N.E5, 0.3], [N.G5, 0.3], [N.C6, 0.6],
-      [N.B5, 0.3], [N.A5, 0.3], [N.G5, 0.6],
-      [N.G5, 0.3], [N.F5, 0.3], [N.E5, 0.3], [N.D5, 0.3], [N.C5, 0.9],
-    ],
   },
 ];
 
