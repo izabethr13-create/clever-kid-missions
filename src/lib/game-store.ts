@@ -1,6 +1,9 @@
 import { useSyncExternalStore } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import guerreroDavid from "@/assets/guerrero-david.m4a.asset.json";
+import abejita from "@/assets/abejita-chiquitita.m4a.asset.json";
+import soyFeliz from "@/assets/soy-feliz.m4a.asset.json";
+import lazaro from "@/assets/lazaro.m4a.asset.json";
 
 export type StationId = string;
 
@@ -301,43 +304,25 @@ export const MUSIC_TRACKS: {
     melody: [],
   },
   {
-    id: "jonas",
-    label: "Jonás",
-    emoji: "🐋",
-    melody: [
-      [N.G4, 0.3], [N.G4, 0.3], [N.A4, 0.3], [N.G4, 0.3],
-      [N.C5, 0.6], [N.B4, 0.6],
-      [N.G4, 0.3], [N.G4, 0.3], [N.A4, 0.3], [N.G4, 0.3],
-      [N.D5, 0.6], [N.C5, 0.6],
-      [N.E5, 0.3], [N.D5, 0.3], [N.C5, 0.3], [N.B4, 0.3],
-      [N.A4, 0.4], [N.G4, 0.8],
-    ],
+    id: "abejita",
+    label: "Abejita chiquitita",
+    emoji: "🐝",
+    src: abejita.url,
+    melody: [],
   },
   {
-    id: "diezveces",
-    label: "10 veces más",
-    emoji: "🔟",
-    melody: [
-      [N.C5, 0.25], [N.C5, 0.25], [N.E5, 0.25], [N.G5, 0.5],
-      [N.G5, 0.25], [N.E5, 0.25], [N.C5, 0.5],
-      [N.D5, 0.25], [N.D5, 0.25], [N.F5, 0.25], [N.A5, 0.5],
-      [N.A5, 0.25], [N.F5, 0.25], [N.D5, 0.5],
-      [N.E5, 0.25], [N.G5, 0.25], [N.C6, 0.6], [N.G5, 0.4], [N.C5, 0.8],
-    ],
+    id: "soyfeliz",
+    label: "Soy feliz",
+    emoji: "😊",
+    src: soyFeliz.url,
+    melody: [],
   },
   {
-    id: "fiesta",
-    label: "Esto es una fiesta",
-    emoji: "🎉",
-    melody: [
-      [N.E5, 0.2], [N.E5, 0.2], [N.F5, 0.2], [N.G5, 0.4],
-      [N.G5, 0.2], [N.F5, 0.2], [N.E5, 0.2], [N.D5, 0.4],
-      [N.C5, 0.2], [N.C5, 0.2], [N.D5, 0.2], [N.E5, 0.4],
-      [N.E5, 0.3], [N.D5, 0.3], [N.D5, 0.6],
-      [N.E5, 0.2], [N.E5, 0.2], [N.F5, 0.2], [N.G5, 0.4],
-      [N.G5, 0.2], [N.F5, 0.2], [N.E5, 0.2], [N.D5, 0.4],
-      [N.C5, 0.2], [N.E5, 0.2], [N.G5, 0.2], [N.C6, 0.8],
-    ],
+    id: "lazaro",
+    label: "Lázaro",
+    emoji: "💪",
+    src: lazaro.url,
+    melody: [],
   },
   {
     id: "david",
@@ -367,7 +352,7 @@ export function startMusic() {
     try {
       const el = new Audio(track.src);
       el.loop = true;
-      el.volume = 0.35;
+      el.volume = 0.22;
       musicEl = el;
       void el.play().catch(() => {
         musicEl = null;
