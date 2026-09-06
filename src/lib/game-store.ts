@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import guerreroDavid from "@/assets/guerrero-david.m4a.asset.json";
 
 export type StationId = string;
 
@@ -103,7 +104,7 @@ function initial(): GameState {
     avatar: { hat: null, item: null, color: AVATAR_COLORS[0]! },
     music: true,
     voice: true,
-    track: "jonas",
+    track: "davidcancion",
     cloudCode: "",
   };
 }
@@ -276,6 +277,7 @@ export async function cloudLoad(code: string) {
 let musicCtx: AudioContext | null = null;
 let musicTimer: number | null = null;
 let musicGain: GainNode | null = null;
+let musicEl: HTMLAudioElement | null = null;
 
 type Note = readonly [number, number];
 
@@ -284,7 +286,20 @@ const N = {
   C5: 523, D5: 587, E5: 659, F5: 698, G5: 784, A5: 880, B5: 988, C6: 1046,
 } as const;
 
-export const MUSIC_TRACKS: { id: string; label: string; emoji: string; melody: Note[] }[] = [
+export const MUSIC_TRACKS: {
+  id: string;
+  label: string;
+  emoji: string;
+  melody: Note[];
+  src?: string;
+}[] = [
+  {
+    id: "davidcancion",
+    label: "El guerrero David (canción)",
+    emoji: "🎶",
+    src: guerreroDavid.url,
+    melody: [],
+  },
   {
     id: "jonas",
     label: "Jonás",
@@ -346,7 +361,22 @@ function makeCtx() {
 }
 
 export function startMusic() {
-  if (typeof window === "undefined" || musicTimer !== null) return;
+  if (typeof window === "undefined" || musicTimer !== null || musicEl !== null) return;
+  const track = MUSIC_TRACKS.find((t) => t.id === state.track) ?? MUSIC_TRACKS[0]!;
+  if (track.src) {
+    try {
+      const el = new Audio(track.src);
+      el.loop = true;
+      el.volume = 0.35;
+      musicEl = el;
+      void el.play().catch(() => {
+        musicEl = null;
+      });
+    } catch {
+      musicEl = null;
+    }
+    return;
+  }
   try {
     musicCtx = musicCtx ?? makeCtx();
     void musicCtx.resume();
@@ -395,10 +425,19 @@ export function stopMusic() {
     /* ignore */
   }
   musicGain = null;
+  if (musicEl) {
+    try {
+      musicEl.pause();
+      musicEl.currentTime = 0;
+    } catch {
+      /* ignore */
+    }
+    musicEl = null;
+  }
 }
 
 export function isMusicPlaying() {
-  return musicTimer !== null;
+  return musicTimer !== null || musicEl !== null;
 }
 
 export function playSound(kind: "good" | "bad" | "win") {
