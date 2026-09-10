@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { AudioBoot } from "../components/game/AudioBoot";
+import { MusicPlayer } from "../components/game/MusicPlayer";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -134,6 +135,7 @@ function RootComponent() {
       <AudioBoot />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <MusicPlayer />
     </QueryClientProvider>
   );
 }

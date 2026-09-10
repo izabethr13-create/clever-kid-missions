@@ -4,6 +4,13 @@ import guerreroDavid from "@/assets/guerrero-david.m4a.asset.json";
 import abejita from "@/assets/abejita-chiquitita.m4a.asset.json";
 import soyFeliz from "@/assets/soy-feliz.m4a.asset.json";
 import lazaro from "@/assets/lazaro.m4a.asset.json";
+import capibara from "@/assets/capibara.m4a.asset.json";
+import lechuza from "@/assets/lechuza.m4a.asset.json";
+import juanPaco from "@/assets/juan-paco.m4a.asset.json";
+import librosBiblia from "@/assets/libros-biblia.m4a.asset.json";
+import sonadorJose from "@/assets/sonador-jose.m4a.asset.json";
+import arcaNoe from "@/assets/arca-noe.m4a.asset.json";
+import estoFiesta from "@/assets/esto-es-una-fiesta.m4a.asset.json";
 
 export type StationId = string;
 
@@ -18,6 +25,7 @@ export type GameState = {
   music: boolean;
   voice: boolean;
   track: string;
+  volume: number;
   cloudCode: string;
 };
 
@@ -108,6 +116,7 @@ function initial(): GameState {
     music: true,
     voice: true,
     track: "davidcancion",
+    volume: 0.25,
     cloudCode: "",
   };
 }
@@ -206,6 +215,21 @@ export const gameActions = {
       stopMusic();
       startMusic();
     }
+  },
+  nextTrack() {
+    const i = MUSIC_TRACKS.findIndex((t) => t.id === state.track);
+    const n = MUSIC_TRACKS[(i + 1 + MUSIC_TRACKS.length) % MUSIC_TRACKS.length]!;
+    gameActions.setTrack(n.id);
+  },
+  prevTrack() {
+    const i = MUSIC_TRACKS.findIndex((t) => t.id === state.track);
+    const p = MUSIC_TRACKS[(i - 1 + MUSIC_TRACKS.length) % MUSIC_TRACKS.length]!;
+    gameActions.setTrack(p.id);
+  },
+  setVolume(v: number) {
+    const vol = Math.min(1, Math.max(0, v));
+    set((s) => ({ ...s, volume: vol }));
+    applyVolume(vol);
   },
   setCloudCode(code: string) {
     set((s) => ({ ...s, cloudCode: code.toUpperCase().trim() }));
@@ -319,7 +343,19 @@ export const MUSIC_TRACKS: {
     src: lazaro.url,
     melody: [],
   },
+  { id: "capibara", label: "Capibara", emoji: "🦫", src: capibara.url, melody: [] },
+  { id: "lechuza", label: "La lechuza", emoji: "🦉", src: lechuza.url, melody: [] },
+  { id: "juanpaco", label: "Juan Paco Pedro de la Mar", emoji: "🚢", src: juanPaco.url, melody: [] },
+  { id: "librosbiblia", label: "Los libros de la Biblia", emoji: "📖", src: librosBiblia.url, melody: [] },
+  { id: "sonadorjose", label: "El soñador José", emoji: "💭", src: sonadorJose.url, melody: [] },
+  { id: "arcanoe", label: "El arca de Noé", emoji: "🦒", src: arcaNoe.url, melody: [] },
+  { id: "fiesta", label: "Esto es una fiesta", emoji: "🎉", src: estoFiesta.url, melody: [] },
 ];
+
+export function applyVolume(v: number) {
+  if (musicEl) musicEl.volume = v;
+  if (musicGain) musicGain.gain.value = v * 0.3;
+}
 
 function makeCtx() {
   const Ctx =
@@ -335,7 +371,7 @@ export function startMusic() {
     try {
       const el = new Audio(track.src);
       el.loop = true;
-      el.volume = 0.22;
+      el.volume = state.volume ?? 0.25;
       musicEl = el;
       void el.play().catch(() => {
         musicEl = null;

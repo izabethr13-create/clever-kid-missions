@@ -129,6 +129,13 @@ function ProgresoPage() {
         </button>
       </div>
 
+      <Link
+        to="/grados"
+        className="toy-press mt-6 flex items-center justify-center gap-3 rounded-3xl bg-berry px-6 py-5 text-center font-display text-2xl leading-relaxed text-berry-foreground"
+      >
+        🗺️ Explorar Islas de Aprendizaje
+      </Link>
+
       <ul className="mt-6 space-y-4">
         {rows.map((r) => (
           <li key={r.id} className="card-soft px-5 py-4">
