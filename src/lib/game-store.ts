@@ -216,6 +216,21 @@ export const gameActions = {
       startMusic();
     }
   },
+  nextTrack() {
+    const i = MUSIC_TRACKS.findIndex((t) => t.id === state.track);
+    const n = MUSIC_TRACKS[(i + 1 + MUSIC_TRACKS.length) % MUSIC_TRACKS.length]!;
+    gameActions.setTrack(n.id);
+  },
+  prevTrack() {
+    const i = MUSIC_TRACKS.findIndex((t) => t.id === state.track);
+    const p = MUSIC_TRACKS[(i - 1 + MUSIC_TRACKS.length) % MUSIC_TRACKS.length]!;
+    gameActions.setTrack(p.id);
+  },
+  setVolume(v: number) {
+    const vol = Math.min(1, Math.max(0, v));
+    set((s) => ({ ...s, volume: vol }));
+    applyVolume(vol);
+  },
   setCloudCode(code: string) {
     set((s) => ({ ...s, cloudCode: code.toUpperCase().trim() }));
   },
