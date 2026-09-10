@@ -25,6 +25,7 @@ export type GameState = {
   music: boolean;
   voice: boolean;
   track: string;
+  volume: number;
   cloudCode: string;
 };
 
@@ -115,6 +116,7 @@ function initial(): GameState {
     music: true,
     voice: true,
     track: "davidcancion",
+    volume: 0.25,
     cloudCode: "",
   };
 }
