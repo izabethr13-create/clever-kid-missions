@@ -352,6 +352,11 @@ export const MUSIC_TRACKS: {
   { id: "fiesta", label: "Esto es una fiesta", emoji: "🎉", src: estoFiesta.url, melody: [] },
 ];
 
+export function applyVolume(v: number) {
+  if (musicEl) musicEl.volume = v;
+  if (musicGain) musicGain.gain.value = v * 0.3;
+}
+
 function makeCtx() {
   const Ctx =
     window.AudioContext ??
@@ -366,7 +371,7 @@ export function startMusic() {
     try {
       const el = new Audio(track.src);
       el.loop = true;
-      el.volume = 0.22;
+      el.volume = state.volume ?? 0.25;
       musicEl = el;
       void el.play().catch(() => {
         musicEl = null;
