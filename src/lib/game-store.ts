@@ -326,6 +326,13 @@ export const MUSIC_TRACKS: {
     src: lazaro.url,
     melody: [],
   },
+  { id: "capibara", label: "Capibara", emoji: "🦫", src: capibara.url, melody: [] },
+  { id: "lechuza", label: "La lechuza", emoji: "🦉", src: lechuza.url, melody: [] },
+  { id: "juanpaco", label: "Juan Paco Pedro de la Mar", emoji: "🚢", src: juanPaco.url, melody: [] },
+  { id: "librosbiblia", label: "Los libros de la Biblia", emoji: "📖", src: librosBiblia.url, melody: [] },
+  { id: "sonadorjose", label: "El soñador José", emoji: "💭", src: sonadorJose.url, melody: [] },
+  { id: "arcanoe", label: "El arca de Noé", emoji: "🦒", src: arcaNoe.url, melody: [] },
+  { id: "fiesta", label: "Esto es una fiesta", emoji: "🎉", src: estoFiesta.url, melody: [] },
 ];
 
 function makeCtx() {
