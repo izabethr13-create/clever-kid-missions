@@ -22,6 +22,7 @@ import { Route as CvcRouteImport } from './routes/cvc'
 import { Route as EnergiaRouteImport } from './routes/energia'
 import { Route as EnglishRouteImport } from './routes/english'
 import { Route as EvaluacionRouteImport } from './routes/evaluacion'
+import { Route as GradosRouteImport } from './routes/grados'
 import { Route as GuatemalaRouteImport } from './routes/guatemala'
 import { Route as HuertoRouteImport } from './routes/huerto'
 import { Route as InversasRouteImport } from './routes/inversas'
@@ -114,6 +115,11 @@ const EnglishRoute = EnglishRouteImport.update({
 const EvaluacionRoute = EvaluacionRouteImport.update({
   id: '/evaluacion',
   path: '/evaluacion',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GradosRoute = GradosRouteImport.update({
+  id: '/grados',
+  path: '/grados',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GuatemalaRoute = GuatemalaRouteImport.update({
@@ -271,6 +277,7 @@ export interface FileRoutesByFullPath {
   '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
   '/evaluacion': typeof EvaluacionRoute
+  '/grados': typeof GradosRoute
   '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
   '/inversas': typeof InversasRoute
@@ -314,6 +321,7 @@ export interface FileRoutesByTo {
   '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
   '/evaluacion': typeof EvaluacionRoute
+  '/grados': typeof GradosRoute
   '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
   '/inversas': typeof InversasRoute
@@ -358,6 +366,7 @@ export interface FileRoutesById {
   '/energia': typeof EnergiaRoute
   '/english': typeof EnglishRoute
   '/evaluacion': typeof EvaluacionRoute
+  '/grados': typeof GradosRoute
   '/guatemala': typeof GuatemalaRoute
   '/huerto': typeof HuertoRoute
   '/inversas': typeof InversasRoute
@@ -403,6 +412,7 @@ export interface FileRouteTypes {
     | '/energia'
     | '/english'
     | '/evaluacion'
+    | '/grados'
     | '/guatemala'
     | '/huerto'
     | '/inversas'
@@ -446,6 +456,7 @@ export interface FileRouteTypes {
     | '/energia'
     | '/english'
     | '/evaluacion'
+    | '/grados'
     | '/guatemala'
     | '/huerto'
     | '/inversas'
@@ -489,6 +500,7 @@ export interface FileRouteTypes {
     | '/energia'
     | '/english'
     | '/evaluacion'
+    | '/grados'
     | '/guatemala'
     | '/huerto'
     | '/inversas'
@@ -533,6 +545,7 @@ export interface RootRouteChildren {
   EnergiaRoute: typeof EnergiaRoute
   EnglishRoute: typeof EnglishRoute
   EvaluacionRoute: typeof EvaluacionRoute
+  GradosRoute: typeof GradosRoute
   GuatemalaRoute: typeof GuatemalaRoute
   HuertoRoute: typeof HuertoRoute
   InversasRoute: typeof InversasRoute
@@ -654,6 +667,13 @@ declare module '@tanstack/react-router' {
       path: '/evaluacion'
       fullPath: '/evaluacion'
       preLoaderRoute: typeof EvaluacionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/grados': {
+      id: '/grados'
+      path: '/grados'
+      fullPath: '/grados'
+      preLoaderRoute: typeof GradosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guatemala': {
@@ -869,6 +889,7 @@ const rootRouteChildren: RootRouteChildren = {
   EnergiaRoute: EnergiaRoute,
   EnglishRoute: EnglishRoute,
   EvaluacionRoute: EvaluacionRoute,
+  GradosRoute: GradosRoute,
   GuatemalaRoute: GuatemalaRoute,
   HuertoRoute: HuertoRoute,
   InversasRoute: InversasRoute,
